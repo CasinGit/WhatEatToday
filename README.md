@@ -17,6 +17,5 @@
 - RealTime DB 구조 논의
 - 기능 구현 업무 분배
 
-
-
-![프로젝트 다이어그램 drawio](https://user-images.githubusercontent.com/107905043/193978240-e233dd07-0008-412d-9146-06d5f0108112.png)
+![프로젝트 정보 구조도 drawio](https://user-images.githubusercontent.com/107905043/193990580-615fd70b-2c67-4708-8601-a451d96a3f1b.png)
+![프로젝트 다이어그램 drawio (2)](https://user-images.githubusercontent.com/107905043/193990586-65fe9aaf-1d20-4549-9ad0-0862cd55d479.png)
