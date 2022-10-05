@@ -8,7 +8,7 @@
 - <a href="https://myvelop.tistory.com/114?category=917184">git으로 팀 프로젝트 관리</a>
 - <a href="https://victorydntmd.tistory.com/91">🙈[Git] Github으로 협업하기 ( 토이 팀프로젝트 시나리오, 브랜치 전략 )🐵</a>
 - <a href="https://firework-ham.tistory.com/12">Git Merge와 Rebase의 차이🐵</a>
-- <a href="">광주 음식점 API 도큐먼트</a>
+- <a href="https://gwangju.openapi.redtable.global/">광주 음식점 API 도큐먼트/</a>
 
 ### 구현 기능
 
