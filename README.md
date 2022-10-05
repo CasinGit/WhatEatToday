@@ -3,6 +3,9 @@
 
 ## 광주 맛집 정보 & 예약 어플 (프로젝트 가제)
 
+### 프로젝트 깃헙 브랜치 규칙
+<a href="https://velog.io/@c-on/Github-Desktop%EC%9C%BC%EB%A1%9C-%ED%98%91%EC%97%85%ED%95%98%EA%B8%B0">Github Desktop으로 협업하기</a>
+
 ### 참고 링크
 - <a href="https://dhgu-dev.medium.com/%EB%A7%A8%EB%95%85%EC%97%90%EC%84%9C-%EC%8B%9C%EC%9E%91%ED%95%98%EB%8A%94-%ED%98%91%EC%97%85%EC%9D%84-%EC%9C%84%ED%95%9C-github-%EC%82%AC%EC%9A%A9%EB%B2%95-46f64418cf81">맨땅에서 시작하는 협업을 위한 Github 사용법</a>
 - <a href="https://myvelop.tistory.com/114?category=917184">git으로 팀 프로젝트 관리</a>
