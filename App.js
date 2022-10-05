@@ -85,8 +85,13 @@ function RootNavigator() {
 }
 
 export default function App() {
+<<<<<<< HEAD
   // test1
   // test1
+=======
+  // test2
+  // test2
+>>>>>>> master
   return (
     <>
       <StatusBar style='auto' />
