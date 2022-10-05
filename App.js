@@ -85,7 +85,7 @@ function RootNavigator() {
 }
 
 export default function App() {
-
+  // test
   return (
     <>
       <StatusBar style='auto' />
