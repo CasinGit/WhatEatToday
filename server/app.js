@@ -5,7 +5,6 @@ import mongoose from 'mongoose';
 import express from 'express';
 import cors from 'cors';
 import account from './router/account.js';
-import characters from './router/characters.js';
 const __dirname = path.resolve(); // import 환경에서는 __dirname을 만들어줘야함
 
 const app = express();
@@ -15,11 +14,10 @@ app.use(express.json()); // express에서 JSON 요청 받기
 app.use(express.urlencoded({ "extended": true })); // POST 요청 받기
 app.use(express.static("public")); // public 폴더 스태틱
 app.use("/api/account", account); //? api/account 라우터 설정
-app.use("/api/character", characters); //? api/character 라우터 설정
 
 dotenv.config(); // .env config
 const MONGODB_URL = process.env.MONGODB_URL;
-mongoose.connect(MONGODB_URL, { dbName: "loylai" })
+mongoose.connect(MONGODB_URL, { dbName: "TeamProject" })
     .then(() => {
         console.log("connected MONGODB");
     })
@@ -34,6 +32,6 @@ app.use((err, req, res, next) => {
 /////////////////////////////////////////////////////////////////
 app.listen(8080, () => {
     console.clear(); // console clearing...
-    console.log('[LOG] Express Server Starting... (./server/app.js)');
+    console.log('[LOG] Express Server Starting...');
     console.log(".env cwd 경로 => ", process.cwd());
 });
