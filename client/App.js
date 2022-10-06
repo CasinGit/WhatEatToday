@@ -1,53 +1,64 @@
 import { StatusBar } from 'expo-status-bar';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
-import { NavigationContainer, TabRouter } from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 import { StyleSheet } from 'react-native';
-import { AppContext, AppContextProvider } from './context/app-context';
-import { useContext } from 'react';
+import { AppContextProvider } from './context/app-context';
+import LoginScreen from './screens/loginScreen';
+import RegisterScreen from './screens/registerScreen';
+import InfoScreen from './screens/infoScreen';
+import HomeScreen from './screens/homeScreen';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
 function GuestStackScreen() {
   return (
-    <>
+    <Stack.Navigator screenOptions={
+      {
+        headerTitleStyle: {
+          fontSize: 32
+        },
+      }
+    }>
       <Stack.Screen name="login" component={LoginScreen} options={{ title: "로그인" }} />
       <Stack.Screen name="register" component={RegisterScreen} options={{ title: "회원가입" }} />
-    </>
+    </Stack.Navigator>
   )
 }
 
 function MemberStackScreen() {
   return (
     <>
-      <Stack.Screen name="info" component={InfoScreen} options={{ title: "인포" }} />
+      <Stack.Screen name="info" component={InfoScreen} options={{ title: "마이페이지" }} />
     </>
   )
 }
 
-function AccountStackNavigator() {
-  console.log("로그인 네비게이터 실행됨!");
-  const ctx = useContext(AppContext);
-  console.log(ctx)
-  return (
-    <Stack.Navigator>
-      {ctx.auth ?
-        MemberStackScreen()
-        :
-        GuestStackScreen()
-      }
-    </Stack.Navigator>
-  )
-}
+// function AccountStackNavigator() {
+//   console.log("로그인 네비게이터 실행됨!");
+//   const ctx = useContext(AppContext);
+//   console.log(ctx)
+//   return (
+//     <Stack.Navigator>
+//       {ctx.auth ?
+//         MemberStackScreen()
+//         :
+//         GuestStackScreen()
+//       }
+//     </Stack.Navigator>
+//   )
+// }
 
-function PostStackNavigator() {
+function SearchStackNavigator() {
 
 }
 
 function HomeStackNavigator() {
-
+  <Stack.Navigator>
+    <Stack.Screen name='home' component={HomeScreen} options={{ title: "홈"}}/>
+  </Stack.Navigator>
 }
 
 function RootNavigator() {
@@ -62,19 +73,19 @@ function RootNavigator() {
           tabBarIcon: ({ color }) =>
             <Ionicons name='home' color={color} size={24} />
         }} />
-      <Tab.Screen name='postStack' component={PostStackNavigator}
+      <Tab.Screen name='searchStack' component={SearchStackNavigator}
         options={{
-          title: "게시글",
-          tabBarLabel: "게시글",
+          title: "검색",
+          tabBarLabel: "검색",
           tabBarLabelStyle: { fontSize: 14 },
           headerShown: false,
           tabBarIcon: ({ color }) =>
-            <Ionicons name='alert' color={color} size={24} />
+            <Ionicons name='search' color={color} size={24} />
         }} />
-      <Tab.Screen name='account' component={AccountStackNavigator}
+      <Tab.Screen name='account' component={GuestStackScreen}
         options={{
-          title: "계정",
-          tabBarLabel: "계정",
+          title: "마이페이지",
+          tabBarLabel: "마이페이지",
           tabBarLabelStyle: { fontSize: 14 },
           headerShown: false,
           tabBarIcon: ({ color }) =>
