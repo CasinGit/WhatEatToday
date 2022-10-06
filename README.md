@@ -22,3 +22,25 @@
 
 ![프로젝트 정보 구조도 drawio](https://user-images.githubusercontent.com/107905043/193990580-615fd70b-2c67-4708-8601-a451d96a3f1b.png)
 ![프로젝트 다이어그램 drawio (2)](https://user-images.githubusercontent.com/107905043/193990586-65fe9aaf-1d20-4549-9ad0-0862cd55d479.png)
+
+- 회원 정보 DB (accounts)
+email : 유저 이메일
+password : 유저 비밀번호
+ph : 연락처
+RSTR_ID : 가게 ID (사장님만 등록)
+bookmark : 즐겨찾기 (찜한 가게) 배열로 등록되어야함
+
+- 리뷰 데이터 DB (reviews)
+RSTR_ID : 가게 ID
+reviewImg : 리뷰에 등록된 이미지 URI
+reviewerEmail : 리뷰 등록 사용자 이메일
+score : 리뷰 별점 number (최대 5점 만점)
+content : 리뷰 내용 (최대 400자 이하로)
+
+- 예약 DB (reservation)
+RSTR_ID : 가게 ID
+email : 예약자 이메일
+reservDate : 예약 방문할 날짜
+reservTime : 예약 방문할 시간
+num : 예약 방문할 인원
+message : 사장님에게 남길 메세지
