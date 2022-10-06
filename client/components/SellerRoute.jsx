@@ -1,7 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
 import { useContext, useState } from "react";
-import { Alert, Button, Text, TextInput, View } from "react-native";
+import { Alert, Button, Text, TextInput, Touchable, View } from "react-native";
 import { AppContext } from "../context/app-context";
 import { sendSellerRegisterRequest } from "../util/account";
 
@@ -68,8 +68,9 @@ function SellerRoute() {
             </View>
             <View style={{ marginBottom: 4 }}>
                 <Text>점포명</Text>
-                <TextInput onChangeText={setSotreName}
-                />
+                <Touchable>
+                    <TextInput onChangeText={setSotreName} />
+                </Touchable>
             </View>
             <View style={{ marginBottom: 4, }}>
                 <Button title="회원가입" onPress={pressHandle} />
