@@ -31,11 +31,11 @@ RSTR_ID : 가게 ID (사장님만 등록)
 bookmark : 즐겨찾기 (찜한 가게) 배열로 등록되어야함
 
 - 리뷰 데이터 DB (reviews)
-RSTR_ID : 가게 ID
-reviewImg : 리뷰에 등록된 이미지 URI
-reviewerEmail : 리뷰 등록 사용자 이메일
-score : 리뷰 별점 number (최대 5점 만점)
-content : 리뷰 내용 (최대 400자 이하로)
+> RSTR_ID : 가게 ID
+> reviewImg : 리뷰에 등록된 이미지 URI
+> reviewerEmail : 리뷰 등록 사용자 이메일
+> score : 리뷰 별점 number (최대 5점 만점)
+> content : 리뷰 내용 (최대 400자 이하로)
 
 - 예약 DB (reservation)
 RSTR_ID : 가게 ID
