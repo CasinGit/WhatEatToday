@@ -1,59 +1,56 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { createContext, useEffect, useReducer, useState } from "react";
-import AsyncStorage from "@react-native-async-storage/async-storage"
 
 export const AppContext = createContext({});
 
-const authReducer = (state = null, action) => {
-    console.log("authReducer 실행됨!")
-    switch (action.type) {
-        case "login":
+const authReducer = (state=null, action) => {
+    switch(action.type) {
+        case "login" :
             return action.payload;
-        case "logout":
-            return null;
-        default:
+        case "logOut" :
             return null;
     }
-}
+    return null;
+};
 
 export function AppContextProvider({ children }) {
+    // const [auth, setAuth] = useState(null);
     const [auth, dispatch] = useReducer(authReducer, null);
     const [done, setDone] = useState(false);
+    // async Storage 이용해서 auth 값을 저장
+    //useEffect로 최초마운트 될때 auth에 값이 있다면 그걸로 ctx auth 값 업데이트
+    console.log("!!");
+    useEffect(()=>{
+        AsyncStorage.getItem("authentication").then((data)=>{
+            if(data) {
+                dispatch({type:"login", payload : JSON.parse(data)});
+            }
+        });
+    },[]);
 
-    // // 앱 실행시 스토리지에 저장된 토큰 가져오기
-    // useEffect(() => {
-    //     async function tokenUpdate() {
-    //         try {
-    //             const storageToken = await AsyncStorage.getItem("logonToken");
-    //             if (storageToken !== null) {
-    //                 console.log("스토리지 토큰 불러오기 성공!");
-    //                 const recoveryData = await JSON.parse(storageToken);
-    //                 const refreshData = await refreshToken(recoveryData.refreshToken);
-    //                 const combinedData = {
-    //                     ...recoveryData,
-    //                     idToken: refreshData.id_token,
-    //                     refreshToken: refreshData.refresh_token
-    //                 };
-    //                 dispatch({ type: "login", payload: combinedData });
-    //                 AsyncStorage.setItem("logonToken", JSON.stringify(combinedData));
-    //                 // setDone(true);
-    //             }
-    //         } catch (error) {
-    //             console.log(error);
-    //         } finally {
-    //             setDone(true);
+    // useEffect(()=>{
+    //     !async function load() {
+    //         const savedLogin = await AsyncStorage.getItem("authentication");
+    //         if(savedLogin !== null) {
+    //             setFavName(JSON.parse(savedLogin));
     //         }
-    //     };
-    //     tokenUpdate();
-    //     setInterval(tokenUpdate, 1000 * 60 * 59); // 59분마다 한번씩 실행
-    // }, [])
+    //     }();
+    // },[]);
 
-    // if (!done) {
-    //     return <LoadingOverlay />
+    // function login(data) {
+    //     setAuth(data);
+    // }
+    
+    // function logOut() {
+    //     setAuth(null);
     // }
 
     return (
         <AppContext.Provider value={{ auth, dispatch }}>
             {children}
         </AppContext.Provider>
+        // <AppContext.Provider value={{ auth, login, logOut }}>
+        //     {children}
+        // </AppContext.Provider>
     );
 }
