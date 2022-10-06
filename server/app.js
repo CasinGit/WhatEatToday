@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import mongoose from 'mongoose';
 import express from 'express';
 import cors from 'cors';
+import api from './router/api.js';
 import account from './router/account.js';
 import review from './router/review.js';
 import reservation from './router/reservation.js';
@@ -15,6 +16,7 @@ app.use(morgan("dev")) //? morgan 미들웨어
 app.use(express.json()); // express에서 JSON 요청 받기
 app.use(express.urlencoded({ "extended": true })); // POST 요청 받기
 app.use(express.static("public")); // public 폴더 스태틱
+app.use("/api/openApi", api); //? api/openApi 라우터 설정
 app.use("/api/account", account); //? api/account 라우터 설정
 app.use("/api/review", review); //? api/review 라우터 설정
 app.use("/api/reservation", reservation); //? api/reservation 라우터 설정
