@@ -4,11 +4,12 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 import { StyleSheet } from 'react-native';
-import { AppContextProvider } from './context/app-context';
+import { AppContext, AppContextProvider } from './context/app-context';
 import LoginScreen from './screens/loginScreen';
 import RegisterScreen from './screens/registerScreen';
 import InfoScreen from './screens/infoScreen';
 import HomeScreen from './screens/homeScreen';
+import { useContext } from 'react';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -36,20 +37,20 @@ function MemberStackScreen() {
   )
 }
 
-// function AccountStackNavigator() {
-//   console.log("로그인 네비게이터 실행됨!");
-//   const ctx = useContext(AppContext);
-//   console.log(ctx)
-//   return (
-//     <Stack.Navigator>
-//       {ctx.auth ?
-//         MemberStackScreen()
-//         :
-//         GuestStackScreen()
-//       }
-//     </Stack.Navigator>
-//   )
-// }
+function AccountStackNavigator() {
+  console.log("로그인 네비게이터 실행됨!");
+  const ctx = useContext(AppContext);
+  console.log(ctx)
+  return (
+    <Stack.Navigator>
+      {ctx.auth ?
+        MemberStackScreen()
+        :
+        GuestStackScreen()
+      }
+    </Stack.Navigator>
+  )
+}
 
 function SearchStackNavigator() {
 
@@ -82,7 +83,7 @@ function RootNavigator() {
           tabBarIcon: ({ color }) =>
             <Ionicons name='search' color={color} size={24} />
         }} />
-      <Tab.Screen name='account' component={GuestStackScreen}
+      <Tab.Screen name='account' component={AccountStackNavigator}
         options={{
           title: "마이페이지",
           tabBarLabel: "마이페이지",
