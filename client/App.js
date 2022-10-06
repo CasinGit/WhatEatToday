@@ -14,7 +14,7 @@ import { useContext } from 'react';
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
-function GuestStackScreen() {
+function GuestStackNavigator() {
   return (
     <Stack.Navigator screenOptions={
       {
@@ -29,11 +29,11 @@ function GuestStackScreen() {
   )
 }
 
-function MemberStackScreen() {
+function MemberStackNavigator() {
   return (
-    <>
+    <Stack.Navigator>
       <Stack.Screen name="info" component={InfoScreen} options={{ title: "마이페이지" }} />
-    </>
+    </Stack.Navigator>
   )
 }
 
@@ -42,13 +42,9 @@ function AccountStackNavigator() {
   const ctx = useContext(AppContext);
   console.log(ctx)
   return (
-    <Stack.Navigator>
-      {ctx.auth ?
-        MemberStackScreen()
-        :
-        GuestStackScreen()
-      }
-    </Stack.Navigator>
+    <>
+      {ctx.auth ? <MemberStackNavigator /> : <GuestStackNavigator />}
+    </>
   )
 }
 
@@ -58,7 +54,7 @@ function SearchStackNavigator() {
 
 function HomeStackNavigator() {
   <Stack.Navigator>
-    <Stack.Screen name='home' component={HomeScreen} options={{ title: "홈"}}/>
+    <Stack.Screen name='home' component={HomeScreen} options={{ title: "홈" }} />
   </Stack.Navigator>
 }
 
