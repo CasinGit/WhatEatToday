@@ -85,7 +85,7 @@ function RootNavigator() {
 }
 
 export default function App() {
-//zzzz
+
   return (
     <>
       <StatusBar style='auto' />
