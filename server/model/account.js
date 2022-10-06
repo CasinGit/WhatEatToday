@@ -11,8 +11,7 @@ let userSchema = new mongoose.Schema({
         required: true,
     },
     ph: { // 연락처
-        type: String,
-        required: true,
+        type: String
     },
     bookmark: { // 즐겨찾기 (찜한가게)
         type: [],
