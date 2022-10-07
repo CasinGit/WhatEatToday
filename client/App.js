@@ -11,7 +11,7 @@ import InfoScreen from './screens/infoScreen';
 import HomeScreen from './screens/homeScreen';
 import { useContext } from 'react';
 import StoreSearch from './components/StoreSearch';
-import { RegisterContext, RegisterContextProvider } from './context/register-context';
+import { RegisterContextProvider } from './context/register-context';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -56,9 +56,11 @@ function SearchStackNavigator() {
 }
 
 function HomeStackNavigator() {
-  <Stack.Navigator>
-    <Stack.Screen name='home' component={HomeScreen} options={{ title: "홈" }} />
-  </Stack.Navigator>
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name='home' component={HomeScreen} options={{ title: "맛집탐색" }} />
+    </Stack.Navigator>
+  )
 }
 
 function RootNavigator() {
