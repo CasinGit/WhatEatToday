@@ -1,5 +1,5 @@
 export default {
-    "datas": [
+    datas: [
         {
             "RSTR_ID": 2,
             "RSTR_NM": "전통뚝배기생태한마리(본점)",

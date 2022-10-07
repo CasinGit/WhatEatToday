@@ -3,15 +3,17 @@ import { useNavigation } from "@react-navigation/native";
 import { useContext } from "react";
 import { Button, Text, View } from "react-native";
 import { AppContext } from "../context/app-context";
+import { RegisterContext } from "../context/register-context";
 
 function InfoScreen() {
     const ctx = useContext(AppContext);
+    const ctxR = useContext(RegisterContext);
     const navigation = useNavigation();
 
     const logoutHandle = () => {
-        ctx.dispatch({ type: "logout" })
+        ctx.dispatch({ type: "logout" });
+        ctxR.dispatch({type : "logoutSellerRegister"});
         AsyncStorage.removeItem("authentication");
-        
     };
 
     return (
