@@ -10,6 +10,7 @@ import RegisterScreen from './screens/registerScreen';
 import InfoScreen from './screens/infoScreen';
 import HomeScreen from './screens/homeScreen';
 import { useContext } from 'react';
+import StoreInfoScreen from './screens/storeinfoscreen';
 import StoreSearch from './components/StoreSearch';
 import { RegisterContextProvider } from './context/register-context';
 

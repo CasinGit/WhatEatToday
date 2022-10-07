@@ -8,7 +8,10 @@ const API_TOKEN = process.env.OPEN_API_TOKEN;
 import RSTR from '../model/rstr.js' // mongo 식당 기본 정보
 import RSTR_OPRT from '../model/rstr_oprt.js' // 식당 운영 정보
 import RSTR_IMG from '../model/rstr_img.js' // 식당 이미지 정보
-import FOOD_IMG from '../data/food_img.js' // 음식 이미지 정보
+import MENU from '../model/menu.js' // 식당 메뉴 정보
+import MENU_DSCRN from '../model/menu_dscrn.js' // 메뉴 설명 정보
+import FOOD_IMG from '../model/food_img.js' // 음식 이미지 정보
+// import FOOD_IMG from '../data/food_img.js' // 음식 이미지 정보
 // import test from '../data/test.json'
 
 const router = express.Router();
@@ -26,8 +29,13 @@ router
 
     // 전체 식당 가져오기
     .get("/getAllRstr", async (req, res) => {
-        RSTR.find().then((result) => {
-            res.status(200).json({ result: true, length: result.length, datas: result });
+        RSTR.find().lean().then((result) => {
+            const cates = new Set();
+            result.forEach((elm) => {
+                if (elm.BSNS_STATM_BZCND_NM) cates.add(elm.BSNS_STATM_BZCND_NM);
+            })
+            // console.log(cates);
+            res.status(200).json({ result: true, length: result.length, datas: result, cates, duple });
         }).catch((err) => {
             res.status(501).json({ result: false, message: err });
         });
@@ -50,6 +58,17 @@ router
         if (!search) return res.status(400).json({ result: false, message: "Not Found Query" });
 
         const find = await RSTR_IMG.find({ RSTR_ID: search });
+        res.status(200).json({ result: true, length: find.length, datas: find });
+    })
+
+    // 식당 메뉴 불러오기 (식당 메뉴 불러오면서 메뉴설명정보, 음식 이미지 데이터 같이 가져옴)
+    .get("/getRstrMenus", async (req, res) => {
+        // console.log(req.query);
+        const search = req.query.rstrId;
+        if (!search) return res.status(400).json({ result: false, message: "Not Found Query" });
+
+        // const find = await MENU.find({ RSTR_ID: search }).populate(["dscrn", "foodImg"]).lean();
+        const find = await MENU.find({ RSTR_ID: search }).populate("dscrn").populate("foodImg").lean();
         res.status(200).json({ result: true, length: find.length, datas: find });
     })
 
