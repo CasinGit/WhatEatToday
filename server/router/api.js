@@ -12,7 +12,7 @@ router
     .get("/getRstrNm", async (req, res) => {
         // console.log(req.query);
         const search = req.query.search;
-
+        console.log(req.query)
         const find = RSTR.datas.filter(one => {
             if (String(one.RSTR_NM).match(search)) {
                 return one;
