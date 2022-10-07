@@ -23,6 +23,8 @@
 ![프로젝트 정보 구조도 drawio](https://user-images.githubusercontent.com/107905043/193990580-615fd70b-2c67-4708-8601-a451d96a3f1b.png)
 ![프로젝트 다이어그램 drawio (2)](https://user-images.githubusercontent.com/107905043/193990586-65fe9aaf-1d20-4549-9ad0-0862cd55d479.png)
 
+
+#### DB 모델링
 - 회원 정보 DB (accounts)
 > email : 유저 이메일\
 > password : 유저 비밀번호\
@@ -44,3 +46,25 @@
 > reservTime : 예약 방문할 시간\
 > num : 예약 방문할 인원\
 > message : 사장님에게 남길 메세지
+
+#### API 정의서
+- 식당명으로 검색
+> 요청 REST(URI) : http://localhost:8080/api/openApi/getRstrNm?search=금성
+
+> 요청 메세지 명세 : \
+> search | 가게명 | 검색할 가게명 (한글, 영어 가능)
+
+> 응답 메세지 명세 : \
+> result | 응답 결과 | boolean\
+> length | 응답 결과 갯수 | number\
+> datas | 응답 데이터 | [{data1}, {data2}, ...]
+
+- 모든 식당 기본 정보 가져오기\
+> 요청 REST(URI) : http://localhost:8080/api/openApi/getAllRstr
+
+> 요청 메세지 명세 : 
+
+> 응답 메세지 명세 : \
+> result | 응답 결과 | boolean\
+> length | 응답 결과 갯수 | number\
+> datas | 응답 데이터 | [{data1}, {data2}, ...]
