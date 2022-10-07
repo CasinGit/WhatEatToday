@@ -2,7 +2,6 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
 import { useContext, useEffect, useState } from "react";
 import { Alert, Button, Keyboard, ScrollView, StyleSheet, Text, TextInput, TouchableWithoutFeedback, View } from "react-native";
-
 import Pressable from "react-native/Libraries/Components/Pressable/Pressable";
 import { AppContext } from "../context/app-context";
 import { sendLoginRequest } from "../util/account";

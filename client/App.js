@@ -10,6 +10,8 @@ import RegisterScreen from './screens/registerScreen';
 import InfoScreen from './screens/infoScreen';
 import HomeScreen from './screens/homeScreen';
 import { useContext } from 'react';
+import StoreSearch from './components/StoreSearch';
+import { RegisterContext, RegisterContextProvider } from './context/register-context';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -25,6 +27,7 @@ function GuestStackNavigator() {
     }>
       <Stack.Screen name="login" component={LoginScreen} options={{ title: "로그인" }} />
       <Stack.Screen name="register" component={RegisterScreen} options={{ title: "회원가입" }} />
+      <Stack.Screen name='storeSearch' component={StoreSearch} options={{ title: "점포 검색", presentation: "modal" }} />
     </Stack.Navigator>
   )
 }
@@ -98,9 +101,11 @@ export default function App() {
     <>
       <StatusBar style='auto' />
       <AppContextProvider>
-        <NavigationContainer >
-          <RootNavigator />
-        </NavigationContainer>
+        <RegisterContextProvider>
+          <NavigationContainer >
+            <RootNavigator />
+          </NavigationContainer>
+        </RegisterContextProvider>
       </AppContextProvider>
     </>
   );
