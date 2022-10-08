@@ -59,7 +59,7 @@
 > length | 응답 결과 갯수 | number\
 > datas | 응답 데이터 | [{data1}, {data2}, ...]
 
-- 모든 식당 기본 정보 가져오기\
+- 모든 식당 기본 정보 가져오기
 > 요청 REST(URI) : http://localhost:8080/api/openApi/getAllRstr
 
 > 요청 메세지 명세 : 
