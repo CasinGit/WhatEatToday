@@ -1,7 +1,8 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
 import { useContext, useEffect, useState } from "react";
-import { Alert, Button, Keyboard, ScrollView, StyleSheet, Text, TextInput, TouchableWithoutFeedback, View } from "react-native";
+import { Alert, Button, Image, Keyboard, ScrollView, StyleSheet, Text, TouchableWithoutFeedback, View } from "react-native";
+import { TextInput } from 'react-native-paper';
 import Pressable from "react-native/Libraries/Components/Pressable/Pressable";
 import { AppContext } from "../context/app-context";
 import { sendLoginRequest } from "../util/account";
@@ -19,12 +20,12 @@ function LoginScreen() {
         });
     }, []);
 
-    const loginHandle = async() => {
+    const loginHandle = async () => {
         try {
             const recv = await sendLoginRequest(email, password);
             ctx.dispatch({ type: "login", payload: recv });
             AsyncStorage.setItem("authentication", JSON.stringify(recv));
-            navigation.navigate("homeStack");
+            // navigation.navigate("homeStack");
         } catch (e) {
             console.log(e);
             Alert.alert("아이디 또는 비밀번호가 유효하지 않습니다.\n")
@@ -37,55 +38,63 @@ function LoginScreen() {
 
     return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-            <View >
-                <View style={{ marginBottom: 4 }}>
-                    <Text>오늘, 뭐먹지?</Text>
+            <View style={styles.container}>
+                <View style={{ marginBottom: 20 }}>
+                    <Image source={require('../assets/title_logo_black.png')} />
+                    {/* <Image source={require('../assets/title_logo_gray.png')} /> */}
                 </View>
-                <ScrollView>
-                    <View style={{ marginBottom: 4 }}>
-                        <Text>이메일</Text>
-                        <TextInput
+                <View style={{ width: "60%" }}>
+                    <View style={styles.inputContainer}>
+                        <TextInput style={styles.textInput}
+                            mode="outlined"
+                            label="이메일"
+                            placeholder="이메일을 입력해주세요"
                             onChangeText={setEmail}
                             autoCapitalize="none"
                             keyboardType="email-address"
                         />
                     </View>
-                    <View style={{ marginBottom: 4 }}>
-                        <Text >비밀번호</Text>
-                        <TextInput
-                            secureTextEntry={true}
+                    <View style={styles.inputContainer}>
+                        <TextInput style={styles.textInput}
+                            mode="outlined"
+                            label="비밀번호"
+                            placeholder="비밀번호를 입력해주세요"
+                            right={<TextInput.Icon icon="eye" />}
+                            secureTextEntry
                             onChangeText={setPassword}
                             autoCapitalize="none"
                         />
                     </View>
-                    <View style={{ marginBottom: 4 }}>
-                        <View style={{ marginBottom: 20, }}>
+                    <View>
+                        <View style={{ marginBottom: 10 }}>
                             <Button title="로그인" onPress={loginHandle} />
                         </View>
                         <Pressable onPress={moveRegisterHandle}>
-                            <Text >새로운 계정이 필요하십니까?</Text>
+                            <Text style={{ color: "blue" }}>새로운 계정이 필요하십니까?</Text>
                         </Pressable>
                     </View>
-                </ScrollView>
+                </View>
             </View >
         </TouchableWithoutFeedback>
 
     );
 }
+
 const styles = StyleSheet.create({
-    small: {
-        fontSize: 20,
+    container: {
+        flex: 1,
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: 'center',
     },
-    large: {
-        fontSize: 90,
-    },
-    regular: {
-        fontSize: 32
+    inputContainer: {
+        marginBottom: 10
     },
     textInput: {
-        padding: 4,
-        borderBottomColor: "#121212",
-        borderBottomWidth: 2,
-    }
+        // padding: 5,
+        // borderBottomColor: "#121212",
+        // borderBottomWidth: 2,
+    },
 });
+
 export default LoginScreen;

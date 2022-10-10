@@ -8,8 +8,8 @@ function HomeScreen() {
     const [mapData, setMapData] = useState();
 
     const init = {
-        latitude: 35.1595454,
-        longitude: 126.8526012,
+        latitude: 35.1415081,
+        longitude: 126.9321138,
         latitudeDelta: 0.0922,
         longitudeDelta: 0.0421
     }
@@ -28,7 +28,7 @@ function HomeScreen() {
                     return <Marker key={one.RSTR_ID} coordinate={{ latitude: Number(one.RSTR_LA), longitude: Number(one.RSTR_LO) }}
                         title={one.RSTR_NM}
                         description="" />
-                    }
+                }
                 )}
             </MapView>
         </View>

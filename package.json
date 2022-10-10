@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "server": "cd server && nodemon app",
-    "client": "cd client && npm start",
+    "client": "cd client && npx expo start",
     "start": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
     "client_build": "cd client && npm run build && serve -s build",
     "build": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client_build\""
