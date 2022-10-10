@@ -4,12 +4,14 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 import { StyleSheet } from 'react-native';
+import { BottomNavigation } from 'react-native-paper';
 import { AppContext, AppContextProvider } from './context/app-context';
 import LoginScreen from './screens/loginScreen';
 import RegisterScreen from './screens/registerScreen';
-import InfoScreen from './screens/infoScreen';
 import HomeScreen from './screens/homeScreen';
-import { useContext } from 'react';
+import SearchScreen from './screens/searchScreen';
+import InfoScreen from './screens/infoScreen';
+import { useContext, useState } from 'react';
 import StoreInfoScreen from './screens/storeinfoscreen';
 import StoreSearch from './components/StoreSearch';
 import { RegisterContextProvider } from './context/register-context';
@@ -19,13 +21,7 @@ const Stack = createStackNavigator();
 
 function GuestStackNavigator() {
   return (
-    <Stack.Navigator screenOptions={
-      {
-        headerTitleStyle: {
-          fontSize: 32
-        },
-      }
-    }>
+    <Stack.Navigator>
       <Stack.Screen name="login" component={LoginScreen} options={{ title: "로그인" }} />
       <Stack.Screen name="register" component={RegisterScreen} options={{ title: "회원가입" }} />
       <Stack.Screen name='storeSearch' component={StoreSearch} options={{ title: "점포 검색", presentation: "modal" }} />
@@ -53,7 +49,11 @@ function AccountStackNavigator() {
 }
 
 function SearchStackNavigator() {
-
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name='home' component={SearchScreen} options={{ title: "검색" }} />
+    </Stack.Navigator>
+  )
 }
 
 function HomeStackNavigator() {
@@ -105,7 +105,7 @@ export default function App() {
       <StatusBar style='auto' />
       <AppContextProvider>
         <RegisterContextProvider>
-          <NavigationContainer >
+          <NavigationContainer>
             <RootNavigator />
           </NavigationContainer>
         </RegisterContextProvider>

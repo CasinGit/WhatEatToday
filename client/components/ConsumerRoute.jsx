@@ -1,14 +1,15 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
 import { useContext, useState } from "react";
-import { Alert, Button, Text, TextInput, View } from "react-native";
+import { StyleSheet, Alert, Button, View, Image } from "react-native";
+import { TextInput } from 'react-native-paper';
 import { AppContext } from "../context/app-context";
 import { sendConsumerRegisterRequest } from "../util/account";
 
 function ConsumerRoute() {
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
-    const [confirmPassword, setConfirmPssword] = useState();
+    const [confirmPassword, setConfirmPassword] = useState();
     const [ph, setPh] = useState();
     const ctx = useContext(AppContext);
     const navigation = useNavigation();
@@ -45,37 +46,66 @@ function ConsumerRoute() {
     };
 
     return (
-        <View style={{ flex: 1 }}>
-            <View style={{ marginBottom: 4 }}>
-                <Text >오늘, 뭐먹지?</Text>
+        <View style={styles.container}>
+            <View style={{ marginBottom: 10 }}>
+                <Image source={require('../assets/title_logo_black.png')} />
+                {/* <Image source={require('../assets/title_logo_gray.png')} /> */}
             </View>
-            <View style={{ marginBottom: 4 }}>
-                <Text >사용할 이메일</Text>
-                <TextInput onChangeText={setEmail}
-                />
-            </View>
-            <View style={{ marginBottom: 4 }}>
-                <Text>사용할 비밀번호</Text>
-                <TextInput onChangeText={setPassword}
-                    secureTextEntry={true}
-                />
-            </View>
-            <View style={{ marginBottom: 4 }}>
-                <Text >비밀번호 재확인</Text>
-                <TextInput onChangeText={setConfirmPssword}
-                    secureTextEntry={true}
-                />
-            </View>
-            <View style={{ marginBottom: 4 }}>
-                <Text>전화번호</Text>
-                <TextInput onChangeText={setPh}
-                />
-            </View>
-            <View style={{ marginBottom: 4, }}>
-                <Button title="회원가입" onPress={pressHandle} />
+            <View style={{ width: "60%" }}>
+                <View style={styles.inputContainer}>
+                    <TextInput
+                        mode="outlined"
+                        label="이메일"
+                        placeholder="이메일을 입력해주세요"
+                        onChangeText={setEmail}
+                    />
+                </View>
+                <View style={styles.inputContainer}>
+                    <TextInput
+                        mode="outlined"
+                        label="비밀번호"
+                        placeholder="비밀번호를 입력해주세요"
+                        right={<TextInput.Icon icon="eye" />}
+                        secureTextEntry
+                        onChangeText={setPassword}
+                    />
+                </View>
+                <View style={styles.inputContainer}>
+                    <TextInput
+                        mode="outlined"
+                        label="비밀번호 확인"
+                        placeholder="비밀번호를 다시 입력해주세요"
+                        right={<TextInput.Icon icon="eye" />}
+                        secureTextEntry
+                        onChangeText={setConfirmPassword}
+                    />
+                </View>
+                <View style={styles.inputContainer}>
+                    <TextInput
+                        mode="outlined"
+                        label="연락처"
+                        placeholder="연락처를 입력해주세요"
+                        onChangeText={setPh}
+                    />
+                </View>
+                <View style={{ marginTop: 10 }}>
+                    <Button title="회원가입" onPress={pressHandle} />
+                </View>
             </View>
         </View >
     );
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: 'center',
+    },
+    inputContainer: {
+        marginBottom: 5,
+    },
+});
 
 export default ConsumerRoute;

@@ -5,7 +5,7 @@ import { useNavigation } from "@react-navigation/native";
 function StoreButton() {
     const navigation = useNavigation();
     const pressHandle = () => {
-        return navigation.navigate("storeSearch" );
+        return navigation.navigate("storeSearch");
     };
     return (
         <View style={{ marginRight: 15 }}>
