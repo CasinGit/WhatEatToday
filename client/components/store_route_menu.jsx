@@ -1,56 +1,34 @@
-import { FlatList, Image, ScrollView, StyleSheet, Text, View } from "react-native";
-import menu_thumbnail from "../assets/icon.png";
+import { useEffect, useState } from "react";
+import { FlatList, StyleSheet, Text, View } from "react-native";
+import StoreTabviewMenuInfo from "./StoreTabviewMenuInfo";
 
+function StoreMenuRoute({ data }) {
+    let menuData;
 
+    if (!data?.datas) {
+        menuData = null
+    } else {
+        menuData = data.datas
+    }
 
-
-
-const renderItem = ({ item }) => {
-
-
+    // console.log(...data.datas, "menu여기")
     return (
-        <View style={{ flex: 1 }}>
-            <View style={{ flexDirection : "row"}}>
-                <View>
-                    <Text style={{ width:"30%", height:"30%" }}>메뉴썸네일 : {item.image}</Text>
-                </View>
-                <View>
-                    <Text style={{textAlign:"center"}}>메뉴이름 : {item.name}</Text>
-                </View>
-                <View>
-                    <Text style={{textAlign:"left"}}>메뉴소개 : {item.intro}</Text>
-                </View>
-                <View>
-                    <Text style={{textAlign:"right"}}>메뉴가격 : {item.price}</Text>
-                </View>
-            </View>
+        <View style={styles.container}>
+            {!menuData ?
+                <Text>매뉴준비중</Text>
+                :
+                <FlatList data={menuData} renderItem={({ index, item }) => {
+                    return <StoreTabviewMenuInfo item={item} />
+                }} />
+            }
         </View>
-
-    )
-
-}
-
-
-
-
-function StoreMenuRoute() {
-
-
-    return (
-        <>
-        </>
     );
 }
 
-
 const styles = StyleSheet.create({
-
     container: {
-        flex: 1
+        flex: 1,
     },
-
-
-})
-
+});
 
 export default StoreMenuRoute;

@@ -1,3 +1,4 @@
+import { useNavigation } from "@react-navigation/native";
 import { useEffect, useState } from "react";
 import { View } from "react-native";
 import MapView from "react-native-map-clustering"
@@ -6,7 +7,7 @@ import { getStoreInfoRequest } from "../util/store";
 
 function HomeScreen() {
     const [mapData, setMapData] = useState();
-
+    const navigation = useNavigation();
     const init = {
         latitude: 35.1415081,
         longitude: 126.9321138,
@@ -27,7 +28,11 @@ function HomeScreen() {
                 {mapData && mapData.map((one) => {
                     return <Marker key={one.RSTR_ID} coordinate={{ latitude: Number(one.RSTR_LA), longitude: Number(one.RSTR_LO) }}
                         title={one.RSTR_NM}
-                        description={one.RSTR_RDNMADR} />
+                        description={one.RSTR_RDNMADR}
+                        onPress={() => {
+                            console.log(one)
+                            navigation.navigate("storeInfo", { datas: one, place: one.RSTR_RDNMADR, places: one.RSTR_LNNO_ADRES, ph: one.RSTR_TELNO});
+                        }} />
                 }
                 )}
             </MapView>
