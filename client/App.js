@@ -45,7 +45,7 @@ function AccountStackNavigator() {
   console.log(ctx, "app")
   return (
     <Stack.Navigator>
-      <Stack.Screen name='accountStack' component={ctx.auth ? MemberStackNavigator : GuestStackNavigator} options={{title:"마이페이지", headerShown: false,}}/>
+      <Stack.Screen name='accountStack' component={ctx.auth ? MemberStackNavigator : GuestStackNavigator} options={{ title: "마이페이지", headerShown: false, }} />
     </Stack.Navigator>
   )
 }
@@ -62,10 +62,10 @@ function SearchStackNavigator() {
 function HomeStackNavigator() {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="test2" component={TestScreen_review} />
-      <Stack.Screen name="test" component={TestScreen} />
       <Stack.Screen name='home' component={HomeScreen} options={{ title: "맛집탐색" }} />
       <Stack.Screen name='storeInfo' component={StoreInfoScreen} options={{ title: "맛집탐색", presentation: "modal" }} />
+      <Stack.Screen name="test2" component={TestScreen_review} />
+      <Stack.Screen name="test" component={TestScreen} />
     </Stack.Navigator>
   )
 }

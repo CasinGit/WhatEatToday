@@ -27,7 +27,11 @@ function CategorySelectScreen({ route, navigation }) {
                         <Card style={{ width: "98%", margin: 5 }}>
                             <Card.Content>
                                 {/* <Title>Card title</Title> */}
-                                <Card.Cover source={{ uri: one.item.rstrImg?.RSTR_IMG_URL }} />
+                                {one.item.rstrImg ?
+                                    <Card.Cover source={{ uri: one.item.rstrImg?.RSTR_IMG_URL }} />
+                                    :
+                                    <Card.Cover source={require("../assets/store_defaultImage.png")} />
+                                }
                                 <Title>{one.item.RSTR_NM}</Title>
                                 <Paragraph numberOfLines={2}>{one.item.RSTR_INTRCN_CONT}</Paragraph>
                             </Card.Content>
