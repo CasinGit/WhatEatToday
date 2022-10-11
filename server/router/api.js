@@ -75,6 +75,17 @@ router
         res.status(200).json({ result: true, length: find.length, datas: find });
     })
 
+    // 카테고리별 식당 불러오기
+    .get("/getCategoryRstr", async (req, res) => {
+        console.log(req.query);
+
+        RSTR.find({ BSNS_STATM_BZCND_NM: req.query.category }).populate("rstrImg").lean().then((result) => {
+            res.status(200).json({ result: true, length: result.length, datas: result });
+        }).catch((err) => {
+            res.status(501).json({ result: false, message: err });
+        });
+    })
+
     //! 개발 전용 기능
     .get("/getAPI", async (req, res) => {
         // https://gwangju.openapi.redtable.global/api/menu/korean : 메뉴 정보

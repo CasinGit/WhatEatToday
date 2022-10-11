@@ -8,7 +8,7 @@ import { AppContext } from "../context/app-context";
 import { sendLoginRequest } from "../util/account";
 
 function LoginScreen() {
-    console.log("LoginScreen");
+    // console.log("LoginScreen");
     const navigation = useNavigation();
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();

@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { View } from "react-native";
+import { Provider, Portal, ActivityIndicator, MD2Colors } from 'react-native-paper';
 import MapView from "react-native-map-clustering"
 import { Marker } from "react-native-maps";
 import { getStoreInfoRequest } from "../util/store";
 
 function HomeScreen() {
     const [mapData, setMapData] = useState();
+    const [loading, setLoading] = useState(false);
 
     const init = {
         latitude: 35.1415081,
@@ -16,22 +18,31 @@ function HomeScreen() {
 
     useEffect(() => {
         !async function () {
+            setLoading(true);
             const data = await getStoreInfoRequest();
             setMapData(data.datas);
+            setLoading(false);
         }()
     }, [])
 
     return (
-        <View style={{ flex: 1 }}>
-            <MapView style={{ flex: 1 }} initialRegion={init}>
-                {mapData && mapData.map((one) => {
-                    return <Marker key={one.RSTR_ID} coordinate={{ latitude: Number(one.RSTR_LA), longitude: Number(one.RSTR_LO) }}
-                        title={one.RSTR_NM}
-                        description="" />
+        <Provider>
+            <View style={{ flex: 1 }}>
+                {loading &&
+                    <Portal>
+                        <ActivityIndicator animating={loading} color={MD2Colors.red800} style={{ flex: 1 }} size="large" />
+                    </Portal>
                 }
-                )}
-            </MapView>
-        </View>
+                <MapView style={{ flex: 1 }} initialRegion={init}>
+                    {mapData && mapData.map((one) => {
+                        return <Marker key={one.RSTR_ID} coordinate={{ latitude: Number(one.RSTR_LA), longitude: Number(one.RSTR_LO) }}
+                            title={one.RSTR_NM}
+                            description="" />
+                    }
+                    )}
+                </MapView>
+            </View>
+        </Provider>
     );
 }
 
