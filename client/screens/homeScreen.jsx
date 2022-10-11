@@ -27,7 +27,7 @@ function HomeScreen() {
                 {mapData && mapData.map((one) => {
                     return <Marker key={one.RSTR_ID} coordinate={{ latitude: Number(one.RSTR_LA), longitude: Number(one.RSTR_LO) }}
                         title={one.RSTR_NM}
-                        description="" />
+                        description={one.RSTR_RDNMADR} />
                 }
                 )}
             </MapView>

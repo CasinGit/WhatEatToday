@@ -67,7 +67,13 @@ function InfoScreen() {
     const ctx = useContext(AppContext);
     const ctxR = useContext(RegisterContext);
     const navigation = useNavigation();
-    console.log(ctx.auth.data.RSTR_ID);
+    let confirm;
+    console.log(ctx.auth)
+    if (!ctx.auth.datas.RSTR_ID) {
+        confirm = undefined;
+    } else {
+        confirm = ctx.auth.data.RSTR_ID
+    }
 
     const logoutHandle = () => {
         ctx.dispatch({ type: "logout" });
@@ -81,10 +87,10 @@ function InfoScreen() {
                 <View style={styles.logo}>
                     <Image source={require('../assets/title_logo_black.png')} />
                 </View>
-                {ctx.auth.data.RSTR_ID ?
-                    sellerInfoPage(ctx.auth.data)
+                {!confirm ?
+                    consumerInfoPage(ctx.auth.datas)
                     :
-                    consumerInfoPage(ctx.auth.data)
+                    sellerInfoPage(ctx.auth.datas)
                 }
             </View>
             <View style={{ alignSelf: "auto" }}>

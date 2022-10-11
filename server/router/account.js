@@ -79,7 +79,7 @@ router
             const userObj = { ...req.body, password: data };
 
             Account.create(userObj).then(() => {
-                res.status(201).json({ result: true, message: "User Register!" });
+                res.status(201).json({ result: true, message: "User Register!", datas : userObj });
                 console.log("User Register!");
             }).catch(err => {
                 res.status(409).json({ result: false, message: err.message })
