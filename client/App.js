@@ -60,8 +60,8 @@ function SearchStackNavigator() {
 function HomeStackNavigator() {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="test2" component={TestScreen_review} />
-      <Stack.Screen name="test" component={TestScreen} />
+      {/* <Stack.Screen name="test2" component={TestScreen_review} />
+      <Stack.Screen name="test" component={TestScreen} /> */}
       <Stack.Screen name='home' component={HomeScreen} options={{ title: "맛집탐색" }} />
       <Stack.Screen name='storeInfo' component={StoreInfoScreen} options={{ title: "맛집탐색", presentation: "modal" }} />
     </Stack.Navigator>
