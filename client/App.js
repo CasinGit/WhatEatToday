@@ -14,6 +14,7 @@ import { useContext, useState } from 'react';
 import StoreInfoScreen from './screens/storeinfoscreen';
 import StoreSearch from './components/StoreSearch';
 import { RegisterContextProvider } from './context/register-context';
+import CategorySelectScreen from './screens/categorySelect';
 import TestScreen from './screens/testScreen_menu';
 import TestScreen_review from './screens/testScreen';
 
@@ -44,7 +45,7 @@ function AccountStackNavigator() {
   console.log(ctx, "app")
   return (
     <Stack.Navigator>
-      <Stack.Screen name='accountStack' component={ctx.auth ? MemberStackNavigator : GuestStackNavigator} options={{title:"마이페이지", headerShown: false,}}/>
+      <Stack.Screen name='accountStack' component={ctx.auth ? MemberStackNavigator : GuestStackNavigator} options={{ title: "마이페이지", headerShown: false, }} />
     </Stack.Navigator>
   )
 }
@@ -52,7 +53,8 @@ function AccountStackNavigator() {
 function SearchStackNavigator() {
   return (
     <Stack.Navigator>
-      <Stack.Screen name='home' component={SearchScreen} options={{ title: "검색" }} />
+      <Stack.Screen name='search' component={SearchScreen} options={{ title: "검색" }} />
+      <Stack.Screen name='categorySelect' component={CategorySelectScreen} options={{ title: "카테고리" }} />
     </Stack.Navigator>
   )
 }
@@ -60,10 +62,10 @@ function SearchStackNavigator() {
 function HomeStackNavigator() {
   return (
     <Stack.Navigator>
-      {/* <Stack.Screen name="test2" component={TestScreen_review} />
-      <Stack.Screen name="test" component={TestScreen} /> */}
       <Stack.Screen name='home' component={HomeScreen} options={{ title: "맛집탐색" }} />
       <Stack.Screen name='storeInfo' component={StoreInfoScreen} options={{ title: "맛집탐색", presentation: "modal" }} />
+      <Stack.Screen name="test2" component={TestScreen_review} />
+      <Stack.Screen name="test" component={TestScreen} />
     </Stack.Navigator>
   )
 }
