@@ -1,10 +1,10 @@
 import { FlatList, Image, ScrollView, Text } from "react-native";
 
 function StoreReviewRoute() {
-    return ( 
+    return (
         <>
         </>
-     );
+    );
 }
 
 export default StoreReviewRoute;

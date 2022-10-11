@@ -8,7 +8,6 @@ function StoreMenuRoute({ data }) {
         menuData = null
     } else {
         menuData = data.datas
-        // console.log(menuData)
     }
 
     // console.log(...data.datas, "menu여기")
