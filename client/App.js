@@ -40,7 +40,7 @@ function MemberStackNavigator() {
 function AccountStackNavigator() {
   console.log("로그인 네비게이터 실행됨!");
   const ctx = useContext(AppContext);
-  console.log(ctx)
+  console.log(ctx, "app")
   return (
     <Stack.Navigator>
       <Stack.Screen name='accountStack' component={ctx.auth ? MemberStackNavigator : GuestStackNavigator} options={{title:"마이페이지", headerShown: false,}}/>

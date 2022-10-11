@@ -25,7 +25,7 @@ function ConsumerRoute() {
                         try {
                             const recv = await sendConsumerRegisterRequest(email, password, ph);
                             console.log(recv);
-                            ctx.dispatch({ type: "login", payload: recv });
+                            ctx.dispatch({ type: "login", payload: recv.datas });
                             AsyncStorage.setItem("authentication", JSON.stringify(recv.datas));
                             navigation.navigate("homeStack");
                             Alert.alert("회원가입 성공\n")
