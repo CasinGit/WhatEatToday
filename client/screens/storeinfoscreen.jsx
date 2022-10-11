@@ -31,7 +31,6 @@ function StoreInfoScreen({ navigation, route }) {
         { key: "review", title: "리뷰", }
     ]);
 
-
     useEffect(() => {
         console.log(data.RSTR_ID)
         !async function () {
@@ -67,7 +66,7 @@ function StoreInfoScreen({ navigation, route }) {
                 return null;
         }
     };
-
+    console.log(data)
     return (
         <View style={styles.container}>
             <View style={styles.a1}>
@@ -77,7 +76,9 @@ function StoreInfoScreen({ navigation, route }) {
                 }
             </View>
             <View style={styles.a2}>
-                <Text style={{ fontSize: 30, textAlign: "center" }}>{data.RSTR_NM}</Text>
+                <Text style={{ fontSize: 50, textAlign: "center" }}>{data.RSTR_NM }
+                    <Text style={{ fontSize: 30, textAlign: "center", flexWrap :"wrap" }}>{"["+data.BSNS_STATM_BZCND_NM+"]"}</Text>
+                </Text>
             </View>
             <View style={styles.a3}>
                 <Text style={{ fontSize: 20, textAlign: 'center' }}>별점</Text>
@@ -95,19 +96,22 @@ function StoreInfoScreen({ navigation, route }) {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1
+        flex: 1,
+        backgroundColor: "white"
     },
     a1: {
-        backgroundColor: "#72C2FC",
-        height: "32%"
+        backgroundColor: "#white",
+        height: "30%"
     },
     a2: {
-        backgroundColor: "#34FDCD",
+        backgroundColor: "white",
+        marginTop: 8,
         height: "8%"
     },
     a3: {
-        backgroundColor: "#EF9CE2",
-        height: "6%"
+        backgroundColor: "white",
+        marginTop: 5,
+        height: "10%"
     }
 });
 
