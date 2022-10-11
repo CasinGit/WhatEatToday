@@ -10,7 +10,7 @@ function HomeScreen() {
     const [mapData, setMapData] = useState();
     const [loading, setLoading] = useState(false);
     const navigation = useNavigation();
-    
+
     const init = {
         latitude: 35.1415081,
         longitude: 126.9321138,
@@ -42,7 +42,7 @@ function HomeScreen() {
                             description={one.RSTR_RDNMADR}
                             onPress={() => {
                                 console.log(one)
-                                navigation.navigate("storeInfo", { datas: one, place: one.RSTR_RDNMADR, places: one.RSTR_LNNO_ADRES, ph: one.RSTR_TELNO});
+                                navigation.navigate("storeInfo", { datas: one, place: one.RSTR_RDNMADR, places: one.RSTR_LNNO_ADRES, ph: one.RSTR_TELNO });
                             }} />
                     }
                     )}
