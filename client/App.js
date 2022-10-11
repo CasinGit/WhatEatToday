@@ -4,7 +4,6 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 import { StyleSheet } from 'react-native';
-import { BottomNavigation } from 'react-native-paper';
 import { AppContext, AppContextProvider } from './context/app-context';
 import LoginScreen from './screens/loginScreen';
 import RegisterScreen from './screens/registerScreen';
@@ -58,8 +57,9 @@ function SearchStackNavigator() {
 
 function HomeStackNavigator() {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator  >
       <Stack.Screen name='home' component={HomeScreen} options={{ title: "맛집탐색" }} />
+      <Stack.Screen name='storeInfo' component={StoreInfoScreen} options={{ title: "맛집탐색", presentation: "modal" }} />
     </Stack.Navigator>
   )
 }
