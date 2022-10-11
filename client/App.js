@@ -42,9 +42,9 @@ function AccountStackNavigator() {
   const ctx = useContext(AppContext);
   console.log(ctx)
   return (
-    <>
-      {ctx.auth ? <MemberStackNavigator /> : <GuestStackNavigator />}
-    </>
+    <Stack.Navigator>
+      <Stack.Screen name='accountStack' component={ctx.auth ? MemberStackNavigator : GuestStackNavigator} options={{title:"마이페이지", headerShown: false,}}/>
+    </Stack.Navigator>
   )
 }
 

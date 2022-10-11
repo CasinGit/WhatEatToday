@@ -13,7 +13,7 @@ function ConsumerRoute() {
     const [ph, setPh] = useState();
     const ctx = useContext(AppContext);
     const navigation = useNavigation();
-
+    
     const pressHandle = () => {
         console.log(email, password, confirmPassword, ph);
         const regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
@@ -26,7 +26,7 @@ function ConsumerRoute() {
                             const recv = await sendConsumerRegisterRequest(email, password, ph);
                             console.log(recv);
                             ctx.dispatch({ type: "login", payload: recv });
-                            AsyncStorage.setItem("authentication", JSON.stringify(recv));
+                            AsyncStorage.setItem("authentication", JSON.stringify(recv.datas));
                             navigation.navigate("homeStack");
                             Alert.alert("회원가입 성공\n")
                         } catch (e) {
