@@ -68,17 +68,17 @@ function InfoScreen() {
     const ctxR = useContext(RegisterContext);
     const navigation = useNavigation();
     let confirm;
-    console.log(ctx.auth)
-    if (!ctx.auth.datas.RSTR_ID) {
+    console.log(ctx.auth, "info")
+    if (!ctx.auth.RSTR_ID) {
         confirm = undefined;
     } else {
-        confirm = ctx.auth.data.RSTR_ID
+        confirm = ctx.auth.RSTR_ID
     }
 
     const logoutHandle = () => {
         ctx.dispatch({ type: "logout" });
         ctxR.dispatch({ type: "logoutSellerRegister" });
-        AsyncStorage.removeItem("authentication");
+        AsyncStorage.removeItem();
     };
 
     return (
@@ -88,9 +88,9 @@ function InfoScreen() {
                     <Image source={require('../assets/title_logo_black.png')} />
                 </View>
                 {!confirm ?
-                    consumerInfoPage(ctx.auth.datas)
+                    consumerInfoPage(ctx.auth)
                     :
-                    sellerInfoPage(ctx.auth.datas)
+                    sellerInfoPage(ctx.auth)
                 }
             </View>
             <View style={{ alignSelf: "auto" }}>
