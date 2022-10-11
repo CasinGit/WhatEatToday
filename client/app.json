@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "TeamProject",
-    "slug": "TeamProject",
+    "name": "오늘 뭐먹지",
+    "slug": "TeamProjectSlug",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",

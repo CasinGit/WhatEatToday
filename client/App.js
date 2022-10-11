@@ -14,6 +14,7 @@ import { useContext, useState } from 'react';
 import StoreInfoScreen from './screens/storeinfoscreen';
 import StoreSearch from './components/StoreSearch';
 import { RegisterContextProvider } from './context/register-context';
+import CategorySelectScreen from './screens/categorySelect';
 import TestScreen from './screens/testScreen_menu';
 import TestScreen_review from './screens/testScreen';
 
@@ -52,7 +53,8 @@ function AccountStackNavigator() {
 function SearchStackNavigator() {
   return (
     <Stack.Navigator>
-      <Stack.Screen name='home' component={SearchScreen} options={{ title: "검색" }} />
+      <Stack.Screen name='search' component={SearchScreen} options={{ title: "검색" }} />
+      <Stack.Screen name='categorySelect' component={CategorySelectScreen} options={{ title: "카테고리" }} />
     </Stack.Navigator>
   )
 }
