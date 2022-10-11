@@ -14,6 +14,8 @@ import { useContext, useState } from 'react';
 import StoreInfoScreen from './screens/storeinfoscreen';
 import StoreSearch from './components/StoreSearch';
 import { RegisterContextProvider } from './context/register-context';
+import TestScreen from './screens/testScreen_menu';
+import TestScreen_review from './screens/testScreen';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -57,7 +59,9 @@ function SearchStackNavigator() {
 
 function HomeStackNavigator() {
   return (
-    <Stack.Navigator  >
+    <Stack.Navigator>
+      <Stack.Screen name="test2" component={TestScreen_review} />
+      <Stack.Screen name="test" component={TestScreen} />
       <Stack.Screen name='home' component={HomeScreen} options={{ title: "맛집탐색" }} />
       <Stack.Screen name='storeInfo' component={StoreInfoScreen} options={{ title: "맛집탐색", presentation: "modal" }} />
     </Stack.Navigator>
