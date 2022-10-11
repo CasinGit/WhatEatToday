@@ -1,3 +1,4 @@
+import { useNavigation } from "@react-navigation/native";
 import { useEffect, useState } from "react";
 import { View } from "react-native";
 import { Provider, Portal, ActivityIndicator, MD2Colors } from 'react-native-paper';
@@ -8,7 +9,8 @@ import { getStoreInfoRequest } from "../util/store";
 function HomeScreen() {
     const [mapData, setMapData] = useState();
     const [loading, setLoading] = useState(false);
-
+    const navigation = useNavigation();
+    
     const init = {
         latitude: 35.1415081,
         longitude: 126.9321138,
@@ -37,7 +39,11 @@ function HomeScreen() {
                     {mapData && mapData.map((one) => {
                         return <Marker key={one.RSTR_ID} coordinate={{ latitude: Number(one.RSTR_LA), longitude: Number(one.RSTR_LO) }}
                             title={one.RSTR_NM}
-                            description="" />
+                            description={one.RSTR_RDNMADR}
+                            onPress={() => {
+                                console.log(one)
+                                navigation.navigate("storeInfo", { datas: one, place: one.RSTR_RDNMADR, places: one.RSTR_LNNO_ADRES, ph: one.RSTR_TELNO});
+                            }} />
                     }
                     )}
                 </MapView>

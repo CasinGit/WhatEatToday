@@ -58,6 +58,7 @@ router
     .get("/getRstrImg", async (req, res) => {
         // console.log(req.query);
         const search = req.query.rstrId;
+        console.log(search)
         if (!search) return res.status(400).json({ result: false, message: "Not Found Query" });
 
         const find = await RSTR_IMG.find({ RSTR_ID: search });

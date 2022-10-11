@@ -52,7 +52,7 @@ router
                     const token = jwt.sign({ email: req.body.email }, JWT_SECRET, {
                         // expiresIn: 60 * 60 * 12 // 토근 유효기간 => 12시간
                     });
-                    res.status(200).json({ result: chk, data: result, token });
+                    res.status(200).json({ result: chk, datas: result, token });
                 } else {
                     res.status(409).json({ result: chk, message: "비밀번호가 다릅니다." });
                 }
@@ -79,7 +79,7 @@ router
             const userObj = { ...req.body, password: data };
 
             Account.create(userObj).then(() => {
-                res.status(201).json({ result: true, message: "User Register!" });
+                res.status(201).json({ result: true, message: "User Register!", datas : userObj });
                 console.log("User Register!");
             }).catch(err => {
                 res.status(409).json({ result: false, message: err.message })

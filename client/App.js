@@ -4,7 +4,6 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 import { StyleSheet } from 'react-native';
-import { BottomNavigation } from 'react-native-paper';
 import { AppContext, AppContextProvider } from './context/app-context';
 import LoginScreen from './screens/loginScreen';
 import RegisterScreen from './screens/registerScreen';
@@ -16,6 +15,8 @@ import StoreInfoScreen from './screens/storeinfoscreen';
 import StoreSearch from './components/StoreSearch';
 import { RegisterContextProvider } from './context/register-context';
 import CategorySelectScreen from './screens/categorySelect';
+import TestScreen from './screens/testScreen_menu';
+import TestScreen_review from './screens/testScreen';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -41,11 +42,11 @@ function MemberStackNavigator() {
 function AccountStackNavigator() {
   console.log("로그인 네비게이터 실행됨!");
   const ctx = useContext(AppContext);
-  console.log(ctx)
+  console.log(ctx, "app")
   return (
-    <>
-      {ctx.auth ? <MemberStackNavigator /> : <GuestStackNavigator />}
-    </>
+    <Stack.Navigator>
+      <Stack.Screen name='accountStack' component={ctx.auth ? MemberStackNavigator : GuestStackNavigator} options={{title:"마이페이지", headerShown: false,}}/>
+    </Stack.Navigator>
   )
 }
 
@@ -61,7 +62,10 @@ function SearchStackNavigator() {
 function HomeStackNavigator() {
   return (
     <Stack.Navigator>
+      <Stack.Screen name="test2" component={TestScreen_review} />
+      <Stack.Screen name="test" component={TestScreen} />
       <Stack.Screen name='home' component={HomeScreen} options={{ title: "맛집탐색" }} />
+      <Stack.Screen name='storeInfo' component={StoreInfoScreen} options={{ title: "맛집탐색", presentation: "modal" }} />
     </Stack.Navigator>
   )
 }

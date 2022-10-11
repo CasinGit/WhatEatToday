@@ -23,9 +23,9 @@ function LoginScreen() {
     const loginHandle = async () => {
         try {
             const recv = await sendLoginRequest(email, password);
-            ctx.dispatch({ type: "login", payload: recv });
-            AsyncStorage.setItem("authentication", JSON.stringify(recv));
-            // navigation.navigate("homeStack");
+            ctx.dispatch({ type: "login", payload: recv.datas });
+            AsyncStorage.setItem("authentication", JSON.stringify(recv.datas));
+            navigation.navigate("homeStack");
         } catch (e) {
             console.log(e);
             Alert.alert("아이디 또는 비밀번호가 유효하지 않습니다.\n")

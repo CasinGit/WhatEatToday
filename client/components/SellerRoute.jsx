@@ -37,8 +37,8 @@ function SellerRoute() {
                             console.log(email, password, confirmPassword, ctxR.store.id);
                             const recv = await sendSellerRegisterRequest(email, password, ctxR.store.id);
                             console.log(recv);
-                            ctx.dispatch({ type: "login", payload: recv });
-                            AsyncStorage.setItem("authentication", JSON.stringify(recv));
+                            ctx.dispatch({ type: "login", payload: recv.datas });
+                            AsyncStorage.setItem("authentication", JSON.stringify(recv.datas));
                             navigation.navigate("homeStack");
                             Alert.alert("회원가입 성공\n")
                         } catch (e) {
