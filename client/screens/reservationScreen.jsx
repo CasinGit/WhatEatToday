@@ -5,6 +5,7 @@ import { Calendar, CalendarList, Agenda } from 'react-native-calendars';
 import { TextInput } from "react-native-paper";
 import DateTimePicker from '@react-native-community/datetimepicker';
 import RNDateTimePicker from "@react-native-community/datetimepicker";
+import { useEffect } from "react";
 
 
 function ReservationScreen() {
@@ -33,17 +34,26 @@ function ReservationScreen() {
         return acc;
     }, {});
 
-
+    const [selectedTime,setSelectedTime] = useState();
+    const handleTime = (event, date) =>{
+        console.log("event",date);
+        setSelectedTime(event.nativeEvent.timestamp);
+    }
     const [selectedDate, setSelectedDate] = useState(
         format(new Date(), "yyyy-MM-dd"),
     );
     const markedSelectedDates = {
         ...markedDates,
         [selectedDate]: {
-            selected: true,
+            selected: false,
             marked: markedDates[selectedDate]?.marked,
         }
     }
+    
+    useEffect(()=>{
+        console.log(selectedDate);
+        console.log(selectedTime);
+    },[selectedDate,selectedTime])
 
     var today = new Date();
     var year = today.getFullYear();
@@ -58,7 +68,9 @@ function ReservationScreen() {
                     <Text style={styles.container_store_name}>식당 이름</Text>
                 </View>
                 <View>
-                    <Calendar style={styles.calendar}
+                    <Calendar 
+                    style={styles.calendar}
+                    initialDate={"2022-10-12"}
                         markedDates={markedSelectedDates}
                         minDate={dateString}
                         theme={{
@@ -70,26 +82,30 @@ function ReservationScreen() {
                         onDayPress={(day) => {
                             setSelectedDate(day.dateString)
                         }}
+
                     //minDate = {date}
                     />
                 </View>
                 <View>
-                    <Text style={styles.text_global}>예약시간 선택</Text>
-                    <RNDateTimePicker mode="time"
-                    is24Hour={true}
-                    display="default"
-                    minuteInterval={10}
-                    value={new Date()}
-                    positiveButtonLabel="OK!"
-                    negativeButtonLabel="Negative"
+                    <Text style={{padding:5, textAlign:"center"}}>선택된 예약날짜 및 시간 </Text>
+                    <RNDateTimePicker 
+                        mode="time"
+                        is24Hour={true}
+                        display="default"
+                        minuteInterval={10}
+                        value={selectedTime}
+                        positiveButtonLabel="예약"
+                        negativeButtonLabel="취소"
+                        // onChange={handleTime}
                     />
+                    <Text>{selectedDate}{selectedTime}</Text>
                 </View>
                 <View>
                     <TextInput placeholder="예약인원을 입력해주세요" keyboardType="number-pad" />
                 </View>
                 <View>
                     <Text style={styles.text_global}>요청사항</Text>
-                    <TextInput style={styles.input_req} multiline={true} />
+                    <TextInput style={styles.input_req} multiline={true} maxLength={600} />
                 </View>
             </View>
         </KeyboardAvoidingView>
