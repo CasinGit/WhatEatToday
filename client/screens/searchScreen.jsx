@@ -2,10 +2,10 @@ import { useNavigation } from "@react-navigation/native";
 import { useEffect, useState } from "react";
 import { StyleSheet, View, Text, Pressable, FlatList } from "react-native";
 import { Card, Searchbar, Title, Chip, Modal, Portal, Provider } from 'react-native-paper';
+import SearchMenu from "../components/SearchMenu";
 import CategorySelectScreen from "./categorySelect";
 import StoreInfoScreen from "./storeinfoscreen";
 
-// const category = ["중국식", "한식", "일식", "경양식", "뷔페식", "회집", "호프/통닭", "식육(숯불구이)", "패밀리레스토랑", "냉면집"];
 const category = [
     { key: "중국식", value: "중식", img: require("../assets/category/중식.png") },
     { key: "한식", value: "한식", img: require("../assets/category/한식.png") },
@@ -14,9 +14,9 @@ const category = [
     { key: "뷔페식", value: "뷔페식", img: require("../assets/category/뷔페식.png") },
     { key: "회집", value: "회집", img: require("../assets/category/회집.png") },
     { key: "호프/통닭", value: "호프/통닭", img: require("../assets/category/호프통닭.png") },
-    { key: "식육(숯불구이)", value: "식육", img: "" },
+    { key: "식육(숯불구이)", value: "식육", img: require("../assets/category/식육.png") },
     { key: "패밀리레스토랑", value: "패밀리레스토랑", img: require("../assets/category/패밀리레스토랑.png") },
-    { key: "냉면집", value: "냉면집", img: "" },
+    { key: "냉면집", value: "냉면집", img: require("../assets/category/냉면.png") },
 ];
 Object.freeze(category);
 
@@ -52,7 +52,7 @@ function SearchScreen() {
                 </Modal>
             </Portal>
 
-            {!searchFocus || !searchQuery ?
+            {!searchFocus && !searchQuery && // 검색 포커스 X && 검색 쿼리 X
                 <View style={styles.container}>
                     <View View style={{ flexDirection: "row", margin: 10 }}>
                         <FlatList data={category} numColumns="4"
@@ -80,10 +80,17 @@ function SearchScreen() {
                         <Chip icon="numeric-2-box" mode="outlined" style={{ margin: 2 }} onPress={() => console.log('Pressed2')}>김치볶음밥</Chip>
                     </View>
                 </View >
-                :
+            }
+
+            {searchFocus && searchQuery ? // 검색 포커스 O && 검색 쿼리 O
                 <View style={styles.container}>
-                    <Text>검색창 컴포넌트</Text>
+                    <SearchMenu query={searchQuery} />
                 </View>
+                : (!searchFocus && searchQuery && // 검색 포커스 X && 검색 쿼리 O
+                    <View style={styles.container}>
+                        <SearchMenu query={searchQuery} />
+                    </View>
+                )
             }
         </Provider >
     );

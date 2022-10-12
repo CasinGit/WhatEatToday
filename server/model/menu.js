@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 let menuSchema = new mongoose.Schema({
     RSTR_ID: Number,
     MENU_ID: Number,
+    MENU_NM: String,
 })
 
 menuSchema.virtual("dscrn", {

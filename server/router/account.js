@@ -79,7 +79,7 @@ router
             const userObj = { ...req.body, password: data };
 
             Account.create(userObj).then(() => {
-                res.status(201).json({ result: true, message: "User Register!", datas : userObj });
+                res.status(201).json({ result: true, message: "User Register!", datas: userObj });
                 console.log("User Register!");
             }).catch(err => {
                 res.status(409).json({ result: false, message: err.message })
@@ -88,6 +88,35 @@ router
         }
     })
 
+    .get("/getFav", async (req, res) => {
+        console.log(req.query);
+
+        Account.findOne({ email: req.query.email }).select(["bookmark", "-_id"]).then((result) => {
+            res.status(201).json({ result: true, datas: result.bookmark });
+        }).catch(err => {
+            res.status(409).json({ result: false, message: err.message })
+        });
+    })
+
+    .post("/addFav", async (req, res) => {
+        console.log(req.body);
+
+        Account.findOneAndUpdate({ email: req.body.email }, { $addToSet: { bookmark: req.body.rstrId } }, { returnDocument: "after" }).then((result) => {
+            res.status(201).json({ result: true, datas: result.bookmark });
+        }).catch(err => {
+            res.status(409).json({ result: false, message: err.message })
+        });
+    })
+
+    .delete("/removeFav", async (req, res) => {
+        console.log(req.body);
+
+        Account.findOneAndUpdate({ email: req.body.email }, { $pull: { bookmark: req.body.rstrId } }, { returnDocument: "after" }).then((result) => {
+            res.status(201).json({ result: true, datas: result.bookmark });
+        }).catch(err => {
+            res.status(409).json({ result: false, message: err.message })
+        });
+    })
 
     //! 사용자 토큰 인증 (이후 라우터는 토큰 필요)
     .use((req, res, next) => {
@@ -109,6 +138,5 @@ router
 
         next();
     })
-
 
 export default router;
