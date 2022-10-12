@@ -47,7 +47,7 @@ function StoreInfoScreen({ navigation, route }) {
     };
 
     useEffect(() => {
-        !async function() {
+        !async function () {
             const favData = await getStoreFavRequest(ctx.auth.email);
             console.log(favData.datas);
             console.log(favData.datas.includes(data.RSTR_ID))
@@ -104,7 +104,8 @@ function StoreInfoScreen({ navigation, route }) {
             <View style={styles.a1}>
                 {storeImage ?
                     <Image source={{ uri: storeImage }} style={{ flex: 1 }} />
-                    : <Image source={DefaultImage} style={{ flex: 1, width: "100%", height: "100%" }} />
+                    :
+                    <Image source={DefaultImage} style={{ flex: 1, width: "100%", height: "100%" }} resizeMode="center" />
                 }
             </View>
             <View style={styles.a2}>
@@ -139,7 +140,7 @@ const styles = StyleSheet.create({
     a2: {
         backgroundColor: "white",
         marginTop: 8,
-        height: "8%"
+        // height: "8%"
     },
     a3: {
         backgroundColor: "white",

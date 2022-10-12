@@ -5,10 +5,7 @@ let reviewSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    reviewImg: { // 리뷰 이미지
-        type: String,
-    },
-    reviewerEmail: { // 리뷰 등록자 이메일
+    email: { // 리뷰 등록자 이메일
         type: String,
         required: true,
     },
@@ -16,7 +13,11 @@ let reviewSchema = new mongoose.Schema({
         type: Number,
         required: true,
     },
-    content: { // 리뷰 내용 (최대 400자 이하)
+    img: { // 리뷰 이미지
+        type: String,
+        default: ""
+    },
+    comment: { // 리뷰 내용 (최대 400자 이하)
         type: String,
     },
 })
