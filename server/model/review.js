@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 let reviewSchema = new mongoose.Schema({
-    RSTR_ID: { //
+    RSTR_ID: { // 가게 ID
         type: String,
         required: true,
     },
