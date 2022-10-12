@@ -15,14 +15,14 @@ function sellerInfoPage(data) {
             <View style={{ flexDirection: "row", margin: 10 }}>
                 <Pressable style={({ pressed }) => pressed ? { opacity: 0.8 } : null}>
                     <Card style={{ margin: 5 }}>
-                        <Card.Cover source={require("../assets/title_logo_gray.png")} style={{ width: 100, height: 100 }} resizeMode="contain" />
+                        <Card.Cover source={require("../assets/store.png")} style={{ width: 100, height: 100 }} resizeMode="contain" />
                         <Title style={{ alignSelf: "center" }}>내가게</Title>
                     </Card>
                 </Pressable>
 
                 <Pressable style={({ pressed }) => pressed ? { opacity: 0.8 } : null}>
                     <Card style={{ margin: 5 }}>
-                        <Card.Cover source={require("../assets/title_logo_gray.png")} style={{ width: 100, height: 100 }} resizeMode="contain" />
+                        <Card.Cover source={require("../assets/calender.png")} style={{ width: 100, height: 100 }} resizeMode="contain" />
                         <Title style={{ alignSelf: "center" }}>캘린더</Title>
                     </Card>
                 </Pressable>
@@ -40,21 +40,21 @@ function consumerInfoPage(data) {
             <View style={{ flexDirection: "row", margin: 10 }}>
                 <Pressable style={({ pressed }) => pressed ? { opacity: 0.8 } : null}>
                     <Card style={{ margin: 5 }}>
-                        <Card.Cover source={require("../assets/title_logo_gray.png")} style={{ width: 100, height: 100 }} resizeMode="contain" />
+                        <Card.Cover source={require("../assets/usageHistory.png")} style={{ width: 100, height: 100 }} resizeMode="contain" />
                         <Title style={{ alignSelf: "center" }}>이용내역</Title>
                     </Card>
                 </Pressable>
 
                 <Pressable style={({ pressed }) => pressed ? { opacity: 0.8 } : null}>
                     <Card style={{ margin: 5 }}>
-                        <Card.Cover source={require("../assets/title_logo_gray.png")} style={{ width: 100, height: 100 }} resizeMode="contain" />
+                        <Card.Cover source={require("../assets/calender.png")} style={{ width: 100, height: 100 }} resizeMode="contain" />
                         <Title style={{ alignSelf: "center" }}>캘린더</Title>
                     </Card>
                 </Pressable>
 
                 <Pressable style={({ pressed }) => pressed ? { opacity: 0.8 } : null}>
                     <Card style={{ margin: 5 }}>
-                        <Card.Cover source={require("../assets/title_logo_gray.png")} style={{ width: 100, height: 100 }} resizeMode="contain" />
+                        <Card.Cover source={require("../assets/favorites.png")} style={{ width: 100, height: 100 }} resizeMode="contain" />
                         <Title style={{ alignSelf: "center" }}>즐겨찾기</Title>
                     </Card>
                 </Pressable>

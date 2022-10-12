@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Image, StyleSheet, Text, useWindowDimensions, View } from "react-native";
 import { TabView } from "react-native-tab-view"
 import DefaultImage from "../assets/store_defaultImage.png";
@@ -6,6 +6,10 @@ import Store_Route_Menu from "../components/Store_route_menu";
 import Store_Route_Info from "../components/Store_route_info";
 import Store_Route_Review from "../components/Store_route_review";
 import { getStoreImageRequest, getStoreMenuRequest, getStoreOperRequest } from "../util/store";
+import IconButton from "../components/IconButton";
+import { addStoreFavRequest, removeStoreFavRequest } from "../util/account";
+import { AppContext } from "../context/app-context";
+import CustomButton from "../components/CustomButton";
 
 // const renderScene = SceneMap({
 //     menu: Store_Route_Menu,
@@ -31,9 +35,25 @@ function StoreInfoScreen({ navigation, route }) {
         { key: "review", title: "리뷰", }
     ]);
 
+    // const [marking, setMarking] = useState();
+    
+    // const ctx = useContext(AppContext);
+
+    // const pressHandle = async()=> {
+    //     // console.log(name)
+    //     setMarking((current) => !marking);
+    //     marking ? await removeStoreFavRequest(ctx.auth.email, data.RSTR_ID) : await addStoreFavRequest(ctx.auth.email, data.RSTR_ID)
+    //     alert(marking ?  "즐겨찾기에 삭제되었습니다." : "즐겨찾기에 추가되었습니다.");
+    // }
+
     useEffect(() => {
         console.log(data.RSTR_ID)
+
         !async function () {
+            // navigation.setOptions({headerRight : ()=>{
+            //     return <IconButton onPress={pressHandle} name={marking ? "star" : "star-outline"}/>
+            // }});
+
             try {
                 const image = await getStoreImageRequest(data.RSTR_ID);
                 const menu = await getStoreMenuRequest(data.RSTR_ID);
@@ -44,7 +64,7 @@ function StoreInfoScreen({ navigation, route }) {
                 // console.log(oper, "oper")
                 setStoreMenu(menu);
                 setStoreOper(oper);
-                setStoreImage(image.datas[0].RSTR_IMG_URL);
+                setStoreImage(image.datas[0].RSTR_IMG_URL ? image.datas[0].RSTR_IMG_URL : null);
             } catch (e) {
                 console.log("error", e)
             }
@@ -89,6 +109,7 @@ function StoreInfoScreen({ navigation, route }) {
                 onIndexChange={setIndex}
                 initialLayout={{ width: layout.width }}
             />
+            <CustomButton/>
         </View>
     );
 }
