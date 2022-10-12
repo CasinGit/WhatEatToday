@@ -7,7 +7,7 @@ function IconButton({onPress, name}) {
         <Pressable onPress={onPress} style={({pressed})=>
             pressed ? {opacity : 0.6} : null
         }>
-            <Ionicons name={name} color={"white"} size={24}/>
+            <Ionicons name={name} color={"gold"} size={32} style={{marginRight : 15, marginTop: 5}}/>
         </Pressable>    
     );
 }

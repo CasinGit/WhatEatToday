@@ -17,6 +17,7 @@ import { RegisterContextProvider } from './context/register-context';
 import CategorySelectScreen from './screens/categorySelect';
 import TestScreen from './screens/testScreen_menu';
 import TestScreen_review from './screens/testScreen';
+import FavoritesStore from './screens/favoritesStore';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -35,6 +36,7 @@ function MemberStackNavigator() {
   return (
     <Stack.Navigator>
       <Stack.Screen name="info" component={InfoScreen} options={{ title: "마이페이지" }} />
+      <Stack.Screen name="favorites" component={FavoritesStore} options={{title: "즐겨찾기", presentation: "modal"}}/>
     </Stack.Navigator>
   )
 }

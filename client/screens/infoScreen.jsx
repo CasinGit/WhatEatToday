@@ -7,6 +7,12 @@ import { AppContext } from "../context/app-context";
 import { RegisterContext } from "../context/register-context";
 
 function sellerInfoPage(data) {
+    const sellerSotrePressHandle = () => {
+
+    };
+    const sellerCalenderPressHandle = () => {
+
+    };
 
     return (
         <View>
@@ -32,27 +38,38 @@ function sellerInfoPage(data) {
 }
 
 function consumerInfoPage(data) {
+    const navigation = useNavigation();
+
+    const consumerHistoryPressHandle = () => {
+
+    };
+    const consumerCalenderPressHandle = () => {
+
+    };
+    const consumerFavoritesPressHandle = () => {
+        navigation.navigate("favorites");
+    };
 
     return (
         <View>
             <Text style={{ alignSelf: "center", marginBottom: 20 }}>안녕~ {data.email} (소비자)</Text>
 
             <View style={{ flexDirection: "row", margin: 10 }}>
-                <Pressable style={({ pressed }) => pressed ? { opacity: 0.8 } : null}>
+                <Pressable style={({ pressed }) => pressed ? { opacity: 0.8 } : null} onPress={consumerHistoryPressHandle}>
                     <Card style={{ margin: 5 }}>
                         <Card.Cover source={require("../assets/usageHistory.png")} style={{ width: 100, height: 100 }} resizeMode="contain" />
                         <Title style={{ alignSelf: "center" }}>이용내역</Title>
                     </Card>
                 </Pressable>
 
-                <Pressable style={({ pressed }) => pressed ? { opacity: 0.8 } : null}>
+                <Pressable style={({ pressed }) => pressed ? { opacity: 0.8 } : null} onPress={consumerCalenderPressHandle}>
                     <Card style={{ margin: 5 }}>
                         <Card.Cover source={require("../assets/calender.png")} style={{ width: 100, height: 100 }} resizeMode="contain" />
                         <Title style={{ alignSelf: "center" }}>캘린더</Title>
                     </Card>
                 </Pressable>
 
-                <Pressable style={({ pressed }) => pressed ? { opacity: 0.8 } : null}>
+                <Pressable style={({ pressed }) => pressed ? { opacity: 0.8 } : null} onPress={consumerFavoritesPressHandle}>
                     <Card style={{ margin: 5 }}>
                         <Card.Cover source={require("../assets/favorites.png")} style={{ width: 100, height: 100 }} resizeMode="contain" />
                         <Title style={{ alignSelf: "center" }}>즐겨찾기</Title>
