@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Image, StyleSheet, Text, useWindowDimensions, View } from "react-native";
 import { TabView } from "react-native-tab-view"
 import DefaultImage from "../assets/store_defaultImage.png";
@@ -6,6 +6,11 @@ import Store_Route_Menu from "../components/Store_route_menu";
 import Store_Route_Info from "../components/Store_route_info";
 import Store_Route_Review from "../components/Store_route_review";
 import { getStoreImageRequest, getStoreMenuRequest, getStoreOperRequest } from "../util/store";
+import IconButton from "../components/IconButton";
+import { addStoreFavRequest, getStoreFavRequest, removeStoreFavRequest } from "../util/account";
+import { AppContext } from "../context/app-context";
+import CustomButton from "../components/CustomButton";
+import { useNavigation } from "@react-navigation/native";
 
 // const renderScene = SceneMap({
 //     menu: Store_Route_Menu,
@@ -31,9 +36,36 @@ function StoreInfoScreen({ navigation, route }) {
         { key: "review", title: "리뷰", }
     ]);
 
+    const [marking, setMarking] = useState(false);
+    const ctx = useContext(AppContext);
+
+    const pressHandle = async () => {
+        // console.log(name)
+        setMarking((current) => !marking);
+        marking ? await removeStoreFavRequest(ctx.auth.email, data.RSTR_ID) : await addStoreFavRequest(ctx.auth.email, data.RSTR_ID)
+        // alert(marking ?  "즐겨찾기에 삭제되었습니다." : "즐겨찾기에 추가되었습니다.");
+    };
+
     useEffect(() => {
-        console.log(data.RSTR_ID)
+        !async function() {
+            const favData = await getStoreFavRequest(ctx.auth.email);
+            console.log(favData.datas);
+            console.log(favData.datas.includes(data.RSTR_ID))
+            favData.datas.includes(data.RSTR_ID) ? setMarking(true) : setMarking(false)
+        }()
+    }, [data.RSTR_ID]);
+
+    useEffect(() => {
+        // console.log(data.RSTR_ID)
+
         !async function () {
+            console.log(ctx.auth, "auth")
+            navigation.setOptions({
+                headerRight: () => {
+                    return <IconButton onPress={pressHandle} name={marking ? "star" : "star-outline"} />
+                }
+            });
+
             try {
                 const image = await getStoreImageRequest(data.RSTR_ID);
                 const menu = await getStoreMenuRequest(data.RSTR_ID);
@@ -44,12 +76,12 @@ function StoreInfoScreen({ navigation, route }) {
                 // console.log(oper, "oper")
                 setStoreMenu(menu);
                 setStoreOper(oper);
-                setStoreImage(image.datas[0].RSTR_IMG_URL);
+                setStoreImage(image.datas[0].RSTR_IMG_URL ? image.datas[0].RSTR_IMG_URL : null);
             } catch (e) {
                 console.log("error", e)
             }
         }()
-    }, []);
+    }, [marking]);
 
     const place = route.params.place;
     const places = route.params.places;
@@ -59,14 +91,14 @@ function StoreInfoScreen({ navigation, route }) {
             case 'menu':
                 return <Store_Route_Menu data={storeMenu} />;
             case 'info':
-                return <Store_Route_Info data={storeOper} place={place} places={places} ph={ph}/>;
+                return <Store_Route_Info data={storeOper} place={place} places={places} ph={ph} />;
             case 'review':
                 return <Store_Route_Review />;
             default:
                 return null;
         }
     };
-    console.log(data)
+    // console.log(data)
     return (
         <View style={styles.container}>
             <View style={styles.a1}>
@@ -76,8 +108,8 @@ function StoreInfoScreen({ navigation, route }) {
                 }
             </View>
             <View style={styles.a2}>
-                <Text style={{ fontSize: 50, textAlign: "center" }}>{data.RSTR_NM }
-                    <Text style={{ fontSize: 30, textAlign: "center", flexWrap :"wrap" }}>{"["+data.BSNS_STATM_BZCND_NM+"]"}</Text>
+                <Text style={{ fontSize: 50, textAlign: "center" }}>{data.RSTR_NM}
+                    <Text style={{ fontSize: 30, textAlign: "center", flexWrap: "wrap" }}>{"[" + data.BSNS_STATM_BZCND_NM + "]"}</Text>
                 </Text>
             </View>
             <View style={styles.a3}>
@@ -89,6 +121,7 @@ function StoreInfoScreen({ navigation, route }) {
                 onIndexChange={setIndex}
                 initialLayout={{ width: layout.width }}
             />
+            <CustomButton />
         </View>
     );
 }

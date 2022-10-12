@@ -28,3 +28,23 @@ export async function sendLoginRequest(email, password) {
     });
     return response.data;
 }
+
+export async function getStoreFavRequest(email) {
+    const response = await axios.get(`${SERVER_URL}/api/account/getFav?email=` + email);
+    return response.data;
+}
+
+export async function addStoreFavRequest(email, storeId) {
+    const response = await axios.post(`${SERVER_URL}/api/account/addFav`, {
+        email: email,
+        rstrId: storeId
+    });
+    return response.data;
+}
+export async function removeStoreFavRequest(email, storeId) {
+    const response = await axios.post(`${SERVER_URL}/api/account/removeFav`, {
+        email: email,
+        rstrId: storeId
+    });
+    return response.data;
+}

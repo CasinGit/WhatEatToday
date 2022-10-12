@@ -108,7 +108,7 @@ router
         });
     })
 
-    .delete("/removeFav", async (req, res) => {
+    .post("/removeFav", async (req, res) => {
         console.log(req.body);
 
         Account.findOneAndUpdate({ email: req.body.email }, { $pull: { bookmark: req.body.rstrId } }, { returnDocument: "after" }).then((result) => {
