@@ -17,6 +17,7 @@ import { RegisterContextProvider } from './context/register-context';
 import CategorySelectScreen from './screens/categorySelect';
 import TestScreen from './screens/testScreen_menu';
 import TestScreen_review from './screens/testScreen';
+import Test_Reservation from './screens/reservationScreen';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -66,6 +67,7 @@ function HomeStackNavigator() {
       <Stack.Screen name='storeInfo' component={StoreInfoScreen} options={{ title: "맛집탐색", presentation: "modal" }} />
       <Stack.Screen name="test2" component={TestScreen_review} />
       <Stack.Screen name="test" component={TestScreen} />
+      <Stack.Screen name="test_reservation" component={Test_Reservation} />
     </Stack.Navigator>
   )
 }
