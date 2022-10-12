@@ -16,13 +16,19 @@ function CategorySelectScreen({ route, navigation }) {
 
     }, [])
 
+    const pressHandle = () => {
+        console.log("카테고리에서 가게 상세 페이지 들어가는곳");
+        //todo navigate params 설정해야함.
+        navigation.navigate("storeInfo");
+    }
+
     return (
         <View style={styles.container}>
             <FlatList data={storeDatas} renderItem={one => {
                 return (
                     <Pressable
                         style={({ pressed }) => pressed ? { opacity: 0.8 } : null}
-                        onPress={() => console.log("Press!")}
+                        onPress={pressHandle}
                     >
                         <Card style={{ width: "98%", margin: 5 }}>
                             <Card.Content>

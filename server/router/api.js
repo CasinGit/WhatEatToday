@@ -89,12 +89,23 @@ router
     .get("/getSearchMenu", async (req, res) => {
         console.log(req.query);
 
-        MENU.find({ MENU_NM: { $regex: req.query.menu } }).lean().then((result) => {
-            res.status(200).json({ result: true, length: result.length, datas: result });
+        // 해당 메뉴가 있는 식당ID 중복 제거하고 불러오기
+        MENU.find({ MENU_NM: { $regex: req.query.menu } }).distinct("RSTR_ID").then((result) => {
+            console.log(result.menu);
+            // 중복 제거한 식당ID 값으로 메뉴 불러오기
+            RSTR.find({ RSTR_ID: result }).populate({
+                path: "getMenu",
+                match: { MENU_NM: { $regex: req.query.menu } },
+                select: "-_id -RSTR_ID MENU_NM",
+            }).populate("rstrImg").lean().then((result) => {
+                console.log(result)
+                res.status(200).json({ result: true, length: result.length, datas: result });
+            })
         }).catch((err) => {
             res.status(501).json({ result: false, message: err });
         });
     })
+
 
     //! 개발 전용 기능
     .get("/getAPI", async (req, res) => {
