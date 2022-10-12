@@ -11,8 +11,6 @@ import RSTR_IMG from '../model/rstr_img.js' // 식당 이미지 정보
 import MENU from '../model/menu.js' // 식당 메뉴 정보
 import MENU_DSCRN from '../model/menu_dscrn.js' // 메뉴 설명 정보
 import FOOD_IMG from '../model/food_img.js' // 음식 이미지 정보
-// import FOOD_IMG from '../data/food_img.js' // 음식 이미지 정보
-// import test from '../data/test.json'
 
 const router = express.Router();
 router
@@ -81,6 +79,17 @@ router
         console.log(req.query);
 
         RSTR.find({ BSNS_STATM_BZCND_NM: req.query.category }).populate("rstrImg").lean().then((result) => {
+            res.status(200).json({ result: true, length: result.length, datas: result });
+        }).catch((err) => {
+            res.status(501).json({ result: false, message: err });
+        });
+    })
+
+    // 메뉴 검색 해서 식당 가져오기
+    .get("/getSearchMenu", async (req, res) => {
+        console.log(req.query);
+
+        MENU.find({ MENU_NM: { $regex: req.query.menu } }).lean().then((result) => {
             res.status(200).json({ result: true, length: result.length, datas: result });
         }).catch((err) => {
             res.status(501).json({ result: false, message: err });
