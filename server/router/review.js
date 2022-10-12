@@ -8,7 +8,7 @@ import dotenv from 'dotenv'; // .env
 dotenv.config(); // .env
 const JWT_SECRET = process.env.JWT_SECRET; // .env + Token
 
-import Account from '../model/account.js';
+import Review from '../model/review.js';
 const __dirname = path.resolve(); // import 환경에서는 __dirname을 만들어줘야함
 
 const router = express.Router();
@@ -17,6 +17,16 @@ router
     .get('/get', (req, res) => {
         console.log(req.query);
 
+    })
+
+    // 리뷰 데이터 등록
+    .post("/writeReview", async (req, res) => {
+        console.log(req.body);
+        Review.create(req.body).then((result) => {
+            return res.status(200).json({ result: true, data: result });
+        }).catch((err) => {
+            return res.status(400).json({ result: false, message: err });
+        })
     })
 
     //! 사용자 토큰 인증 (이후 라우터는 토큰 필요)
