@@ -4,7 +4,7 @@ import { Pressable, View } from "react-native";
 import { Card, Paragraph, Title } from "react-native-paper";
 import { getStoreImageRequest, getStoreInfoRequest } from "../util/store";
 
-function FavoritesStoreCard({ data }) {
+function CategoryStoreCard({ data }) {
     const [storeInfo, setStoreInfo] = useState();
     const [storeImage, setStoreImage] = useState();
     const fouces = useIsFocused();
@@ -63,4 +63,4 @@ function FavoritesStoreCard({ data }) {
     );
 }
 
-export default FavoritesStoreCard;
+export default CategoryStoreCard;
