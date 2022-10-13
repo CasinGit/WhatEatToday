@@ -11,6 +11,32 @@ const JWT_SECRET = process.env.JWT_SECRET; // .env + Token
 import Review from '../model/review.js';
 const __dirname = path.resolve(); // import 환경에서는 __dirname을 만들어줘야함
 
+const imageUpload = multer({
+    storage: multer.diskStorage({
+        destination(req, file, callback) {
+            const filePath = path.join(__dirname, "./public/img");
+            console.log(filePath);
+            if (!fs.existsSync(filePath)) {
+                fs.mkdirSync(filePath, { recursive: true });
+                //? recursive 프로퍼티를 추가하면 중간에 존재하지 않는 디렉토리도 자동으로 생성해줌.
+            }
+            callback(null, filePath);
+        },
+        filename(req, file, callback) {
+            const ext = path.extname(file.originalname);
+            callback(null, path.basename(file.originalname, ext) + Date.now() + ext);
+        },
+    }),
+    fileFilter: function (req, file, callback) {
+        if (file.mimetype.startsWith("image")) {
+            callback(null, true);
+        } else {
+            callback(null, false);
+        }
+    },
+    limits: { fileSize: 10 * 1024 * 1024 }, // 파일 사이즈 제한 (5MB)
+});
+
 const router = express.Router();
 router
     // 리뷰 데이터 요청
@@ -25,14 +51,25 @@ router
     })
 
     // 리뷰 데이터 등록
-    .post("/writeReview", async (req, res) => {
+    .post("/writeReview", imageUpload.single("file"), async (req, res) => {
         console.log(req.body);
+        console.log(req.file);
+        const fileUri = req.file ? `/img/${req.file.filename}` : null;
+        const bodyData = JSON.parse(req.body.data);
 
-        Review.create(req.body).then((result) => {
+        const mergeData = {
+            ...bodyData,
+            img: fileUri
+        };
+
+        console.log(mergeData);
+
+        Review.create(mergeData).then((result) => {
             return res.status(200).json({ result: true, data: result });
         }).catch((err) => {
             return res.status(400).json({ result: false, message: err });
         })
+        // return res.status(200).json({ result: true });
     })
 
     //! 사용자 토큰 인증 (이후 라우터는 토큰 필요)

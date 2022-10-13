@@ -1,6 +1,6 @@
 import { FlatList, Image, ScrollView, Text, View } from "react-native";
 import { Card, Paragraph, Title } from "react-native-paper";
-// import StarRating from 'react-native-star-rating-widget';
+import { SERVER_URL } from '@env';
 
 function StoreReviewRoute({ reviews }) {
     // console.log("reviews", reviews);
@@ -13,7 +13,7 @@ function StoreReviewRoute({ reviews }) {
                         <Card style={{ margin: 5 }}>
                             <Card.Content>
                                 {item.img &&
-                                    <Card.Cover source={{ uri: item.img }} />
+                                    <Card.Cover source={{ uri: `${SERVER_URL}${item.img}` }} />
                                 }
                                 <Paragraph>
                                     평점: {item.score} / 작성자: {item.email}

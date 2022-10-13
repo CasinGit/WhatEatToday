@@ -22,6 +22,15 @@ function HistoryCard({ route, data }) {
         }
     }, [])
 
+    useEffect(() => {
+        // 리뷰가 등록되어 있는 이용내역이라면 리뷰 남기기 버튼 비활성화
+        if (data.review) {
+            setDisable(true);
+        } else {
+            setDisable(false);
+        }
+    }, [data.review])
+
     return (
         <Card style={{ margin: 5 }}>
             <Card.Content>
@@ -40,7 +49,7 @@ function HistoryCard({ route, data }) {
                     <Button
                         title="리뷰 남기기"
                         disabled={disable}
-                        onPress={() => navigation.navigate("writeReview", data.RSTR_ID)}
+                        onPress={() => navigation.navigate("writeReview", { RSTR_ID: data.RSTR_ID, _ID: data._id })}
                     />
 
                 </View>
