@@ -14,14 +14,20 @@ const __dirname = path.resolve(); // import 환경에서는 __dirname을 만들�
 const router = express.Router();
 router
     // 리뷰 데이터 요청
-    .get('/get', (req, res) => {
-        console.log(req.query);
+    .get('/getReviews', (req, res) => {
+        console.log("리뷰 데이터 요청", req.query);
 
+        Review.find({ RSTR_ID: req.query.rstrId }).then((result) => {
+            return res.status(200).json({ result: true, datas: result });
+        }).catch((err) => {
+            return res.status(400).json({ result: false, message: err });
+        })
     })
 
     // 리뷰 데이터 등록
     .post("/writeReview", async (req, res) => {
         console.log(req.body);
+
         Review.create(req.body).then((result) => {
             return res.status(200).json({ result: true, data: result });
         }).catch((err) => {

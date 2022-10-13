@@ -112,7 +112,6 @@ function RootNavigator() {
 }
 
 export default function App() {
-  console.log(process.env.REACT_APP_SERVER_URL);
 
   return (
     <>
