@@ -1,3 +1,4 @@
+import { useIsFocused } from "@react-navigation/native";
 import { useContext, useEffect, useState } from "react";
 import { StyleSheet, View, Pressable, FlatList, Text } from "react-native";
 import { Card, Title, Paragraph } from 'react-native-paper';
@@ -8,38 +9,17 @@ import { getStoreImageRequest, getStoreInfoRequest } from "../util/store";
 
 function FavoritesStore() {
     const [favStore, setFavStore] = useState();
-    const [favStoreImage, setFavStoreImage] = useState();
-
+    const fouces = useIsFocused();
     const ctx = useContext(AppContext);
 
     useEffect(() => {
         !async function () {
             const favData = await getStoreFavRequest(ctx.auth.email);
-            // console.log(favData);
+            console.log(favData);
+            
             setFavStore(favData.datas);
-            // const storeData = await getStoreInfoRequest();
-            // let storeImage = [];
-            // favData.datas.forEach(async(elm)=>{
-            //     const image = await getStoreImageRequest(elm);
-            //     storeImage.push(image);
-            //     console.log(storeImage[0].datas);
-            //     setFavStoreImage(storeImage[0].datas)
-            //     // console.log(favStoreImage);
-            // });
-
-            // let result = [];
-            // storeData.datas.forEach((one)=>{
-            //     favData.datas.forEach((two)=>{
-            //         if(one.RSTR_ID == two){
-            //             return result.push(one);
-            //         }
-            //     })
-            // });
-            // setFavStore(result);
-            // console.log(result)
-            // setFavStore(favData);
         }()
-    }, [])
+    }, [fouces]);
 
     return (
         <View style={styles.container}>
