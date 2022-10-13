@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { View, Text, StyleSheet, KeyboardAvoidingView, Pressable, Button } from "react-native";
+import { View, Text, StyleSheet, KeyboardAvoidingView, Pressable, Button, ScrollView } from "react-native";
 import { format } from "date-fns";
 import ko from "date-fns/esm/locale/ko/index.js"
 import { Calendar } from 'react-native-calendars';
@@ -56,10 +56,10 @@ function ReservationScreen({route}) {
     const [visible, setVisible] = useState(false); // 모달 노출 여부
 
     // 날짜 선택 버튼 클릭시 실행
-    const onPressDate = () => {
-        setMode("date"); // 모달 유형 date로 변경
-        setVisible(true); // modal open
-    }
+    // const onPressDate = () => {
+    //     setMode("date"); // 모달 유형 date로 변경
+    //     setVisible(true); // modal open
+    // }
 
     // 시간 선택 버튼 클릭시 실행
     const onPressTime = () => {

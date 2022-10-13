@@ -2,18 +2,18 @@ import mongoose from 'mongoose';
 
 let reservationSchema = new mongoose.Schema({
     RSTR_ID: { // 가게 ID
+        type: Number,
+        required: true,
+    },
+    email: { // 예약자 이메일
         type: String,
         required: true,
     },
-    reserveEmail: { // 예약자 이메일
+    date: { // 예약 방문 날짜
         type: String,
         required: true,
     },
-    reserveDate: { // 예약 방문 날짜
-        type: Date,
-        required: true,
-    },
-    reserveTime: { // 예약 방문 시간
+    time: { // 예약 방문 시간
         type: String,
         required: true,
     },

@@ -9,34 +9,6 @@ dotenv.config(); // .env
 const JWT_SECRET = process.env.JWT_SECRET; // .env + Token
 
 import Account from '../model/account.js';
-const __dirname = path.resolve(); // import 환경에서는 __dirname을 만들어줘야함
-
-let logon = "Anonymous";
-const avatarUpload = multer({
-    storage: multer.diskStorage({
-        destination(req, file, callback) {
-            const filePath = path.join(__dirname, "./public/img/avatar", logon);
-            console.log(filePath);
-            if (!fs.existsSync(filePath)) {
-                fs.mkdirSync(filePath, { recursive: true });
-                //? recursive 프로퍼티를 추가하면 중간에 존재하지 않는 디렉토리도 자동으로 생성해줌.
-            }
-            callback(null, filePath);
-        },
-        filename(req, file, callback) {
-            const ext = path.extname(file.originalname);
-            callback(null, path.basename(file.originalname, ext) + Date.now() + ext);
-        },
-    }),
-    fileFilter: function (req, file, callback) {
-        if (file.mimetype.startsWith("image")) {
-            callback(null, true);
-        } else {
-            callback(null, false);
-        }
-    },
-    limits: { fileSize: 10 * 1024 * 1024 }, // 파일 사이즈 제한 (5MB)
-});
 
 const router = express.Router();
 router

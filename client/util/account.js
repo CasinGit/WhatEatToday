@@ -1,6 +1,9 @@
 import axios from "axios";
+import { SERVER_URL } from '@env';
 
-const SERVER_URL = "http://192.168.4.13:8080";
+
+// const SERVER_URL = "http://192.168.4.13:8080";
+// const SERVER_URL = "http://192.168.4.12:8080";
 // const SERVER_URL = "http://192.168.0.18:8080"; // 개발용 URL
 
 export async function sendConsumerRegisterRequest(email, password, ph) {
