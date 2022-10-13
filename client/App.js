@@ -15,11 +15,12 @@ import StoreInfoScreen from './screens/storeinfoscreen';
 import StoreSearch from './components/StoreSearch';
 import { RegisterContextProvider } from './context/register-context';
 import CategorySelectScreen from './screens/categorySelect';
+import FavoritesStore from './screens/favoritesStore';
 import TestScreen from './screens/testScreen_menu';
 import TestScreen_review from './screens/testScreen';
-import FavoritesStore from './screens/favoritesStore';
 import Test_Reservation from './screens/reservationScreen';
 import Test_ReservationConfirm from './screens/reservationConfirmSreen';
+import Test_CalendarAgendaScreen from './screens/calendarAgendaScreen';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -66,12 +67,13 @@ function SearchStackNavigator() {
 function HomeStackNavigator() {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="test_reservation" component={Test_Reservation} />
       <Stack.Screen name='home' component={HomeScreen} options={{ title: "맛집탐색" }} />
       <Stack.Screen name='storeInfo' component={StoreInfoScreen} options={{ title: "맛집탐색", presentation: "modal" }} />
       {/* ///////////////////////////////////////////////////////////////////////// */}
-      <Stack.Screen name="Test_ReservationConfirm" component={Test_ReservationConfirm} />
-      <Stack.Screen name="test2" component={TestScreen_review} />
+      <Stack.Screen name='test_Agenda' component={Test_CalendarAgendaScreen} />
+      <Stack.Screen name="test_reservation" component={Test_Reservation} />
+      <Stack.Screen name="test_ReservationConfirm" component={Test_ReservationConfirm} />
+      <Stack.Screen name="test_review" component={TestScreen_review} />
       <Stack.Screen name="test" component={TestScreen} />
     </Stack.Navigator>
   )

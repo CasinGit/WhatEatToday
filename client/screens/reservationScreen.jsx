@@ -89,7 +89,7 @@ function ReservationScreen() {
                         markedDates={markedSelectedDates}
                         minDate={dateString}
                         theme={{
-                            selectedDayBackgroundColor: '#009688',
+                            selectedDayBackgroundColor: '#ff3300',
                             arrowColor: '#009688',
                             dotColor: '#009688',
                             todayTextColor: '#009688',
@@ -113,13 +113,13 @@ function ReservationScreen() {
                 <DateTimePickerModal
                     isVisible={visible}
                     mode={mode}
+
                     onConfirm={onConfirm}
                     onCancel={onCancel}
                     date={date} />
 
                 <View style={{ alignItems: "center" }}>
                     <Text style={{ padding: 5 }}>선택된 예약날짜 및 시간 </Text>
-                    <Text>{format(new Date(date), "PPP", { locale: ko })}</Text>
                     <Text>{format(new Date(selectedDate), "PPP", { locale: ko })}</Text>
                     <Text>{format(new Date(date), "p", { locale: ko })}</Text>
                 </View>
