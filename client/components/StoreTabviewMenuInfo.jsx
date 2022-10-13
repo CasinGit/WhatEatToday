@@ -1,12 +1,15 @@
 import { Image, StyleSheet, Text, View } from "react-native";
-import menu_defaultImage from "../assets/menu_defaultImage.png";
 
 function StoreTabviewMenuInfo({ item }) {
-    // console.log(item)foodImg
+    // console.log(item, "이걸봐라")
     return (
         <View style={styles.outerContainer}>
             <View style={styles.innerContainer}>
-                <Image resizeMode="contain" style={styles.image} source={item.foodImg ? { uri: item.foodImg } : menu_defaultImage} />
+                {item.foodImg?.FOOD_IMG_URL ?
+                    <Image resizeMode="contain" style={styles.image} source={{ uri: item.foodImg.FOOD_IMG_URL }} />
+                    :
+                    <Image resizeMode="contain" style={styles.image} source={require("../assets/menu_defaultImage.png")} />
+                }
                 <View style={styles.aa}>
                     <Text style={{ fontSize: 30, color: "black", flexWrap: "wrap" }}>{item.MENU_NM}</Text>
                     <Text style={{ fontSize: 26, color: "black" }}>{item.MENU_PRICE}원</Text>

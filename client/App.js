@@ -73,8 +73,8 @@ function HomeStackNavigator() {
       <Stack.Screen name='home' component={HomeScreen} options={{ title: "맛집탐색" }} />
       <Stack.Screen name='storeInfo' component={StoreInfoScreen} options={{ title: "맛집탐색", presentation: "modal" }} />
       {/* ///////////////////////////////////////////////////////////////////////// */}
-      <Stack.Screen name="test_reservation" component={Test_Reservation} />
-      <Stack.Screen name="Test_ReservationConfirm" component={Test_ReservationConfirm} />
+      <Stack.Screen name="test_reservation" component={Test_Reservation} options={{title: "예약하기"}}/>
+      <Stack.Screen name="Test_ReservationConfirm" component={Test_ReservationConfirm} options={{title: "예약완료"}} />
       <Stack.Screen name="test2" component={TestScreen_review} />
       <Stack.Screen name="test" component={TestScreen} />
     </Stack.Navigator>

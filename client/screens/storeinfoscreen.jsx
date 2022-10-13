@@ -1,7 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { Image, StyleSheet, Text, useWindowDimensions, View } from "react-native";
 import { TabView } from "react-native-tab-view"
-import DefaultImage from "../assets/store_defaultImage.png";
 import Store_Route_Menu from "../components/Store_route_menu";
 import Store_Route_Info from "../components/Store_route_info";
 import Store_Route_Review from "../components/Store_route_review";
@@ -10,7 +9,6 @@ import IconButton from "../components/IconButton";
 import { addStoreFavRequest, getStoreFavRequest, removeStoreFavRequest } from "../util/account";
 import { AppContext } from "../context/app-context";
 import CustomButton from "../components/CustomButton";
-import { useNavigation } from "@react-navigation/native";
 
 // const renderScene = SceneMap({
 //     menu: Store_Route_Menu,
@@ -47,6 +45,10 @@ function StoreInfoScreen({ navigation, route }) {
         // alert(marking ?  "즐겨찾기에 삭제되었습니다." : "즐겨찾기에 추가되었습니다.");
     };
 
+    const reservationHandle = () => {
+        navigation.navigate("test_reservation", {datas : data});
+    };
+
     useEffect(() => {
         console.log("useEffect => [data.RSTR_ID]");
         !async function () {
@@ -80,7 +82,7 @@ function StoreInfoScreen({ navigation, route }) {
                 const image = await getStoreImageRequest(data.RSTR_ID);
                 const menu = await getStoreMenuRequest(data.RSTR_ID);
                 const oper = await getStoreOperRequest(data.RSTR_ID);
-
+                
                 // console.log(image.datas)
                 // console.log(menu.datas, "menu")
                 // console.log(oper, "oper")
@@ -108,14 +110,13 @@ function StoreInfoScreen({ navigation, route }) {
                 return null;
         }
     };
-    // console.log(data)
+    console.log("===>" , storeImage)
     return (
         <View style={styles.container}>
             <View style={styles.a1}>
-                {storeImage ?
+                {storeImage !== undefined ?
                     <Image source={{ uri: storeImage }} style={{ flex: 1 }} />
-                    :
-                    <Image source={DefaultImage} style={{ flex: 1, width: "100%", height: "100%" }} resizeMode="center" />
+                    : <Image source={require("../assets/store_defaultImage.png")} style={{ flex: 1, width: "100%", height: "100%" }} />
                 }
             </View>
             <View style={styles.a2}>
@@ -132,7 +133,7 @@ function StoreInfoScreen({ navigation, route }) {
                 onIndexChange={setIndex}
                 initialLayout={{ width: layout.width }}
             />
-            <CustomButton />
+            <CustomButton reservationHandle={reservationHandle}/>
         </View>
     );
 }
@@ -150,7 +151,6 @@ const styles = StyleSheet.create({
     a2: {
         backgroundColor: "white",
         marginTop: 8,
-        // height: "8%"
     },
     a3: {
         backgroundColor: "white",
