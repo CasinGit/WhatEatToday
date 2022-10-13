@@ -5,6 +5,7 @@ import ko from "date-fns/esm/locale/ko/index.js"
 import { Calendar } from 'react-native-calendars';
 import { TextInput } from "react-native-paper";
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
+import { useNavigation } from "@react-navigation/native";
 
 const posts = [
     {
@@ -21,9 +22,10 @@ const posts = [
     }
 ];
 
-function ReservationScreen() {
+function ReservationScreen({route}) {
     // const [selectedStartDate, setSelectedStartDate] = useState(null);
-
+    const RSTR_NM = route.params.datas.RSTR_NM;
+    const BSNS_STATM_BZCND_NM = route.params.datas.BSNS_STATM_BZCND_NM;
     //#region 달력 날짜 선택 섹션
     const markedDates = posts.reduce((acc, current) => {
         const formattedDate = format(new Date(current.date), 'yyyy-MM-dd');
@@ -74,12 +76,23 @@ function ReservationScreen() {
         setVisible(false); // modal close
     }
     //#endregion
+    const navigation = useNavigation();
+    const [person, setPerson] = useState();
+    const [texts, setTexts] = useState();
+
+    const pressHandle = () => {
+        const dates = format(new Date(selectedDate), "PPP", { locale: ko });
+        const times = format(new Date(date), "p", { locale: ko });
+        navigation.navigate("Test_ReservationConfirm", {date : dates, time : times, person : person, store : RSTR_NM, storeType : BSNS_STATM_BZCND_NM, text: texts});
+    };
 
     return (
-        <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={{ flex: 1 }}>
+        <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={{ flex: 1, backgroundColor:"white" }}>
             <View>
-                <View>
-                    <Text style={styles.container_store_name}>식당 이름</Text>
+                <View style={{alignItems:"center", backgroundColor : "white"}}>
+                    <Text style={styles.container_store_name}>{RSTR_NM}
+                        <Text style={{ fontSize: 20, textAlign: "center", flexWrap: "wrap" }}>{"[" + BSNS_STATM_BZCND_NM + "]"}</Text>
+                    </Text>
                 </View>
 
                 <View>
@@ -96,42 +109,37 @@ function ReservationScreen() {
                         }}
                         onDayPress={(day) => {
                             setSelectedDate(day.dateString);
+                            onPressTime()
                             console.log(day)
                         }} />
                 </View>
-
                 {/* 날짜 선택 영역 (현재 사용 안함) */}
                 {/* <Pressable onPress={onPressDate}>
                     <Text>{format(new Date(date), "PPP", { locale: ko })}</Text>
                 </Pressable> */}
-
                 {/* 시간 선택 영역 */}
-                <View style={{ alignItems: "center" }}>
-                    <Button title="예약 방문 시간 선택" onPress={onPressTime} />
-                </View>
-
                 <DateTimePickerModal
                     isVisible={visible}
                     mode={mode}
                     onConfirm={onConfirm}
                     onCancel={onCancel}
                     date={date} />
-
-                <View style={{ alignItems: "center" }}>
-                    <Text style={{ padding: 5 }}>선택된 예약날짜 및 시간 </Text>
-                    <Text>{format(new Date(date), "PPP", { locale: ko })}</Text>
-                    <Text>{format(new Date(selectedDate), "PPP", { locale: ko })}</Text>
-                    <Text>{format(new Date(date), "p", { locale: ko })}</Text>
+                <View style={{}}>
+                    <Text style={{ padding: 5, fontSize:35 }}>예약일시 :
+                        <Text style={{fontSize:25}}> {format(new Date(selectedDate), "PPP", { locale: ko })}</Text>
+                        <Text style={{fontSize:25}}>{"("+format(new Date(date), "p", { locale: ko })+")"}</Text>
+                    </Text>
                 </View>
-
                 <View>
-                    <TextInput placeholder="예약인원을 입력해주세요" keyboardType="number-pad" />
+                    <TextInput  style={{backgroundColor:"white"}} placeholder="예약인원(Click!)" keyboardType="number-pad" onChangeText={setPerson}/>
                 </View>
-
                 <View>
                     <Text style={styles.text_global}>요청사항</Text>
-                    <TextInput style={styles.input_req} multiline={true} maxLength={600} />
+                    <TextInput style={styles.input_req} multiline={true} maxLength={600} onChangeText={setTexts} />
                 </View>
+            </View>
+            <View style={{marginTop : 20}}>
+                <Button title="예약하기" onPress={pressHandle}/>
             </View>
         </KeyboardAvoidingView>
     );
@@ -144,12 +152,12 @@ const styles = StyleSheet.create({
         borderBottomColor: '#e0e0e0',
     },
     text_global: {
-        padding: 5
+        padding: 5,
+        fontSize : 30
     },
     container_store_name: {
-        fontSize: 25,
+        fontSize: 30,
         padding: 10,
-
     },
     input_req: {
         backgroundColor: "white",
@@ -158,7 +166,6 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         padding: 2,
         fontSize: 13,
-
     },
     center: {
         position: 'absolute',
