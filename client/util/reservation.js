@@ -7,7 +7,7 @@ export async function getReservationHistory(email) {
 }
 
 export async function createReservationRequest(storeId, email, date, time, person, message) {
-    const response = await axios.post(`${SERVER_URL}/api/reservation/addReservation `, {
+    const response = await axios.post(`${SERVER_URL}/api/reservation/addReservation`, {
         RSTR_ID: storeId,
         email: email,
         date: date,
@@ -15,5 +15,10 @@ export async function createReservationRequest(storeId, email, date, time, perso
         num: person,
         message: message
     });
+    return response.data;
+}
+
+export async function writeReviewData(_id) {
+    const response = await axios.patch(`${SERVER_URL}/api/reservation/writeReview?id=` + _id);
     return response.data;
 }

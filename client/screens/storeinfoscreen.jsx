@@ -4,9 +4,10 @@ import { TabView } from "react-native-tab-view"
 import Store_Route_Menu from "../components/Store_route_menu";
 import Store_Route_Info from "../components/Store_route_info";
 import Store_Route_Review from "../components/Store_route_review";
-import { getStoreImageRequest, getStoreMenuRequest, getStoreOperRequest, getStoreReviews } from "../util/store";
-import IconButton from "../components/IconButton";
+import { getStoreImageRequest, getStoreMenuRequest, getStoreOperRequest } from "../util/store";
 import { addStoreFavRequest, getStoreFavRequest, removeStoreFavRequest } from "../util/account";
+import { getStoreReviews } from "../util/review";
+import IconButton from "../components/IconButton";
 import { AppContext } from "../context/app-context";
 import CustomButton from "../components/CustomButton";
 
@@ -46,7 +47,7 @@ function StoreInfoScreen({ navigation, route }) {
     };
 
     const reservationHandle = () => {
-        navigation.navigate("test_reservation", {datas : data});
+        navigation.navigate("test_reservation", { datas: data });
     };
 
     useEffect(() => {
@@ -82,7 +83,7 @@ function StoreInfoScreen({ navigation, route }) {
                 const image = await getStoreImageRequest(data.RSTR_ID);
                 const menu = await getStoreMenuRequest(data.RSTR_ID);
                 const oper = await getStoreOperRequest(data.RSTR_ID);
-                
+
                 // console.log(image.datas)
                 // console.log(menu.datas, "menu")
                 // console.log(oper, "oper")
@@ -110,7 +111,7 @@ function StoreInfoScreen({ navigation, route }) {
                 return null;
         }
     };
-    console.log("===>" , storeImage)
+    console.log("===>", storeImage)
     return (
         <View style={styles.container}>
             <View style={styles.a1}>
@@ -133,7 +134,7 @@ function StoreInfoScreen({ navigation, route }) {
                 onIndexChange={setIndex}
                 initialLayout={{ width: layout.width }}
             />
-            <CustomButton reservationHandle={reservationHandle}/>
+            <CustomButton reservationHandle={reservationHandle} />
         </View>
     );
 }
