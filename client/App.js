@@ -20,6 +20,8 @@ import TestScreen_review from './screens/testScreen';
 import FavoritesStore from './screens/favoritesStore';
 import Test_Reservation from './screens/reservationScreen';
 import Test_ReservationConfirm from './screens/reservationConfirmSreen';
+import ReservationHistoryScreen from './screens/reservationHistoryScreen';
+import WriteStoreReview from './screens/writeStoreReview';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -39,6 +41,8 @@ function MemberStackNavigator() {
     <Stack.Navigator>
       <Stack.Screen name="info" component={InfoScreen} options={{ title: "마이페이지" }} />
       <Stack.Screen name="favorites" component={FavoritesStore} options={{ title: "즐겨찾기", presentation: "modal" }} />
+      <Stack.Screen name="history" component={ReservationHistoryScreen} options={{ title: "이용내역", presentation: "modal" }} />
+      <Stack.Screen name="writeReview" component={WriteStoreReview} options={{ title: "리뷰 작성", presentation: "modal" }} />
     </Stack.Navigator>
   )
 }

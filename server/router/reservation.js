@@ -41,7 +41,7 @@ const avatarUpload = multer({
 
 const router = express.Router();
 router
-    // 예약 가져오기
+    // 예약 가져오기 (가게 예약 리스트)
     .get("/getReservation", async (req, res) => {
         console.log(req.query);
 
@@ -52,12 +52,23 @@ router
         })
     })
 
-    // 예약 등록
+    // 예약 등록    
     .post("/addReservation", async (req, res) => {
         console.log(req.body);
 
         Reservation.create(req.body).then((result) => {
             return res.status(200).json({ result: true, data: result });
+        }).catch((err) => {
+            return res.status(400).json({ result: false, message: err });
+        })
+    })
+
+    // 사용자 이용 내역 가져오기 (사용자 예약 리스트)
+    .get("/getReservationHistory", (req, res) => {
+        console.log(req.query);
+
+        Reservation.find({ email: req.query.email }).populate("getRstr").lean().then((result) => {
+            return res.status(200).json({ result: true, datas: result });
         }).catch((err) => {
             return res.status(400).json({ result: false, message: err });
         })

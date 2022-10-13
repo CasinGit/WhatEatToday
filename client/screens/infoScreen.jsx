@@ -41,7 +41,7 @@ function consumerInfoPage(data) {
     const navigation = useNavigation();
 
     const consumerHistoryPressHandle = () => {
-
+        navigation.navigate("history", data.email);
     };
     const consumerCalenderPressHandle = () => {
 
