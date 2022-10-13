@@ -23,7 +23,19 @@ let reservationSchema = new mongoose.Schema({
     },
     message: { // 사장님에게 남길 메세지
         type: String,
-    }
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now
+    },
 })
+
+reservationSchema.virtual("getRstr", {
+    localField: "RSTR_ID", // 비교할 로컬 필드(Col)
+    ref: "rstr", // 비교해야하는 컬렉션(Table)
+    foreignField: "RSTR_ID", // 비교해야하는 컬렉션의 필드
+    justOne: true // 한개의 행만 받아와야 할때
+});
+
 
 export default mongoose.model('Reservation', reservationSchema);

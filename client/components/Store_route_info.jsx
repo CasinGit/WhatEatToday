@@ -32,17 +32,17 @@ const styles = StyleSheet.create({
         marginTop: 20
     },
     text1: {
-        fontSize: 25,
+        fontSize: 16,
         textAlign: "center",
         marginTop: 20
     },
     text2: {
-        fontSize: 25,
+        fontSize: 16,
         textAlign: "center",
         marginTop: 20
     },
     text3: {
-        fontSize: 25,
+        fontSize: 18,
         textAlign: "center",
         marginTop: 20
     }
