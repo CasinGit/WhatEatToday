@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { View, Text, StyleSheet, KeyboardAvoidingView, Pressable, Button } from "react-native";
+import { View, Text, StyleSheet, KeyboardAvoidingView, Pressable, Button, ScrollView } from "react-native";
 import { format } from "date-fns";
 import ko from "date-fns/esm/locale/ko/index.js"
 import { Calendar } from 'react-native-calendars';
@@ -54,10 +54,10 @@ function ReservationScreen() {
     const [visible, setVisible] = useState(false); // 모달 노출 여부
 
     // 날짜 선택 버튼 클릭시 실행
-    const onPressDate = () => {
-        setMode("date"); // 모달 유형 date로 변경
-        setVisible(true); // modal open
-    }
+    // const onPressDate = () => {
+    //     setMode("date"); // 모달 유형 date로 변경
+    //     setVisible(true); // modal open
+    // }
 
     // 시간 선택 버튼 클릭시 실행
     const onPressTime = () => {
@@ -77,7 +77,7 @@ function ReservationScreen() {
 
     return (
         <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={{ flex: 1 }}>
-            <View>
+            <ScrollView>
                 <View>
                     <Text style={styles.container_store_name}>식당 이름</Text>
                 </View>
@@ -119,7 +119,6 @@ function ReservationScreen() {
 
                 <View style={{ alignItems: "center" }}>
                     <Text style={{ padding: 5 }}>선택된 예약날짜 및 시간 </Text>
-                    <Text>{format(new Date(date), "PPP", { locale: ko })}</Text>
                     <Text>{format(new Date(selectedDate), "PPP", { locale: ko })}</Text>
                     <Text>{format(new Date(date), "p", { locale: ko })}</Text>
                 </View>
@@ -132,7 +131,9 @@ function ReservationScreen() {
                     <Text style={styles.text_global}>요청사항</Text>
                     <TextInput style={styles.input_req} multiline={true} maxLength={600} />
                 </View>
-            </View>
+
+                <Button title="예약하기" />
+            </ScrollView>
         </KeyboardAvoidingView>
     );
 }

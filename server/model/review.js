@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 
 let reviewSchema = new mongoose.Schema({
     RSTR_ID: { // 가게 ID
-        type: String,
+        type: Number,
         required: true,
     },
     email: { // 리뷰 등록자 이메일

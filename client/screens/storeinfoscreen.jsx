@@ -4,7 +4,7 @@ import { TabView } from "react-native-tab-view"
 import Store_Route_Menu from "../components/Store_route_menu";
 import Store_Route_Info from "../components/Store_route_info";
 import Store_Route_Review from "../components/Store_route_review";
-import { getStoreImageRequest, getStoreMenuRequest, getStoreOperRequest } from "../util/store";
+import { getStoreImageRequest, getStoreMenuRequest, getStoreOperRequest, getStoreReviews } from "../util/store";
 import IconButton from "../components/IconButton";
 import { addStoreFavRequest, getStoreFavRequest, removeStoreFavRequest } from "../util/account";
 import { AppContext } from "../context/app-context";
@@ -27,6 +27,7 @@ function StoreInfoScreen({ navigation, route }) {
     const [storeImage, setStoreImage] = useState();
     const [storeMenu, setStoreMenu] = useState();
     const [storeOper, setStoreOper] = useState();
+    const [storeReviews, setStoreReviews] = useState();
 
     const [routes] = useState([
         { key: "menu", title: "메뉴" },
@@ -45,16 +46,25 @@ function StoreInfoScreen({ navigation, route }) {
     };
 
     useEffect(() => {
+        console.log("useEffect => [data.RSTR_ID]");
         !async function () {
             const favData = await getStoreFavRequest(ctx.auth.email);
-            console.log(favData.datas);
-            console.log(favData.datas.includes(data.RSTR_ID))
+            // console.log(favData.datas); // 해당 계정의 북마크 가져오기
+            // console.log(favData.datas.includes(data.RSTR_ID)) // 북마크에 등록되어 있는지 확인
             favData.datas.includes(data.RSTR_ID) ? setMarking(true) : setMarking(false)
+
+            const reviewDatas = await getStoreReviews(data.RSTR_ID);
+            if (reviewDatas.datas) {
+                setStoreReviews(reviewDatas.datas);
+                console.log("리뷰 데이터 세팅완료");
+            } else {
+                console.log("리뷰 데이터가 없음!");
+            }
         }()
     }, [data.RSTR_ID]);
 
     useEffect(() => {
-        // console.log(data.RSTR_ID)
+        console.log("useEffect => [marking]");
 
         !async function () {
             console.log(ctx.auth, "auth")
@@ -74,7 +84,7 @@ function StoreInfoScreen({ navigation, route }) {
                 // console.log(oper, "oper")
                 setStoreMenu(menu);
                 setStoreOper(oper);
-                setStoreImage(image.datas[0].RSTR_IMG_URL ? image.datas[0].RSTR_IMG_URL : null);
+                setStoreImage(image.datas[0]?.RSTR_IMG_URL ? image.datas[0].RSTR_IMG_URL : null);
             } catch (e) {
                 console.log("error", e)
             }
@@ -91,7 +101,7 @@ function StoreInfoScreen({ navigation, route }) {
             case 'info':
                 return <Store_Route_Info data={storeOper} place={place} places={places} ph={ph} />;
             case 'review':
-                return <Store_Route_Review />;
+                return <Store_Route_Review reviews={storeReviews} />;
             default:
                 return null;
         }
