@@ -118,21 +118,21 @@ function ReservationScreen() {
                     onCancel={onCancel}
                     date={date} />
 
-                <View style={{ alignItems: "center" }}>
-                    <Text style={{ padding: 5 }}>선택된 예약날짜 및 시간 </Text>
-                    <Text>{format(new Date(selectedDate), "PPP", { locale: ko })}</Text>
-                    <Text>{format(new Date(date), "p", { locale: ko })}</Text>
+                <View style={{}}>
+                    <Text style={{ padding: 5, fontSize: 35 }}>예약일시 :
+                        <Text style={{ fontSize: 25 }}> {format(new Date(selectedDate), "PPP", { locale: ko })}</Text>
+                        <Text style={{ fontSize: 25 }}>{"(" + format(new Date(date), "p", { locale: ko }) + ")"}</Text>
+                    </Text>
                 </View>
+                    <View>
+                        <TextInput placeholder="예약인원을 입력해주세요" keyboardType="number-pad" />
+                    </View>
 
-                <View>
-                    <TextInput placeholder="예약인원을 입력해주세요" keyboardType="number-pad" />
+                    <View>
+                        <Text style={styles.text_global}>요청사항</Text>
+                        <TextInput style={styles.input_req} multiline={true} maxLength={600} />
+                    </View>
                 </View>
-
-                <View>
-                    <Text style={styles.text_global}>요청사항</Text>
-                    <TextInput style={styles.input_req} multiline={true} maxLength={600} />
-                </View>
-            </View>
         </KeyboardAvoidingView>
     );
 }

@@ -20,7 +20,6 @@ import TestScreen from './screens/testScreen_menu';
 import TestScreen_review from './screens/testScreen';
 import Test_Reservation from './screens/reservationScreen';
 import Test_ReservationConfirm from './screens/reservationConfirmSreen';
-import Test_CalendarAgendaScreen from './screens/calendarAgendaScreen';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -70,11 +69,8 @@ function HomeStackNavigator() {
       <Stack.Screen name='home' component={HomeScreen} options={{ title: "맛집탐색" }} />
       <Stack.Screen name='storeInfo' component={StoreInfoScreen} options={{ title: "맛집탐색", presentation: "modal" }} />
       {/* ///////////////////////////////////////////////////////////////////////// */}
-      <Stack.Screen name='test_Agenda' component={Test_CalendarAgendaScreen} />
       <Stack.Screen name="test_reservation" component={Test_Reservation} />
       <Stack.Screen name="test_ReservationConfirm" component={Test_ReservationConfirm} />
-      <Stack.Screen name="test_review" component={TestScreen_review} />
-      <Stack.Screen name="test" component={TestScreen} />
     </Stack.Navigator>
   )
 }
