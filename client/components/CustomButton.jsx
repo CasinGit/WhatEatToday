@@ -20,6 +20,7 @@ const CustomButton = ({
   animateFrom,
   style,
   iconMode,
+  reservationHandle
 }) => {
   const [isExtended, setIsExtended] = React.useState(false);
 
@@ -27,7 +28,7 @@ const CustomButton = ({
       <AnimatedFAB
         icon={'plus'}
         extended={isExtended}
-        onPress={() => console.log('Pressed')}
+        onPress={reservationHandle}
         visible={visible}
         animateFrom={'right'}
         iconMode={'static'}

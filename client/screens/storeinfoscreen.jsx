@@ -45,6 +45,10 @@ function StoreInfoScreen({ navigation, route }) {
         // alert(marking ?  "즐겨찾기에 삭제되었습니다." : "즐겨찾기에 추가되었습니다.");
     };
 
+    const reservationHandle = () => {
+        navigation.navigate("test_reservation", {datas : data});
+    };
+
     useEffect(() => {
         console.log("useEffect => [data.RSTR_ID]");
         !async function () {
@@ -129,7 +133,7 @@ function StoreInfoScreen({ navigation, route }) {
                 onIndexChange={setIndex}
                 initialLayout={{ width: layout.width }}
             />
-            <CustomButton />
+            <CustomButton reservationHandle={reservationHandle}/>
         </View>
     );
 }
