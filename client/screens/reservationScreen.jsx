@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { View, Text, StyleSheet, KeyboardAvoidingView, Pressable, Button, ScrollView } from "react-native";
 import { format } from "date-fns";
 import ko from "date-fns/esm/locale/ko/index.js"
@@ -6,6 +6,8 @@ import { Calendar } from 'react-native-calendars';
 import { TextInput } from "react-native-paper";
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import { useNavigation } from "@react-navigation/native";
+import { createReservationRequest } from "../util/reservation";
+import { AppContext } from "../context/app-context";
 
 const posts = [
     {
@@ -24,6 +26,7 @@ const posts = [
 
 function ReservationScreen({route}) {
     // const [selectedStartDate, setSelectedStartDate] = useState(null);
+    const storeId = route.params.datas.RSTR_ID
     const RSTR_NM = route.params.datas.RSTR_NM;
     const BSNS_STATM_BZCND_NM = route.params.datas.BSNS_STATM_BZCND_NM;
     //#region 달력 날짜 선택 섹션
@@ -80,9 +83,13 @@ function ReservationScreen({route}) {
     const [person, setPerson] = useState();
     const [texts, setTexts] = useState();
 
-    const pressHandle = () => {
+    const ctx = useContext(AppContext);
+
+    const pressHandle = async() => {
         const dates = format(new Date(selectedDate), "PPP", { locale: ko });
+        const dateDb = new Date(selectedDate).toISOString().split("T")[0];
         const times = format(new Date(date), "p", { locale: ko });
+        await createReservationRequest(storeId, ctx.auth.email, dateDb, times, person, texts);
         navigation.navigate("Test_ReservationConfirm", {date : dates, time : times, person : person, store : RSTR_NM, storeType : BSNS_STATM_BZCND_NM, text: texts});
     };
 
