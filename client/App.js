@@ -19,6 +19,7 @@ import TestScreen from './screens/testScreen_menu';
 import TestScreen_review from './screens/testScreen';
 import FavoritesStore from './screens/favoritesStore';
 import Test_Reservation from './screens/reservationScreen';
+import Test_ReservationConfirm from './screens/reservationConfirmSreen';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -37,7 +38,7 @@ function MemberStackNavigator() {
   return (
     <Stack.Navigator>
       <Stack.Screen name="info" component={InfoScreen} options={{ title: "마이페이지" }} />
-      <Stack.Screen name="favorites" component={FavoritesStore} options={{title: "즐겨찾기", presentation: "modal"}}/>
+      <Stack.Screen name="favorites" component={FavoritesStore} options={{ title: "즐겨찾기", presentation: "modal" }} />
     </Stack.Navigator>
   )
 }
@@ -65,11 +66,13 @@ function SearchStackNavigator() {
 function HomeStackNavigator() {
   return (
     <Stack.Navigator>
+      <Stack.Screen name="test_reservation" component={Test_Reservation} />
       <Stack.Screen name='home' component={HomeScreen} options={{ title: "맛집탐색" }} />
       <Stack.Screen name='storeInfo' component={StoreInfoScreen} options={{ title: "맛집탐색", presentation: "modal" }} />
+      {/* ///////////////////////////////////////////////////////////////////////// */}
+      <Stack.Screen name="Test_ReservationConfirm" component={Test_ReservationConfirm} />
       <Stack.Screen name="test2" component={TestScreen_review} />
       <Stack.Screen name="test" component={TestScreen} />
-      <Stack.Screen name="test_reservation" component={Test_Reservation} />
     </Stack.Navigator>
   )
 }

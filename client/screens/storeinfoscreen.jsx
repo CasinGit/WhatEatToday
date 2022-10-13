@@ -45,7 +45,7 @@ function StoreInfoScreen({ navigation, route }) {
     };
 
     useEffect(() => {
-        !async function() {
+        !async function () {
             const favData = await getStoreFavRequest(ctx.auth.email);
             console.log(favData.datas);
             console.log(favData.datas.includes(data.RSTR_ID))
