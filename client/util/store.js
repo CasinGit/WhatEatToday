@@ -24,7 +24,7 @@ export async function getSearchMenu(query) {
     const response = await axios.get(`${SERVER_URL}/api/openApi/getSearchMenu?menu=${query}`);
     return response.data;
 }
-
+ 
 export async function getStoreImageRequest(storeId) {
     const response = await axios.get(`${SERVER_URL}/api/openApi/getRstrImg?rstrId=` + storeId);
     return response.data;

@@ -1,3 +1,4 @@
+import { useNavigation } from "@react-navigation/native";
 import { useContext } from "react";
 import { Button, Image, StyleSheet, Text, View } from "react-native";
 import test_check_image from "../assets/test_Check_green_circle.png";
@@ -16,6 +17,16 @@ function ReservationConfirmScreen({route}) {
     const ctx = useContext(AppContext);
     const userNumber = ctx.auth.ph.slice(-4);
     // console.log(number)
+
+    const navigation = useNavigation();
+    
+    const homeButton = () => {
+        navigation.navigate("home")
+    };
+
+    const historyButton = () => {
+        // navigation.navigate("history")
+    };
 
     return (
         <View style={styles.outerContainer}>
@@ -38,8 +49,8 @@ function ReservationConfirmScreen({route}) {
                 }
             </View>
             <View style={styles.buttonContainer}>
-                <Button title="홈으로"/>
-                <Button title="예약내역"/>
+                <Button title="홈으로" onPress={homeButton}/>
+                <Button title="예약내역" onPress={historyButton}/>
             </View>
         </View>
     );
