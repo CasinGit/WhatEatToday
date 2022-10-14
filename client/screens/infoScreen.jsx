@@ -16,7 +16,7 @@ function sellerInfoPage(data) {
         !async function () {
             const storeData = await getStoreInfoRequest();
             storeData.datas.filter((one) => {
-                if (one.RSTR_ID === data.RSTR_ID) {
+                if (one.RSTR_ID == data.RSTR_ID) {
                     return setDatas(one);
                 }
             })
@@ -29,7 +29,7 @@ function sellerInfoPage(data) {
     const sellerCalenderPressHandle = () => {
         navigation.navigate("sellerCalender", { RSTR_ID: datas.RSTR_ID });
     };
- 
+
     return (
         <View>
             <Text style={{ alignSelf: "center", marginBottom: 20 }}>반가워요! {data.email} 점주님!</Text>

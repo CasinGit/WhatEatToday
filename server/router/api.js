@@ -30,11 +30,11 @@ router
         const filter = ['제과점영업', '분식', '다방', '김밥(도시락)', '기타 휴게음식점', '패스트푸드', '정종/대포집/소주방', '백화점', '기타(편의점)', '철도역구내', '커피숍', '푸드트럭', '아이스크림', '전통찻집', '라이브카페', '외국음식전문점(인도,태국등)'];
 
         RSTR.find({ BSNS_STATM_BZCND_NM: { $nin: filter } }).lean().then((result) => {
-            const cates = new Set();
-            result.forEach((elm) => {
-                if (elm.BSNS_STATM_BZCND_NM) cates.add(elm.BSNS_STATM_BZCND_NM);
-            })
-            console.log(cates);
+            // const cates = new Set();
+            // result.forEach((elm) => {
+            //     if (elm.BSNS_STATM_BZCND_NM) cates.add(elm.BSNS_STATM_BZCND_NM);
+            // })
+            // console.log(cates);
 
             res.status(200).json({ result: true, length: result.length, datas: result });
         }).catch((err) => {

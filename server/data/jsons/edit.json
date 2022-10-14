@@ -1,6 +1,6 @@
-{
-    "datas": [
-        {
+[
+    {
+        "item": {
             "RSTR_ID": 550114,
             "__v": 0,
             "_id": "63482e3f9fd92d1d805a2583",
@@ -11,8 +11,10 @@
             "num": 1,
             "review": true,
             "time": "00:28"
-        },
-        {
+        }
+    },
+    {
+        "item": {
             "RSTR_ID": 550114,
             "__v": 0,
             "_id": "634830bd9fd92d1d805a25eb",
@@ -23,8 +25,10 @@
             "num": 1,
             "review": true,
             "time": "00:38"
-        },
-        {
+        }
+    },
+    {
+        "item": {
             "RSTR_ID": 550114,
             "__v": 0,
             "_id": "6348d59c98fce183ac1130c5",
@@ -34,8 +38,10 @@
             "num": 3,
             "review": true,
             "time": "12:00"
-        },
-        {
+        }
+    },
+    {
+        "item": {
             "RSTR_ID": 550114,
             "__v": 0,
             "_id": "6348f5b698fce183ac113185",
@@ -47,6 +53,58 @@
             "review": true,
             "time": "14:37"
         }
-    ],
-    "result": true
-}
+    },
+    {
+        "item": {
+            "RSTR_ID": 550114,
+            "__v": 0,
+            "_id": "63490be5801206cf50788794",
+            "createdAt": "2022-10-14T07:12:37.049Z",
+            "date": "2022-10-14",
+            "email": "ppp@ppp.com",
+            "message": "테스트",
+            "num": 3,
+            "review": true,
+            "time": "16:11"
+        }
+    },
+    {
+        "item": {
+            "RSTR_ID": 550114,
+            "__v": 0,
+            "_id": "6349243ce5d70467bbe4ff5e",
+            "createdAt": "2022-10-14T08:56:28.853Z",
+            "date": "2022-10-14",
+            "email": "kkig30@naver.com",
+            "num": 1,
+            "review": true,
+            "time": "17:56"
+        }
+    },
+    {
+        "item": {
+            "RSTR_ID": 550114,
+            "__v": 0,
+            "_id": "63493dfab4a79fbc9bb1fd0d",
+            "createdAt": "2022-10-14T10:46:18.681Z",
+            "date": "2022-10-15",
+            "email": "kkig30@gmail.com",
+            "num": 1,
+            "review": false,
+            "time": "19:46"
+        }
+    },
+    {
+        "item": {
+            "RSTR_ID": 550114,
+            "__v": 0,
+            "_id": "63493e35b4a79fbc9bb1fd1d",
+            "createdAt": "2022-10-14T10:47:17.303Z",
+            "date": "2022-10-15",
+            "email": "kkig30@gmail.com",
+            "num": 1,
+            "review": false,
+            "time": "19:47"
+        }
+    }
+]
