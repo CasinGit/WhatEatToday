@@ -29,7 +29,7 @@ function sellerInfoPage(data) {
         // console.log("datas", datas.RSTR_ID);
         navigation.navigate("sellerCalender", { RSTR_ID: datas.RSTR_ID })
     };
-
+ 
     return (
         <View>
             <Text style={{ alignSelf: "center", marginBottom: 20 }}>안녕~ {data.email} (판매자)</Text>

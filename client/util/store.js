@@ -1,7 +1,7 @@
 import axios from "axios";
-import { SERVER_URL } from '@env';
+// import { SERVER_URL } from '@env';
 
-
+const SERVER_URL = "http://118.40.42.217:8080"
 export async function getStoreNameRequest(storeName) {
     const response = await axios.get(`${SERVER_URL}/api/openApi/getRstrNm?rstrNm=` + storeName);
     return response.data;
