@@ -10,6 +10,8 @@ import { getStoreReviews } from "../util/review";
 import IconButton from "../components/IconButton";
 import { AppContext } from "../context/app-context";
 import CustomButton from "../components/CustomButton";
+import Stars from 'react-native-stars';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 function StoreInfoScreen({ navigation, route }) {
     // console.log("StoreInfoScreen!!");
@@ -99,7 +101,7 @@ function StoreInfoScreen({ navigation, route }) {
         });
         console.log("별점 총합:", sumScore);
         console.log("리뷰 갯수:", storeReviews.length);
-        setScoreAverage((sumScore / storeReviews.length).toFixed(2));
+        setScoreAverage((sumScore / storeReviews.length).toFixed(1)*1);
     }, [storeReviews])
 
     const place = route.params.place;
@@ -132,7 +134,16 @@ function StoreInfoScreen({ navigation, route }) {
                 </Text>
             </View>
             <View style={styles.a3}>
-                <Text style={{ fontSize: 20, textAlign: 'center' }}>별점: {scoreAverage}</Text>
+                <Stars
+                    default={scoreAverage}
+                    count={5}
+                    half={true}
+                    // starSize={0}
+                    fullStar={<Icon name={'star'} style={[styles.myStarStyle]} />}
+                    emptyStar={<Icon name={'star-outline'} style={[styles.myStarStyle, styles.myEmptyStarStyle]} />}
+                    halfStar={<Icon name={'star-half-full'} style={[styles.myStarStyle]} />}
+                />
+                    <Text style={{ fontSize: 20, marginTop : 15 }}>{"("+scoreAverage+")"}</Text>
             </View>
             <TabView
                 navigationState={{ index, routes }}
@@ -153,7 +164,7 @@ const styles = StyleSheet.create({
     },
     a1: {
         backgroundColor: "#white",
-        height: "30%"
+        height: 200
     },
     a2: {
         backgroundColor: "white",
@@ -161,8 +172,20 @@ const styles = StyleSheet.create({
     },
     a3: {
         backgroundColor: "white",
-        marginTop: 5,
-        height: "10%"
+        marginBottom : 8,
+        flexDirection : "row",
+        justifyContent : "center"
+    },
+    myStarStyle: {
+        color: 'yellow',
+        backgroundColor: 'transparent',
+        textShadowColor: 'black',
+        textShadowOffset: { width: 1, height: 1 },
+        textShadowRadius: 10,
+        fontSize: 40
+    },
+    myEmptyStarStyle: {
+        color: 'white',
     }
 });
 

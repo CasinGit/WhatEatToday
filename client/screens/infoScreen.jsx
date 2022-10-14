@@ -8,6 +8,7 @@ import { RegisterContext } from "../context/register-context";
 import { getStoreInfoRequest } from "../util/store";
 
 function sellerInfoPage(data) {
+    console.log(data, "이걸봐라")
     const navigation = useNavigation();
     const [datas, setDatas] = useState();
 
@@ -23,17 +24,15 @@ function sellerInfoPage(data) {
     }, [])
 
     const sellerStorePressHandle = () => {
-        navigation.navigate("storeInfo", { datas: datas, place: datas.RSTR_RDNMADR, places: datas.RSTR_LNNO_ADRES, ph: datas.RSTR_TELNO })
+        navigation.navigate("storeInfo", { datas: datas, place: datas.RSTR_RDNMADR, places: datas.RSTR_LNNO_ADRES, ph: datas.RSTR_TELNO });
     };
     const sellerCalenderPressHandle = () => {
-        // console.log("datas", datas.RSTR_ID);
-        navigation.navigate("sellerCalender", { RSTR_ID: datas.RSTR_ID })
+        navigation.navigate("sellerCalender", { RSTR_ID: datas.RSTR_ID });
     };
  
     return (
         <View>
-            <Text style={{ alignSelf: "center", marginBottom: 20 }}>안녕~ {data.email} (판매자)</Text>
-
+            <Text style={{ alignSelf: "center", marginBottom: 20 }}>반가워요! {data.email} 점주님!</Text>
             <View style={{ flexDirection: "row", margin: 10 }}>
                 <Pressable style={({ pressed }) => pressed ? { opacity: 0.8 } : null}
                     onPress={sellerStorePressHandle}>
@@ -70,8 +69,7 @@ function consumerInfoPage(data) {
 
     return (
         <View>
-            <Text style={{ alignSelf: "center", marginBottom: 20 }}>안녕~ {data.email} (소비자)</Text>
-
+            <Text style={{ alignSelf: "center", marginBottom: 20, fontSize : 25 }}>반가워요! {data.email.split("@")[0]}님!</Text>
             <View style={{ flexDirection: "row", margin: 10 }}>
                 <Pressable style={({ pressed }) => pressed ? { opacity: 0.8 } : null} onPress={consumerHistoryPressHandle}>
                     <Card style={{ margin: 5 }}>
@@ -147,6 +145,7 @@ const styles = StyleSheet.create({
         flexDirection: "column",
         justifyContent: "center",
         alignItems: 'center',
+        backgroundColor : "white"
     },
     inputContainer: {
         marginBottom: 5,
