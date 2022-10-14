@@ -15,7 +15,7 @@ function sellerInfoPage(data) {
         !async function () {
             const storeData = await getStoreInfoRequest();
             storeData.datas.filter((one) => {
-                if (one.RSTR_ID === data.RSTR_ID) {
+                if (one.RSTR_ID == data.RSTR_ID) {
                     return setDatas(one);
                 }
             })
@@ -26,10 +26,10 @@ function sellerInfoPage(data) {
         navigation.navigate("storeInfo", { datas: datas, place: datas.RSTR_RDNMADR, places: datas.RSTR_LNNO_ADRES, ph: datas.RSTR_TELNO })
     };
     const sellerCalenderPressHandle = () => {
-        // console.log("datas", datas.RSTR_ID);
+        // console.log("datas", datas);
         navigation.navigate("sellerCalender", { RSTR_ID: datas.RSTR_ID })
     };
- 
+
     return (
         <View>
             <Text style={{ alignSelf: "center", marginBottom: 20 }}>안녕~ {data.email} (판매자)</Text>

@@ -23,6 +23,7 @@ let reservationSchema = new mongoose.Schema({
     },
     message: { // 사장님에게 남길 메세지
         type: String,
+        efault: ""
     },
     review: { // 리뷰 등록 여부
         type: Boolean,

@@ -22,34 +22,41 @@ function SellerCalenderScreen({ route }) {
     }, [])
 
     const loadItems = (day) => {
+        const obj = reservation;
+        const daySet = new Set();
+        const oneDay = [];
+        obj.forEach(one => daySet.add(one.date));
+        console.log(daySet.has(1))
 
-        setTimeout(() => {
-            console.log(reservation);
+        // 여기서 며칠까지 데이터를 만들지 결정
+        for (let i = 0; i < daySet.size; i++) {
+            const time = day.timestamp + i * 24 * 60 * 60 * 1000;
+            const strTime = timeToString(time);
+            // console.log(daySet.has(strTime));
 
-            // 여기서 며칠까지 데이터를 만들지 결정
-            for (let i = 0; i < 5; i++) {
-                const time = day.timestamp + i * 24 * 60 * 60 * 1000;
-                const strTime = timeToString(time);
+            if (!items[strTime] && daySet.has(strTime)) {
+                items[strTime] = [];
 
-                if (!items[strTime]) {
-                    items[strTime] = [];
+                let numItems = 0; // 일별 예약 갯수
+                obj.forEach(elm => {
+                    console.log(elm.date, strTime)
+                    if (elm.date == strTime) numItems++
+                });
 
-                    const numItems = 10; // 일별 예약 갯수
-                    for (let j = 0; j < numItems; j++) {
-                        items[strTime].push({
-                            name: 'Item for ' + strTime + ' #' + j,
-                            height: Math.max(10, Math.floor(Math.random() * 150)),
-                            day: strTime
-                        });
-                    }
+                for (let j = 0; j < numItems; j++) {
+                    items[strTime].push({
+                        name: `예약 시간: ${obj[j].date} ${obj[j].time}\n방문인원: ${obj[j].num}명\n요청사항: ${obj[j].message}`,
+                        height: Math.max(10, Math.floor(Math.random() * 150)),
+                        day: strTime
+                    });
                 }
             }
-            const newItems = {};
-            Object.keys(items).forEach(key => {
-                newItems[key] = items[key];
-            });
-            setItems(newItems);
-        }, 100);
+        }
+        const newItems = {};
+        Object.keys(items).forEach(key => {
+            newItems[key] = items[key];
+        });
+        setItems(newItems);
     }
 
 
