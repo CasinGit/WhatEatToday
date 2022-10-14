@@ -8,16 +8,25 @@ function StoreSearch() {
     const [storeName, setStoreName] = useState();
     const [stores, setStores] = useState();
 
+    // Debounce Technique
     useEffect(() => {
-        !async function () {
-            if (!storeName) {
-                setStores(null);
-                return;
-            };
-            const data = await getStoreNameRequest(storeName);
-            setStores(data.datas);
-            // console.log(data);
-        }()
+        if (!storeName) {
+            setStores(null);
+            return;
+        };
+
+        const timer = setTimeout(() => {
+            console.log("storeName", storeName);
+            getStoreNameRequest(storeName).then(received => {
+                setStores(received.datas);
+            }).catch(err => {
+                console.error(err);
+            })
+        }, 200);
+
+        return () => {
+            clearTimeout(timer);
+        }
     }, [storeName]);
 
     return (

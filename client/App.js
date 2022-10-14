@@ -11,18 +11,17 @@ import HomeScreen from './screens/homeScreen';
 import SearchScreen from './screens/searchScreen';
 import InfoScreen from './screens/infoScreen';
 import { useContext, useState } from 'react';
-import StoreInfoScreen from './screens/storeinfoscreen';
+import StoreInfoScreen from './screens/storeInfoScreen';
 import StoreSearch from './components/StoreSearch';
 import { RegisterContextProvider } from './context/register-context';
 import CategorySelectScreen from './screens/categorySelect';
-import TestScreen from './screens/testScreen_menu';
-import TestScreen_review from './screens/testScreen';
 import FavoritesStore from './screens/favoritesStore';
-import Test_Reservation from './screens/reservationScreen';
-import Test_ReservationConfirm from './screens/reservationConfirmSreen';
+import Reservation from './screens/reservationScreen';
+import ReservationConfirm from './screens/reservationConfirmScreen';
 import ReservationHistoryScreen from './screens/reservationHistoryScreen';
 import WriteStoreReview from './screens/writeStoreReview';
 import Test_Calendar_Agenda from './screens/calendarAgendaScreen';
+import SellerCalenderScreen from './screens/sellerCalenderScreen';
 
 
 const Tab = createBottomTabNavigator();
@@ -45,6 +44,7 @@ function MemberStackNavigator() {
       <Stack.Screen name="favorites" component={FavoritesStore} options={{ title: "즐겨찾기", presentation: "modal" }} />
       <Stack.Screen name="history" component={ReservationHistoryScreen} options={{ title: "이용내역", presentation: "modal" }} />
       <Stack.Screen name="writeReview" component={WriteStoreReview} options={{ title: "리뷰 작성", presentation: "modal" }} />
+      <Stack.Screen name="sellerCalender" component={SellerCalenderScreen} options={{ title: "판매자 캘린더" }} />
     </Stack.Navigator>
   )
 }
@@ -74,12 +74,11 @@ function HomeStackNavigator() {
     <Stack.Navigator>
       <Stack.Screen name='home' component={HomeScreen} options={{ title: "맛집탐색" }} />
       <Stack.Screen name='storeInfo' component={StoreInfoScreen} options={{ title: "맛집탐색", presentation: "modal" }} />
+      <Stack.Screen name="reservation" component={Reservation} options={{ title: "예약하기" }} />
+      <Stack.Screen name="reservationConfirm" component={ReservationConfirm} options={{ title: "예약완료" }} />
+      {/* <Stack.Screen name="sellerCalender" component={SellerCalenderScreen} options={{ title: "판매자 캘린더" }} /> */}
       {/* ///////////////////////////////////////////////////////////////////////// */}
       <Stack.Screen name="test_agenda" component={Test_Calendar_Agenda} />
-      <Stack.Screen name="test_reservation" component={Test_Reservation} options={{title: "예약하기"}}/>
-      <Stack.Screen name="Test_ReservationConfirm" component={Test_ReservationConfirm} options={{title: "예약완료"}} />
-      <Stack.Screen name="test2" component={TestScreen_review} />
-      <Stack.Screen name="test" component={TestScreen} />
     </Stack.Navigator>
   )
 }

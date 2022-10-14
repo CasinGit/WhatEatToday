@@ -1,29 +1,52 @@
-[
-    {
-        "RSTR_ID": 40760,
-        "__v": 0,
-        "_id": "63466f9b1baefa08161be6aa",
-        "comment": "여기 맛집이에요",
-        "email": "kkig30@naver.com",
-        "img": "",
-        "score": 5
-    },
-    {
-        "RSTR_ID": 40760,
-        "__v": 0,
-        "_id": "6346715aba9bb9c2fb75c664",
-        "comment": "여기 개노맛 ㅋㅋ",
-        "email": "kkig30@naver.com",
-        "img": "",
-        "score": 1
-    },
-    {
-        "RSTR_ID": 40760,
-        "__v": 0,
-        "_id": "63475853c37672682e83b651",
-        "comment": "여기 개노맛 ㅋㅋ",
-        "email": "kkig30@naver.com",
-        "img": "",
-        "score": 1
-    }
-]
+{
+    "datas": [
+        {
+            "RSTR_ID": 550114,
+            "__v": 0,
+            "_id": "63482e3f9fd92d1d805a2583",
+            "createdAt": "2022-10-13T15:26:55.227Z",
+            "date": "2022-10-14",
+            "email": "kkig30@naver.com",
+            "message": "커피 10개 예약이요",
+            "num": 1,
+            "review": true,
+            "time": "00:28"
+        },
+        {
+            "RSTR_ID": 550114,
+            "__v": 0,
+            "_id": "634830bd9fd92d1d805a25eb",
+            "createdAt": "2022-10-13T15:37:33.228Z",
+            "date": "2022-10-14",
+            "email": "kkig30@naver.com",
+            "message": "",
+            "num": 1,
+            "review": true,
+            "time": "00:38"
+        },
+        {
+            "RSTR_ID": 550114,
+            "__v": 0,
+            "_id": "6348d59c98fce183ac1130c5",
+            "createdAt": "2022-10-14T03:21:00.934Z",
+            "date": "2022-10-14",
+            "email": "kkig30@naver.com",
+            "num": 3,
+            "review": true,
+            "time": "12:00"
+        },
+        {
+            "RSTR_ID": 550114,
+            "__v": 0,
+            "_id": "6348f5b698fce183ac113185",
+            "createdAt": "2022-10-14T05:37:58.958Z",
+            "date": "2022-10-14",
+            "email": "kkig30@naver.com",
+            "message": "ㅋㅋㅋ",
+            "num": 2,
+            "review": true,
+            "time": "14:37"
+        }
+    ],
+    "result": true
+}

@@ -11,12 +11,6 @@ import IconButton from "../components/IconButton";
 import { AppContext } from "../context/app-context";
 import CustomButton from "../components/CustomButton";
 
-// const renderScene = SceneMap({
-//     menu: Store_Route_Menu,
-//     info: Store_Route_Info,
-//     review: Store_Route_Review
-// });
-
 function StoreInfoScreen({ navigation, route }) {
     // console.log("StoreInfoScreen!!");
     // const navigation = useNavigation();
@@ -29,6 +23,7 @@ function StoreInfoScreen({ navigation, route }) {
     const [storeMenu, setStoreMenu] = useState();
     const [storeOper, setStoreOper] = useState();
     const [storeReviews, setStoreReviews] = useState();
+    const [scoreAverage, setScoreAverage] = useState("리뷰 없음");
 
     const [routes] = useState([
         { key: "menu", title: "메뉴" },
@@ -47,7 +42,7 @@ function StoreInfoScreen({ navigation, route }) {
     };
 
     const reservationHandle = () => {
-        navigation.navigate("test_reservation", { datas: data });
+        navigation.navigate("reservation", { datas: data });
     };
 
     useEffect(() => {
@@ -84,9 +79,6 @@ function StoreInfoScreen({ navigation, route }) {
                 const menu = await getStoreMenuRequest(data.RSTR_ID);
                 const oper = await getStoreOperRequest(data.RSTR_ID);
 
-                // console.log(image.datas)
-                // console.log(menu.datas, "menu")
-                // console.log(oper, "oper")
                 setStoreMenu(menu);
                 setStoreOper(oper);
                 setStoreImage(image.datas[0]?.RSTR_IMG_URL ? image.datas[0].RSTR_IMG_URL : null);
@@ -95,6 +87,20 @@ function StoreInfoScreen({ navigation, route }) {
             }
         }()
     }, [marking]);
+
+    // 리뷰 데이터가 들어오면 별점 평균 설정
+    useEffect(() => {
+        if (!storeReviews) return;
+        // console.log(storeReviews);
+        let sumScore = 0;
+        storeReviews.forEach(item => {
+            // console.log(item.score);
+            sumScore += item.score;
+        });
+        console.log("별점 총합:", sumScore);
+        console.log("리뷰 갯수:", storeReviews.length);
+        setScoreAverage((sumScore / storeReviews.length).toFixed(2));
+    }, [storeReviews])
 
     const place = route.params.place;
     const places = route.params.places;
@@ -111,7 +117,7 @@ function StoreInfoScreen({ navigation, route }) {
                 return null;
         }
     };
-    console.log("===>", storeImage)
+    // console.log("===>", storeImage)
     return (
         <View style={styles.container}>
             <View style={styles.a1}>
@@ -126,7 +132,7 @@ function StoreInfoScreen({ navigation, route }) {
                 </Text>
             </View>
             <View style={styles.a3}>
-                <Text style={{ fontSize: 20, textAlign: 'center' }}>별점</Text>
+                <Text style={{ fontSize: 20, textAlign: 'center' }}>별점: {scoreAverage}</Text>
             </View>
             <TabView
                 navigationState={{ index, routes }}

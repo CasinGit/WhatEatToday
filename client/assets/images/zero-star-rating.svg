@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://web.resource.org/cc/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:svg="http://www.w3.org/2000/svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:ns1="http://sozi.baierouge.fr" xmlns:xlink="http://www.w3.org/1999/xlink" id="svg2" viewBox="0 0 84 15" version="1.0" y="0" x="0" inkscape:version="0.91 r13725">
+
+  <path id="path1293" style="stroke:#000000;stroke-width:.032619px;fill:rgba(255, 216, 0, 0.15)" d="m20.177 14.954l0.786-5.3432-3.608-3.8549 5.079-0.8653 2.374-4.7973 2.352 4.8087 5.076 0.89-3.625 3.8373 0.763 5.3477-4.594-2.438-4.603 2.415z"/>
+  <path id="path1329" style="stroke:#000000;stroke-width:.032610px;fill:rgba(255, 216, 0, 0.15)" d="m37.437 14.954l0.786-5.3402-3.608-3.8527 5.079-0.8649 2.374-4.7946 2.352 4.8061 5.076 0.8894-3.625 3.8352 0.763 5.3447-4.594-2.436-4.603 2.413z"/>
+  <path id="path1331" style="stroke:#000000;stroke-width:.032619px;fill:rgba(255, 216, 0, 0.15)" d="m54.697 15.019l0.786-5.344-3.608-3.8549 5.079-0.8653 2.374-4.7973 2.353 4.8088 5.075 0.8899-3.625 3.8373 0.763 5.3475-4.594-2.437-4.603 2.415z"/>
+  <path id="path1333" style="stroke:#000000;stroke-width:.032619px;fill:rgba(255, 216, 0, 0.15)" d="m71.957 14.89l0.786-5.3435-3.608-3.8548 5.079-0.8654 2.374-4.7973 2.353 4.8088 5.075 0.89-3.625 3.8373 0.763 5.3469-4.593-2.437-4.604 2.415z"/>
+  <path id="path1337" style="stroke:#000000;stroke-width:.032619px;fill:rgba(255, 216, 0, 0.15)" d="m7.5508 0.095488l-2.375 4.7812-5.0937 0.875 3.625 3.8438-0.7813 5.3435 4.5938-2.406 4.5934 2.437-0.75-5.3433 3.625-3.8437-5.0934-0.875-2.3438-4.8125z"/>
+  
+  <metadata>
+    <rdf:RDF>
+      <cc:Work>
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+        <cc:license rdf:resource="http://creativecommons.org/licenses/publicdomain/"/>
+        <dc:publisher>
+          <cc:Agent rdf:about="http://openclipart.org/">
+            <dc:title>Openclipart</dc:title>
+          </cc:Agent>
+        </dc:publisher>
+        <dc:title>zero star rating</dc:title>
+        <dc:date>2009-06-03T23:42:37</dc:date>
+        <dc:description>one of a set of images to create a star rating system from the old OCAL site</dc:description>
+        <dc:source>https://openclipart.org/detail/26456/zero-star-rating-by-anonymous</dc:source>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>Anonymous</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <dc:subject>
+          <rdf:Bag>
+            <rdf:li>rate</rdf:li>
+            <rdf:li>rating</rdf:li>
+            <rdf:li>star</rdf:li>
+            <rdf:li>system</rdf:li>
+          </rdf:Bag>
+        </dc:subject>
+      </cc:Work>
+      <cc:License rdf:about="http://creativecommons.org/licenses/publicdomain/">
+        <cc:permits rdf:resource="http://creativecommons.org/ns#Reproduction"/>
+        <cc:permits rdf:resource="http://creativecommons.org/ns#Distribution"/>
+        <cc:permits rdf:resource="http://creativecommons.org/ns#DerivativeWorks"/>
+      </cc:License>
+    </rdf:RDF>
+  </metadata>
+</svg>
