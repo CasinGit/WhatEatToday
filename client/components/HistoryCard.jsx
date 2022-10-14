@@ -10,8 +10,6 @@ function HistoryCard({ route, data }) {
     // console.log(data);
     const navigation = useNavigation();
     const [disable, setDisable] = useState(true);
-    const isFocused = useIsFocused();
-
     const [image, setImage] = useState();
 
     useEffect(() => {
@@ -22,9 +20,9 @@ function HistoryCard({ route, data }) {
         }()
     }, []);
 
+    const nowDate = format(new Date(), 'yyyy-MM-dd');
+    const nowTime = format(new Date(), "HH:mm");
     useEffect(() => {
-        const nowDate = format(new Date(), 'yyyy-MM-dd');
-        const nowTime = format(new Date(), "HH:mm");
         if (data.date < nowDate) { // 방문 날짜가 지났을때
             console.log("예약 날짜 지났음");
             // setDisable(false);
@@ -37,7 +35,7 @@ function HistoryCard({ route, data }) {
                 setDisable(true);
             }
         }
-    }, [isFocused]);
+    }, [data.review]);
 
 
     // useEffect(() => {
@@ -52,15 +50,20 @@ function HistoryCard({ route, data }) {
     return (
         <Card style={{ margin: 5 }}>
             <Card.Content style={styles.innerContainer}>
-                {image ?
-                    <Image resizeMode="cover" style={styles.image} source={{ uri: image }} />
-                    :
-                    <Image resizeMode="cover" style={styles.image} source={require("../assets/store.png")} />
-                }
-                <View>
+                <View style={{ marginRight: 5 }}>
+                    {image ?
+                        <Image resizeMode="cover" style={styles.image} source={{ uri: image }} />
+                        :
+                        <Image resizeMode="cover" style={styles.image} source={require("../assets/store.png")} />
+                    }
+                </View>
+                <View style={{ marginRight: "35%" }}>
                     <Title>{data.getRstr?.RSTR_NM}</Title>
                     <Paragraph>
-                        예약 날짜: {data.date} / 예약 시간: {data.time}
+                        예약 날짜: {data.date}
+                    </Paragraph>
+                    <Paragraph>
+                        예약 시간: {data.time}
                     </Paragraph>
                     <Paragraph>
                         방문 인원 : {data.num}명
@@ -68,15 +71,15 @@ function HistoryCard({ route, data }) {
                     <Paragraph>
                         요구사항 : {data.message}
                     </Paragraph>
-                    <View style={{ marginTop: 10 }}>
-                        <Button
-                            title="리뷰 남기기"
-                            disabled={disable}
-                            onPress={() => navigation.navigate("writeReview", { RSTR_ID: data.RSTR_ID, _ID: data._id })}
-                        />
-                    </View>
                 </View>
             </Card.Content>
+            <View style={{ marginTop: 5 }}>
+                <Button
+                    title="리뷰 남기기"
+                    disabled={disable}
+                    onPress={() => navigation.navigate("writeReview", { RSTR_ID: data.RSTR_ID, _ID: data._id })}
+                />
+            </View>
         </Card>
     );
 }
@@ -94,7 +97,7 @@ const styles = StyleSheet.create({
         flexDirection: "row"
     },
     image: {
-        margin: 4.5,
+        margin: 1,
         height: 125,
         width: 125
     },
