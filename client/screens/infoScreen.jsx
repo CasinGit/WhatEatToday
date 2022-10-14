@@ -28,7 +28,7 @@ function sellerInfoPage(data) {
     const sellerCalenderPressHandle = () => {
 
     };
-
+ 
     return (
         <View>
             <Text style={{ alignSelf: "center", marginBottom: 20 }}>안녕~ {data.email} (판매자)</Text>

@@ -21,11 +21,11 @@ function ReservationConfirmScreen({route}) {
     const navigation = useNavigation();
     
     const homeButton = () => {
-        navigation.navigate("home")
+        navigation.navigate("home");
     };
 
     const historyButton = () => {
-        // navigation.navigate("history")
+        navigation.navigate("history", ctx.auth.email);
     };
 
     return (
