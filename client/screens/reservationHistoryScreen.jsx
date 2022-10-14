@@ -23,7 +23,7 @@ function ReservationHistoryScreen({ route, navigation }) {
     return (
         <View style={styles.container}>
             <FlatList data={history} renderItem={({ item }) => {
-                console.log("플랫 리스트 렌더링");
+                // console.log("플랫 리스트 렌더링");
                 return <HistoryCard data={item} />
             }} />
         </View>
