@@ -11,22 +11,23 @@ function sellerInfoPage(data) {
     const navigation = useNavigation();
     const [datas, setDatas] = useState();
 
-    useEffect(()=>{
-        !async function() {
+    useEffect(() => {
+        !async function () {
             const storeData = await getStoreInfoRequest();
-            storeData.datas.filter((one)=>{
-              if(one.RSTR_ID === data.RSTR_ID){
-                return setDatas(one);
-              }
+            storeData.datas.filter((one) => {
+                if (one.RSTR_ID === data.RSTR_ID) {
+                    return setDatas(one);
+                }
             })
         }()
-    },[])
+    }, [])
 
-    const sellerSotrePressHandle = () => {
+    const sellerStorePressHandle = () => {
         navigation.navigate("storeInfo", { datas: datas, place: datas.RSTR_RDNMADR, places: datas.RSTR_LNNO_ADRES, ph: datas.RSTR_TELNO })
     };
     const sellerCalenderPressHandle = () => {
-
+        // console.log("datas", datas.RSTR_ID);
+        navigation.navigate("sellerCalender", { RSTR_ID: datas.RSTR_ID })
     };
 
     return (
@@ -34,14 +35,16 @@ function sellerInfoPage(data) {
             <Text style={{ alignSelf: "center", marginBottom: 20 }}>안녕~ {data.email} (판매자)</Text>
 
             <View style={{ flexDirection: "row", margin: 10 }}>
-                <Pressable style={({ pressed }) => pressed ? { opacity: 0.8 } : null} onPress={sellerSotrePressHandle}>
+                <Pressable style={({ pressed }) => pressed ? { opacity: 0.8 } : null}
+                    onPress={sellerStorePressHandle}>
                     <Card style={{ margin: 5 }}>
                         <Card.Cover source={require("../assets/store.png")} style={{ width: 100, height: 100 }} resizeMode="contain" />
                         <Title style={{ alignSelf: "center" }}>내가게</Title>
                     </Card>
                 </Pressable>
 
-                <Pressable style={({ pressed }) => pressed ? { opacity: 0.8 } : null}>
+                <Pressable style={({ pressed }) => pressed ? { opacity: 0.8 } : null}
+                    onPress={sellerCalenderPressHandle} >
                     <Card style={{ margin: 5 }}>
                         <Card.Cover source={require("../assets/calender.png")} style={{ width: 100, height: 100 }} resizeMode="contain" />
                         <Title style={{ alignSelf: "center" }}>캘린더</Title>
@@ -100,7 +103,7 @@ function InfoScreen() {
     const ctxR = useContext(RegisterContext);
     const navigation = useNavigation();
     let confirm;
-    console.log(ctx.auth, "info")
+    // console.log(ctx.auth, "info")
     if (!ctx.auth.RSTR_ID) {
         confirm = undefined;
     } else {
@@ -110,7 +113,7 @@ function InfoScreen() {
     const logoutHandle = () => {
         ctx.dispatch({ type: "logout" });
         ctxR.dispatch({ type: "logoutSellerRegister" });
-        AsyncStorage.removeItem();
+        AsyncStorage.removeItem("authentication");
     };
 
     return (

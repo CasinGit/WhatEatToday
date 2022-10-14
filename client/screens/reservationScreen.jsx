@@ -90,7 +90,7 @@ function ReservationScreen({ route }) {
         const dateDb = new Date(selectedDate).toISOString().split("T")[0];
         const times = format(new Date(date), "p", { locale: ko });
         await createReservationRequest(storeId, ctx.auth.email, dateDb, times, person, texts);
-        navigation.navigate("Test_ReservationConfirm", { date: dates, time: times, person: person, store: RSTR_NM, storeType: BSNS_STATM_BZCND_NM, text: texts });
+        navigation.navigate("reservationConfirm", { date: dates, time: times, person: person, store: RSTR_NM, storeType: BSNS_STATM_BZCND_NM, text: texts });
     };
 
     return (

@@ -1,14 +1,13 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
 import { useContext, useEffect, useState } from "react";
-import { Alert, Button, Image, Keyboard, ScrollView, StyleSheet, Text, TouchableWithoutFeedback, View } from "react-native";
+import { Button, ScrollView, StyleSheet, Text, View } from "react-native";
 import { TextInput } from 'react-native-paper';
-import Pressable from "react-native/Libraries/Components/Pressable/Pressable";
 import { AppContext } from "../context/app-context";
-import { sendLoginRequest } from "../util/account";
 import ImagePicker from "../components/imagePicker";
 import { writeStoreReview } from "../util/review";
 import { writeReviewData } from "../util/reservation";
+import Stars from 'react-native-stars';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 function WriteStoreReview({ route, navigation }) {
     console.log(route.params.RSTR_ID);
@@ -16,7 +15,7 @@ function WriteStoreReview({ route, navigation }) {
 
     const ctx = useContext(AppContext);
 
-    const [reviewScore, setReviewScore] = useState();
+    const [reviewScore, setReviewScore] = useState(1);
     const [reviewComment, setReviewComment] = useState("");
     const [reviewImage, setReviewImage] = useState(null);
     const [reviewImageBase64, setReviewImageBase64] = useState(null);
@@ -55,36 +54,43 @@ function WriteStoreReview({ route, navigation }) {
                 navigation.goBack();
             }
         })
-
-        // sendAddPlaceRequest(data, placeImageBase64, placeImage, ctx.auth.idToken)
-        //     .then(() => {
-        //         // navigation.navigate("chooseLocation");
-        //         navigation.goBack();
-
-        //     }).finally(() => {
-        //         setLoading(false);
-        //     })
     }
 
     return (
         <View style={styles.container}>
             <ScrollView>
-                <ImagePicker onPicked={imagePickedHandle} />
-                <View>
-                    <Text>별점:</Text>
-                    <TextInput keyboardType="numeric" placeholder="숫자만 입력가능" value={reviewScore} onChangeText={setReviewScore} />
+                <View style={styles.innerContainer}>
 
-                    <Text style={{ marginTop: 10 }}>후기:</Text>
-                    <TextInput style={{
-                        borderBottomColor: "#111111",
-                        borderBottomWidth: 1,
-                        height: 40,
-                    }}
-                        placeholder={"후기를 입력해주세요"}
-                        value={reviewComment} onChangeText={setReviewComment} />
-                </View>
-                <View style={{ marginTop: 50 }}>
-                    <Button title="리뷰 등록" onPress={confirm} />
+                    <ImagePicker onPicked={imagePickedHandle} />
+                    <View>
+
+                        <View style={{ alignItems: 'center', flexDirection: "row", marginTop: 10 }}>
+                            <Text style={{ marginRight: 10 }}>별점:</Text>
+                            <Stars
+                                default={1}
+                                count={5}
+                                // half={true}
+                                // starSize={0}
+                                update={(val) => { setReviewScore(val) }}
+                                fullStar={<Icon name={'star'} style={[styles.myStarStyle]} />}
+                                emptyStar={<Icon name={'star'} style={[styles.myStarStyle, styles.myEmptyStarStyle]} />}
+                                halfStar={<Icon name={'star-half'} style={[styles.myStarStyle]} />}
+                            />
+                            <Text style={{ marginLeft: 10 }}>{reviewScore}점</Text>
+                        </View>
+
+                        <Text style={{ marginTop: 10 }}>후기:</Text>
+                        <TextInput style={{
+                            borderBottomColor: "#111111",
+                            borderBottomWidth: 1,
+                            height: 40,
+                        }}
+                            placeholder={"후기를 입력해주세요"}
+                            value={reviewComment} onChangeText={setReviewComment} />
+                    </View>
+                    <View style={{ marginTop: 50 }}>
+                        <Button title="리뷰 등록" onPress={confirm} />
+                    </View>
                 </View>
             </ScrollView>
         </View>
@@ -94,18 +100,30 @@ function WriteStoreReview({ route, navigation }) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        backgroundColor: "#ffffff",
         flexDirection: "column",
         // justifyContent: "center",
         // alignItems: 'center',
     },
-    inputContainer: {
-        marginBottom: 10
+    innerContainer: {
+        margin: 10
     },
     textInput: {
         // padding: 5,
         // borderBottomColor: "#121212",
         // borderBottomWidth: 2,
     },
+    myStarStyle: {
+        color: 'yellow',
+        backgroundColor: 'transparent',
+        textShadowColor: 'black',
+        textShadowOffset: { width: 1, height: 1 },
+        textShadowRadius: 10,
+        fontSize: 40
+    },
+    myEmptyStarStyle: {
+        color: 'white',
+    }
 });
 
 export default WriteStoreReview;

@@ -10,26 +10,31 @@ function HistoryCard({ route, data }) {
     const navigation = useNavigation();
     const [disable, setDisable] = useState(true);
 
+    const nowDate = format(new Date(), 'yyyy-MM-dd');
+    const nowTime = format(new Date(), "HH:mm");
     useEffect(() => {
-        const nowDate = format(new Date(), 'yyyy-MM-dd');
-        const nowTime = format(new Date(), "HH:mm");
-        if (data.date < nowDate) { // 날짜가 지났을때
-            // console.log("예약 날짜 지났음");
-            setDisable(false);
-        } else if (data.date === nowDate && data.time < nowTime) { // 날짜가 같고 시간이 지났을때
-            // console.log("날짜가 같고 시간이 지났음");
-            setDisable(false);
-        }
-    }, [])
-
-    useEffect(() => {
-        // 리뷰가 등록되어 있는 이용내역이라면 리뷰 남기기 버튼 비활성화
-        if (data.review) {
-            setDisable(true);
-        } else {
-            setDisable(false);
+        if (data.date < nowDate) { // 방문 날짜가 지났을때
+            console.log("예약 날짜 지났음");
+            // setDisable(false);
+            data.review ? setDisable(true) : setDisable(false);
+        } else if (data.date == nowDate) { // 방문 날짜가 같을때
+            console.log("날짜가 같음");
+            if (data.time < nowTime) { // 방문 날짜가 같고 현재 시간이 예약 시간을 지나갔을때
+                data.review ? setDisable(true) : setDisable(false);
+            } else { // 방문 날짜가 같지만 현재 시간이 예약시간을 넘어가지 않았을때
+                setDisable(true);
+            }
         }
     }, [data.review])
+
+    // useEffect(() => {
+    //     // 리뷰가 등록되어 있는 이용내역이라면 리뷰 남기기 버튼 비활성화
+    //     if (data.review) {
+    //         setDisable(true);
+    //     } else {
+    //         setDisable(false);
+    //     }
+    // }, [data.review])
 
     return (
         <Card style={{ margin: 5 }}>
