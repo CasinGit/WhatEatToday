@@ -10,8 +10,6 @@ function HistoryCard({ route, data }) {
     // console.log(data);
     const navigation = useNavigation();
     const [disable, setDisable] = useState(true);
-    const isFocused = useIsFocused();
-
     const [image, setImage] = useState();
 
     useEffect(() => {
@@ -25,7 +23,6 @@ function HistoryCard({ route, data }) {
     const nowDate = format(new Date(), 'yyyy-MM-dd');
     const nowTime = format(new Date(), "HH:mm");
     useEffect(() => {
-        // console.log(isFocused);
         if (data.date < nowDate) { // 방문 날짜가 지났을때
             console.log("예약 날짜 지났음");
             // setDisable(false);
@@ -38,7 +35,7 @@ function HistoryCard({ route, data }) {
                 setDisable(true);
             }
         }
-    }, [isFocused]);
+    }, [data.review]);
 
 
     // useEffect(() => {
