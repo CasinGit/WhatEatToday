@@ -1,4 +1,4 @@
-import { FlatList, StyleSheet, Text, View } from "react-native";
+import { FlatList, Image, StyleSheet, Text, View } from "react-native";
 import StoreTabviewMenuInfo from "./StoreTabviewMenuInfo";
 
 function StoreMenuRoute({ data }) {
@@ -14,7 +14,7 @@ function StoreMenuRoute({ data }) {
     return (
         <View style={styles.container}>
             {menuData == null ?
-                <Text>매뉴준비중</Text>
+                <Image style={{height:"90%", width:"90%", margin:"5%"}} source={require("../assets/menuDefault.png")}/>
                 :
                 <FlatList data={menuData} renderItem={({ index, item }) => {
                     return <StoreTabviewMenuInfo item={item} />

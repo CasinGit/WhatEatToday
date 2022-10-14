@@ -1,6 +1,6 @@
 import axios from "axios";
-import { SERVER_URL } from '@env';
-// const SERVER_URL = "http://118.40.42.217:8080"
+// import { SERVER_URL } from '@env';
+const SERVER_URL = "http://118.40.42.217:8080"
 
 export async function sendConsumerRegisterRequest(email, password, ph) {
     const response = await axios.post(`${SERVER_URL}/api/account/register`, {
