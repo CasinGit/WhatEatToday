@@ -11,7 +11,7 @@ import HomeScreen from './screens/homeScreen';
 import SearchScreen from './screens/searchScreen';
 import InfoScreen from './screens/infoScreen';
 import { useContext, useState } from 'react';
-import StoreInfoScreen from './screens/storeInfoScreen';
+import StoreInfoScreen from './screens/storeinfoscreen';
 import StoreSearch from './components/StoreSearch';
 import { RegisterContextProvider } from './context/register-context';
 import CategorySelectScreen from './screens/categorySelect';
@@ -22,6 +22,7 @@ import ReservationHistoryScreen from './screens/reservationHistoryScreen';
 import WriteStoreReview from './screens/writeStoreReview';
 import Test_Calendar_Agenda from './screens/calendarAgendaScreen';
 import SellerCalenderScreen from './screens/sellerCalenderScreen';
+import ConsumerCalenderScreen from './screens/consumerCalenderScreen';
 
 
 const Tab = createBottomTabNavigator();
@@ -45,6 +46,7 @@ function MemberStackNavigator() {
       <Stack.Screen name="history" component={ReservationHistoryScreen} options={{ title: "이용내역", presentation: "modal" }} />
       <Stack.Screen name="writeReview" component={WriteStoreReview} options={{ title: "리뷰 작성", presentation: "modal" }} />
       <Stack.Screen name="sellerCalender" component={SellerCalenderScreen} options={{ title: "판매자 캘린더" }} />
+      <Stack.Screen name="consumerCalender" component={ConsumerCalenderScreen} options={{ title: "예약 캘린더" }} />
     </Stack.Navigator>
   )
 }
