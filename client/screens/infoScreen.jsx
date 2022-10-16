@@ -61,6 +61,8 @@ function consumerInfoPage(data) {
         navigation.navigate("history", data.email);
     };
     const consumerCalenderPressHandle = () => {
+        navigation.navigate("consumerCalender", { email: data.email });
+
 
     };
     const consumerFavoritesPressHandle = () => {
@@ -69,7 +71,7 @@ function consumerInfoPage(data) {
 
     return (
         <View>
-            <Text style={{ alignSelf: "center", marginBottom: 20, fontSize : 25 }}>반가워요! {data.email.split("@")[0]}님!</Text>
+            <Text style={{ alignSelf: "center", marginBottom: 20, fontSize: 25 }}>반가워요! {data.email.split("@")[0]}님!</Text>
             <View style={{ flexDirection: "row", margin: 10 }}>
                 <Pressable style={({ pressed }) => pressed ? { opacity: 0.8 } : null} onPress={consumerHistoryPressHandle}>
                     <Card style={{ margin: 5 }}>
@@ -145,7 +147,7 @@ const styles = StyleSheet.create({
         flexDirection: "column",
         justifyContent: "center",
         alignItems: 'center',
-        backgroundColor : "white"
+        backgroundColor: "white"
     },
     inputContainer: {
         marginBottom: 5,

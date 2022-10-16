@@ -2,20 +2,20 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, StatusBar } from 'react-native';
 import { Agenda } from 'react-native-calendars';
 import { Card } from 'react-native-paper';
-import { getReservationList } from '../util/reservation';
+import { getReservationHistory } from '../util/reservation';
 
 const timeToString = (time) => {
     const date = new Date(time);
     return date.toISOString().split('T')[0];
 }
 
-function SellerCalenderScreen({ route }) {
+function ConsumerCalenderScreen({ route }) {
     console.log("CalendarAgendaScreen route", route.params);
     const [items, setItems] = useState({});
     const [reservation, setReservation] = useState();
 
     useEffect(() => {
-        getReservationList(route.params.RSTR_ID).then((received) => {
+        getReservationHistory(route.params.email).then((received) => {
             // console.log(received);
             setReservation(received.datas);
         })
@@ -51,6 +51,7 @@ function SellerCalenderScreen({ route }) {
                 for (let j = 0; j < numItems; j++) {
                     if (obj[j].date !== strTime) continue;
                     items[strTime].push({
+                        store: `${obj[j].getRstr.RSTR_NM}`,
                         date: `예약 시간: ${obj[j].date} ${obj[j].time}`,
                         email: `예약자: ${obj[j].email}`,
                         visitor: `방문인원: ${obj[j].num}명`,
@@ -82,6 +83,7 @@ function SellerCalenderScreen({ route }) {
                 <Card>
                     <Card.Content>
                         <View>
+                            <Text style={{ fontWeight: "bold", fontSize: 20 }}>{item.store}</Text>
                             <Text>{item.date}</Text>
                             <Text>{item.email}</Text>
                             <Text>{item.visitor}</Text>
@@ -120,8 +122,8 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         padding: 5,
         marginRight: 10,
-        marginTop: 20,
+        marginTop: 15,
     },
 });
 
-export default SellerCalenderScreen;
+export default ConsumerCalenderScreen;

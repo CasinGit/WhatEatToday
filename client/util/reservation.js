@@ -1,6 +1,6 @@
 import axios from "axios";
-// import { SERVER_URL } from '@env';
-const SERVER_URL = "http://118.40.42.217:8080"
+import { SERVER_URL } from '@env';
+// const SERVER_URL = "http://118.40.42.217:8080"
 
 // 해당 계정에서 예약한 리스트 가져오기
 export async function getReservationHistory(email) {

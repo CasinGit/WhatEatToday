@@ -4,7 +4,7 @@ import { StyleSheet, View, Text, Pressable, FlatList } from "react-native";
 import { Card, Searchbar, Title, Chip, Modal, Portal, Provider } from 'react-native-paper';
 import SearchMenu from "../components/SearchMenu";
 import CategorySelectScreen from "./categorySelect";
-import StoreInfoScreen from "./storeInfoScreen";
+import StoreInfoScreen from "./storeinfoscreen";
 
 const category = [
     { key: "중국식", value: "중식", img: require("../assets/category/중식.png") },
@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
         flexDirection: "column",
         // justifyContent: "center",
         alignItems: 'center',
-        backgroundColor : "white"
+        backgroundColor: "white"
     },
     modalOuterStyle: {
         alignItems: "flex-end",

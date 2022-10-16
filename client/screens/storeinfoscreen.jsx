@@ -25,7 +25,7 @@ function StoreInfoScreen({ navigation, route }) {
     const [storeMenu, setStoreMenu] = useState();
     const [storeOper, setStoreOper] = useState();
     const [storeReviews, setStoreReviews] = useState();
-    const [scoreAverage, setScoreAverage] = useState("리뷰 없음");
+    const [scoreAverage, setScoreAverage] = useState(0);
 
     const [routes] = useState([
         { key: "menu", title: "메뉴" },
@@ -101,7 +101,7 @@ function StoreInfoScreen({ navigation, route }) {
         });
         console.log("별점 총합:", sumScore);
         console.log("리뷰 갯수:", storeReviews.length);
-        setScoreAverage((sumScore / storeReviews.length).toFixed(1)*1);
+        setScoreAverage((sumScore / storeReviews.length).toFixed(1) * 1);
     }, [storeReviews])
 
     const place = route.params.place;
@@ -143,7 +143,7 @@ function StoreInfoScreen({ navigation, route }) {
                     emptyStar={<Icon name={'star-outline'} style={[styles.myStarStyle, styles.myEmptyStarStyle]} />}
                     halfStar={<Icon name={'star-half-full'} style={[styles.myStarStyle]} />}
                 />
-                    <Text style={{ fontSize: 20, marginTop : 15 }}>{"("+scoreAverage+")"}</Text>
+                <Text style={{ fontSize: 20, marginTop: 15 }}>{"(" + scoreAverage + ")"}</Text>
             </View>
             <TabView
                 navigationState={{ index, routes }}
@@ -172,9 +172,9 @@ const styles = StyleSheet.create({
     },
     a3: {
         backgroundColor: "white",
-        marginBottom : 8,
-        flexDirection : "row",
-        justifyContent : "center"
+        marginBottom: 8,
+        flexDirection: "row",
+        justifyContent: "center"
     },
     myStarStyle: {
         color: 'yellow',
