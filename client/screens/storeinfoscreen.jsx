@@ -89,7 +89,7 @@ function StoreInfoScreen({ navigation, route }) {
             }
         }()
     }, [marking]);
-
+    const [starRating, setStarRating] = useState();
     // 리뷰 데이터가 들어오면 별점 평균 설정
     useEffect(() => {
         if (!storeReviews) return;
@@ -101,7 +101,13 @@ function StoreInfoScreen({ navigation, route }) {
         });
         console.log("별점 총합:", sumScore);
         console.log("리뷰 갯수:", storeReviews.length);
-        setScoreAverage((sumScore / storeReviews.length).toFixed(1) * 1);
+        if((sumScore / storeReviews.length).toFixed(1) * 1 %1 >0 && (sumScore / storeReviews.length).toFixed(1) * 1%1 <1) {
+            setScoreAverage((sumScore / storeReviews.length).toFixed(1)*1);
+            setStarRating(Math.floor((sumScore / storeReviews.length).toFixed(1)*1) + 0.5);
+        } else if((sumScore / storeReviews.length).toFixed(1)*1 %1 === 0) {
+            setScoreAverage((sumScore / storeReviews.length).toFixed(1)*1);
+            setStarRating((sumScore / storeReviews.length).toFixed(1)*1);
+        }
     }, [storeReviews])
 
     const place = route.params.place;
@@ -123,7 +129,7 @@ function StoreInfoScreen({ navigation, route }) {
     return (
         <View style={styles.container}>
             <View style={styles.a1}>
-                {storeImage !== undefined ?
+                {storeImage !== null ?
                     <Image source={{ uri: storeImage }} style={{ flex: 1 }} />
                     : <Image source={require("../assets/store_defaultImage.png")} style={{ flex: 1, width: "100%", height: "100%" }} />
                 }
@@ -135,7 +141,7 @@ function StoreInfoScreen({ navigation, route }) {
             </View>
             <View style={styles.a3}>
                 <Stars
-                    default={scoreAverage}
+                    default={starRating}
                     count={5}
                     half={true}
                     // starSize={0}
