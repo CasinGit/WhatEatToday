@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "오늘 뭐먹지",
-    "slug": "TeamProjectSlug",
+    "slug": "EatToday",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -21,13 +21,42 @@
       "supportsTablet": true
     },
     "android": {
+      "versionCode": 1,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
+      },
+      "permissions": [
+        "android.permission.RECORD_AUDIO",
+        "CAMERA",
+        "READ_EXTERNAL_STORAGE",
+        "ACCESS_COARSE_LOCATION",
+        "ACCESS_FINE_LOCATION",
+        "FOREGROUND_SERVICE"
+      ],
+      "package": "com.teamProject.EatToday",
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyCI2bgBX3ZNA9XHVcRtraJK1123b0-VSn0"
+        }
       }
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "The app accesses your photos to let you share them with your friends.",
+          "cameraPermission": "The app accesses your photos to let you share them with your friends."
+        }
+      ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "948ffeae-0a68-4996-bace-349fbc1a6852"
+      }
     }
   }
 }

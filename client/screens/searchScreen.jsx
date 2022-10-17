@@ -26,12 +26,13 @@ function SearchScreen() {
     const onSearch = () => setSearchFocus(true);
     const blurSearch = () => setSearchFocus(false);
     const [searchQuery, setSearchQuery] = useState('');
+    const [searchQuerys, setSearchQuerys] = useState('');
     const onChangeSearch = query => setSearchQuery(query);
-
+    const onChangeSearchs = query => setSearchQuerys(query);
     // 상세 페이지 모달
-    const [visible, setVisible] = useState(false);
-    const showModal = () => setVisible(true);
-    const hideModal = () => setVisible(false);
+    // const [visible, setVisible] = useState(false);
+    // const showModal = () => setVisible(true);
+    // const hideModal = () => setVisible(false);
 
     return (
         <Provider>
@@ -43,16 +44,23 @@ function SearchScreen() {
                 onFocus={onSearch}
                 onBlur={blurSearch}
             />
-
-            <Portal>
+            <Searchbar
+                placeholder="점포 검색"
+                placeholderTextColor="gray"
+                onChangeText={onChangeSearchs}
+                value={searchQuerys}
+                onFocus={onSearch}
+                onBlur={blurSearch}
+            />
+            {/* <Portal>
                 <Modal visible={visible} onDismiss={hideModal}
                     style={styles.modalOuterStyle}
                     contentContainerStyle={styles.modalInnerStyle}>
                     <StoreInfoScreen />
                 </Modal>
-            </Portal>
+            </Portal> */}
 
-            {!searchFocus && !searchQuery && // 검색 포커스 X && 검색 쿼리 X
+            {!searchFocus && !searchQuery && !searchQuerys && // 검색 포커스 X && 검색 쿼리 X
                 <View style={styles.container}>
                     <View View style={{ flexDirection: "row", margin: 10 }}>
                         <FlatList data={category} numColumns="4"
@@ -75,18 +83,27 @@ function SearchScreen() {
 
                     <Text style={{ fontWeight: "bold", fontSize: 24 }}>인기검색어</Text>
                     <View style={{ flexDirection: "row", margin: 10 }}>
-                        <Chip icon="numeric-0-box" mode="outlined" style={{ margin: 2 }} onPress={showModal}>모달테스트</Chip>
-                        <Chip icon="numeric-1-box" mode="outlined" style={{ margin: 2 }} onPress={() => onChangeSearch("국밥")}>국밥</Chip>
-                        <Chip icon="numeric-2-box" mode="outlined" style={{ margin: 2 }} onPress={() => onChangeSearch("김치볶음밥")}>김치볶음밥</Chip>
+                        {/* <Chip icon="numeric-0-box" mode="outlined" style={{ margin: 2 }} onPress={showModal}>모달테스트</Chip> */}
+                        <Chip icon="numeric-1-box" mode="outlined" style={{ margin: 2 }} onPress={() => onChangeSearch({ menu: "국밥" })}>국밥</Chip>
+                        <Chip icon="numeric-2-box" mode="outlined" style={{ margin: 2 }} onPress={() => onChangeSearch({ menu: "김치볶음밥" })}>김치볶음밥</Chip>
                     </View>
                 </View >
             }
 
-            {searchFocus && searchQuery ? // 검색 포커스 O && 검색 쿼리 O
-                <View style={styles.container}>
-                    <SearchMenu query={searchQuery} />
-                </View>
-                : (!searchFocus && searchQuery && // 검색 포커스 X && 검색 쿼리 O
+            {searchFocus ? // 검색 포커스 O && 검색 쿼리 O
+                (
+                    searchQuery ?
+                        <View style={styles.container}>
+                            <SearchMenu query={{ menu: searchQuery }} />
+                        </View>
+                        :
+                        searchQuerys &&
+                        <View style={styles.container}>
+                            <SearchMenu query={{ store: searchQuerys }} />
+                        </View>
+                )
+                :
+                (!searchFocus && (searchQuery || searchQuerys) && // 검색 포커스 X && 검색 쿼리 O
                     <View style={styles.container}>
                         <SearchMenu query={searchQuery} />
                     </View>

@@ -40,8 +40,11 @@ function HomeScreen() {
                     </Portal>
                 }
                 <MapView style={{ flex: 1 }} initialRegion={init}>
-                    {mapData && mapData.map((one) => {
-                        return <Marker key={one.RSTR_ID} coordinate={{ latitude: Number(one.RSTR_LA), longitude: Number(one.RSTR_LO) }}
+                    {mapData && mapData.map((one, index) => {
+                        return <Marker
+                            key={index}
+                            tracksViewChanges={false}
+                            coordinate={{ latitude: Number(one.RSTR_LA), longitude: Number(one.RSTR_LO) }}
                             title={one.RSTR_NM}
                             description={one.RSTR_RDNMADR}
                             onPress={() => {
