@@ -123,7 +123,7 @@ function StoreInfoScreen({ navigation, route }) {
             // }
         }()
     }, [marking, isFocused]);
-    
+
     const [starRating, setStarRating] = useState();
     // 리뷰 데이터가 들어오면 별점 평균 설정
     useEffect(() => {
@@ -136,12 +136,12 @@ function StoreInfoScreen({ navigation, route }) {
         });
         console.log("별점 총합:", sumScore);
         console.log("리뷰 갯수:", storeReviews.length);
-        if((sumScore / storeReviews.length).toFixed(1) * 1 %1 >0 && (sumScore / storeReviews.length).toFixed(1) * 1%1 <1) {
-            setScoreAverage((sumScore / storeReviews.length).toFixed(1)*1);
-            setStarRating(Math.floor((sumScore / storeReviews.length).toFixed(1)*1) + 0.5);
-        } else if((sumScore / storeReviews.length).toFixed(1)*1 %1 === 0) {
-            setScoreAverage((sumScore / storeReviews.length).toFixed(1)*1);
-            setStarRating((sumScore / storeReviews.length).toFixed(1)*1);
+        if ((sumScore / storeReviews.length).toFixed(1) * 1 % 1 > 0 && (sumScore / storeReviews.length).toFixed(1) * 1 % 1 < 1) {
+            setScoreAverage((sumScore / storeReviews.length).toFixed(1) * 1);
+            setStarRating(Math.floor((sumScore / storeReviews.length).toFixed(1) * 1) + 0.5);
+        } else if ((sumScore / storeReviews.length).toFixed(1) * 1 % 1 === 0) {
+            setScoreAverage((sumScore / storeReviews.length).toFixed(1) * 1);
+            setStarRating((sumScore / storeReviews.length).toFixed(1) * 1);
         }
     }, [storeReviews])
 

@@ -13,17 +13,16 @@ function SearchMenu({ query }) {
 
     // Debounce Technique
     useEffect(() => {
-
         const timer = setTimeout(() => {
             console.log("query", query);
-            if (query.menu) {
-                getSearchMenu(query.menu).then(received => {
+            if (query.is == "menu") {
+                getSearchMenu(query.value).then(received => {
                     setStores(received.datas);
                 }).catch(err => {
                     console.error(err);
                 })
-            } else if (query.store) {
-                getStoreNameRequest(query.store).then(received => {
+            } else if (query.is == "store") {
+                getStoreNameRequest(query.value).then(received => {
                     setStores(received.datas);
                 }).catch(err => {
                     console.error(err);
@@ -37,6 +36,11 @@ function SearchMenu({ query }) {
 
     }, [query]);
 
+    const pressHandle = (item) => {
+        console.log("메뉴 검색해서 가게 상세 페이지 들어가는곳");
+        navigation.navigate("storeInfo", { datas: item, place: item.RSTR_RDNMADR, places: item.RSTR_LNNO_ADRES, ph: item.RSTR_TELNO })
+    }
+
     return (
         <View style={styles.container}>
             {stores && <FlatList
@@ -44,15 +48,34 @@ function SearchMenu({ query }) {
                 initialNumToRender={5}
                 renderItem={({ index, item }) => {
                     return (
-                        <StoreSearchs item={item} />
+                        <Pressable
+                            style={({ pressed }) => pressed ? { opacity: 0.7 } : null}
+                            onPress={() => { pressHandle(item) }}
+                        >
+                            <Card style={styles.cardContainer}>
+                                <Card.Content style={styles.cardContent}>
+                                    {item.rstrImg ?
+                                        <Card.Cover source={{ uri: item.rstrImg?.RSTR_IMG_URL }} style={styles.cardImg} resizeMode="cover" />
+                                        :
+                                        <Card.Cover source={require("../assets/store_defaultImage.png")} style={styles.cardImg} resizeMode="cover" />
+                                    }
+                                    <View style={{ marginLeft: 10 }}>
+                                        <Title>{item.RSTR_NM}</Title>
+                                        <Paragraph numberOfLines={2}>
+                                            {item.getMenu ?
+                                                item.getMenu.map(one => {
+                                                    return one.MENU_NM + ", ";
+                                                })
+                                                :
+                                                item.RSTR_INTRCN_CONT
+                                            }
+                                        </Paragraph>
+                                    </View>
+                                </Card.Content>
+                            </Card>
+                        </Pressable>
                     )
                 }} />}
-            {/* {stores && <FlatList
-                data={stores}
-                initialNumToRender={5}
-                renderItem={({ index, item }) => {
-                    return <StoreListInfo item={item} />
-                }} />} */}
         </View>
     );
 }
