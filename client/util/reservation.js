@@ -1,6 +1,6 @@
 import axios from "axios";
-// import { SERVER_URL } from '@env';
-const SERVER_URL = "http://192.168.4.13:8080"
+import { SERVER_URL } from '@env';
+// const SERVER_URL = "http://192.168.4.13:8080"
 
 
 // 해당 계정에서 예약한 리스트 가져오기
