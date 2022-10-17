@@ -2,6 +2,7 @@ import { launchCameraAsync, launchImageLibraryAsync, PermissionStatus, useCamera
 import { View, Text, Alert, Image, Pressable, Button } from 'react-native'
 import React, { useState } from 'react'
 import { ActivityIndicator } from "react-native-paper";
+import ReviewButton from "./reviewButton";
 
 export default function ImagePicker({ onPicked }) {
     const [imageUri, setImageUri] = useState();
@@ -89,9 +90,9 @@ export default function ImagePicker({ onPicked }) {
                     </Pressable>
                 }
             </View>
-            <View style={{ flexDirection: "row", justifyContent: "space-around", padding: 8 }}>
-                <Button title="앨범" onPress={takeFromAlbum} />
-                <Button title="카메라" onPress={takeFromCamera} />
+            <View style={{ flexDirection: "row", justifyContent: "space-around", padding: 5 }}>
+                <ReviewButton onPress={takeFromAlbum} name={"albums-sharp"}/>
+                <ReviewButton onPress={takeFromCamera} name={"camera"}/>
             </View>
         </View>
     )
