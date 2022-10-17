@@ -14,6 +14,9 @@ function SellerRoute() {
     const [confirmPassword, setConfirmPassword] = useState();
     const [store, setStore] = useState();
 
+    const [secureView, setSecureView] = useState(true);
+    const [_secureView, _setSecureView] = useState(true);
+
     const ctx = useContext(AppContext);
     const ctxR = useContext(RegisterContext);
     const navigation = useNavigation();
@@ -65,7 +68,7 @@ function SellerRoute() {
             </View>
             <View style={{ width: "60%" }}>
                 <View style={styles.inputContainer}>
-                    <TextInput
+                    <TextInput style={{ fontSize: email ? 16 : 12 }}
                         mode="outlined"
                         label="이메일"
                         placeholder="이메일을 입력해주세요"
@@ -73,22 +76,26 @@ function SellerRoute() {
                     />
                 </View>
                 <View style={styles.inputContainer}>
-                    <TextInput
+                    <TextInput style={{ fontSize: password ? 16 : 12 }}
                         mode="outlined"
                         label="비밀번호"
                         placeholder="비밀번호를 입력해주세요"
-                        right={<TextInput.Icon icon="eye" />}
-                        secureTextEntry
+                        right={<TextInput.Icon icon="eye"
+                            onPressIn={() => setSecureView(false)}
+                            onPressOut={() => setSecureView(true)} />}
+                        secureTextEntry={secureView}
                         onChangeText={setPassword}
                     />
                 </View>
                 <View style={styles.inputContainer}>
-                    <TextInput
+                    <TextInput style={{ fontSize: confirmPassword ? 16 : 12 }}
                         mode="outlined"
                         label="비밀번호 확인"
                         placeholder="비밀번호를 다시 입력해주세요"
-                        right={<TextInput.Icon icon="eye" />}
-                        secureTextEntry
+                        right={<TextInput.Icon icon="eye"
+                            onPressIn={() => _setSecureView(false)}
+                            onPressOut={() => _setSecureView(true)} />}
+                        secureTextEntry={_secureView}
                         onChangeText={setConfirmPassword}
                     />
                 </View>
