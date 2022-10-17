@@ -19,12 +19,16 @@ function HomeScreen() {
     }
 
     useEffect(() => {
-        !async function () {
-            setLoading(true);
-            const data = await getStoreInfoRequest();
-            setMapData(data.datas);
+        setLoading(true);
+        getStoreInfoRequest().then((received) => {
+            setMapData(received.datas);
+        }).catch((err) => {
+            console.error(err);
+        }).finally(() => {
             setLoading(false);
-        }()
+        })
+        // setMapData(data.datas);
+        // setLoading(false);
     }, [])
 
     return (
@@ -41,7 +45,6 @@ function HomeScreen() {
                             title={one.RSTR_NM}
                             description={one.RSTR_RDNMADR}
                             onPress={() => {
-                                console.log(one)
                                 navigation.navigate("storeInfo", { datas: one, place: one.RSTR_RDNMADR, places: one.RSTR_LNNO_ADRES, ph: one.RSTR_TELNO });
                             }} />
                     }
