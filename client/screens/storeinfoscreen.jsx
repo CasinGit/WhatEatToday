@@ -170,7 +170,7 @@ const styles = StyleSheet.create({
     },
     a1: {
         backgroundColor: "#white",
-        height: 200
+        height: 210,
     },
     a2: {
         backgroundColor: "white",

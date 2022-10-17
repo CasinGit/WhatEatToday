@@ -60,12 +60,10 @@ function WriteStoreReview({ route, navigation }) {
         <View style={styles.container}>
             <ScrollView>
                 <View style={styles.innerContainer}>
-
                     <ImagePicker onPicked={imagePickedHandle} />
                     <View>
-
                         <View style={{ alignItems: 'center', flexDirection: "row", marginTop: 10 }}>
-                            <Text style={{ marginRight: 10 }}>별점:</Text>
+                            <Text style={{ marginRight: 10, fontSize : 35 }}>별점 :</Text>
                             <Stars
                                 default={1}
                                 count={5}
@@ -76,19 +74,21 @@ function WriteStoreReview({ route, navigation }) {
                                 emptyStar={<Icon name={'star'} style={[styles.myStarStyle, styles.myEmptyStarStyle]} />}
                                 halfStar={<Icon name={'star-half'} style={[styles.myStarStyle]} />}
                             />
-                            <Text style={{ marginLeft: 10 }}>{reviewScore}점</Text>
+                            <Text style={{ marginLeft: 3, fontSize : 25, marginTop : 8 }}>{"("+reviewScore+")점"}</Text>
                         </View>
-
-                        <Text style={{ marginTop: 10 }}>후기:</Text>
+                        <Text style={{ marginTop: 10, fontSize : 35 }}>후기 :</Text>
                         <TextInput style={{
-                            borderBottomColor: "#111111",
-                            borderBottomWidth: 1,
-                            height: 40,
+                            borderColor: "black",
+                            borderWidth: 1,
+                            height: 45,
+                            marginTop : 10,
+                            backgroundColor : "white",
+                            fontSize : 25
                         }}
                             placeholder={"후기를 입력해주세요"}
                             value={reviewComment} onChangeText={setReviewComment} />
                     </View>
-                    <View style={{ marginTop: 50 }}>
+                    <View style={{ marginTop: 30 }}>
                         <Button title="리뷰 등록" onPress={confirm} />
                     </View>
                 </View>
