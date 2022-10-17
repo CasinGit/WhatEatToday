@@ -24,7 +24,16 @@ router
                     const token = jwt.sign({ email: req.body.email }, JWT_SECRET, {
                         // expiresIn: 60 * 60 * 12 // 토근 유효기간 => 12시간
                     });
-                    res.status(200).json({ result: chk, datas: result, token });
+
+                    const resData = {
+                        email: result.email,
+                        ph: result.ph,
+                        bookmark: result.bookmark,
+                        RSTR_ID: result.RSTR_ID,
+                    };
+                    // console.log("resData", resData);
+
+                    res.status(200).json({ result: chk, datas: resData, token });
                 } else {
                     res.status(409).json({ result: chk, message: "비밀번호가 다릅니다." });
                 }

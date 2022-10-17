@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { Image, StyleSheet, Text, useWindowDimensions, View } from "react-native";
+import { Alert, Image, StyleSheet, Text, useWindowDimensions, View } from "react-native";
 import { TabView } from "react-native-tab-view"
 import Store_Route_Menu from "../components/Store_route_menu";
 import Store_Route_Info from "../components/Store_route_info";
@@ -12,6 +12,7 @@ import { AppContext } from "../context/app-context";
 import CustomButton from "../components/CustomButton";
 import Stars from 'react-native-stars';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { useIsFocused } from "@react-navigation/native";
 
 function StoreInfoScreen({ navigation, route }) {
     // console.log("StoreInfoScreen!!");
@@ -35,60 +36,94 @@ function StoreInfoScreen({ navigation, route }) {
 
     const [marking, setMarking] = useState(false);
     const ctx = useContext(AppContext);
+    const isFocused = useIsFocused();
 
+    // 즐겨찾기 버튼 클릭 핸들러
     const pressHandle = async () => {
-        // console.log(name)
+        if (!ctx.auth) {
+            Alert.alert("", "로그인이 필요한 서비스 입니다.");
+            navigation.navigate("accountStack");
+            return;
+        };
         setMarking((current) => !marking);
-        marking ? await removeStoreFavRequest(ctx.auth.email, data.RSTR_ID) : await addStoreFavRequest(ctx.auth.email, data.RSTR_ID)
-        // alert(marking ?  "즐겨찾기에 삭제되었습니다." : "즐겨찾기에 추가되었습니다.");
+        marking ? await removeStoreFavRequest(ctx.auth.email, data.RSTR_ID) : await addStoreFavRequest(ctx.auth.email, data.RSTR_ID);
     };
 
+    // 예약 버튼 핸들러
     const reservationHandle = () => {
+        if (!ctx.auth) {
+            Alert.alert("", "로그인이 필요한 서비스 입니다.");
+            navigation.navigate("accountStack");
+            return;
+        }
         navigation.navigate("reservation", { datas: data });
     };
 
     useEffect(() => {
         console.log("useEffect => [data.RSTR_ID]");
-        !async function () {
-            const favData = await getStoreFavRequest(ctx.auth.email);
-            // console.log(favData.datas); // 해당 계정의 북마크 가져오기
-            // console.log(favData.datas.includes(data.RSTR_ID)) // 북마크에 등록되어 있는지 확인
-            favData.datas.includes(data.RSTR_ID) ? setMarking(true) : setMarking(false)
 
-            const reviewDatas = await getStoreReviews(data.RSTR_ID);
-            if (reviewDatas.datas) {
-                setStoreReviews(reviewDatas.datas);
-                console.log("리뷰 데이터 세팅완료");
-            } else {
-                console.log("리뷰 데이터가 없음!");
-            }
-        }()
+        getStoreImageRequest(data.RSTR_ID).then((received) => {
+            setStoreImage(received.datas[0]?.RSTR_IMG_URL ? received.datas[0].RSTR_IMG_URL : null);
+        }).catch((err) => console.error(err));
+
+        getStoreMenuRequest(data.RSTR_ID).then((received) => {
+            setStoreMenu(received);
+        }).catch((err) => console.error(err));
+
+        getStoreOperRequest(data.RSTR_ID).then((received) => {
+            setStoreOper(received);
+        }).catch((err) => console.error(err));
+
+
+        // 리뷰 데이터 불러올때 경고 발생해서 catch문 사용
+        getStoreReviews(data.RSTR_ID).then((received) => {
+            setStoreReviews(received.datas);
+        }).catch((err) => {
+            console.error(err);
+        })
     }, [data.RSTR_ID]);
 
     useEffect(() => {
-        console.log("useEffect => [marking]");
+        console.log("useEffect => [marking, isFocused]");
+
+        // 로그인 했을때만 실행
+        if (ctx.auth?.email) {
+            getStoreFavRequest(ctx.auth.email).then((received) => {
+                received.datas.includes(data.RSTR_ID) ? setMarking(true) : setMarking(false);
+            }).catch((err) => {
+                console.error(err);
+            })
+        }
 
         !async function () {
-            console.log(ctx.auth, "auth")
+            console.log(ctx.auth, "auth");
+
             navigation.setOptions({
                 headerRight: () => {
-                    return <IconButton onPress={pressHandle} name={marking ? "star" : "star-outline"} />
+                    // 로그인 했을때만 실행
+                    if (ctx.auth) {
+                        return <IconButton onPress={pressHandle} name={marking ? "star" : "star-outline"} />
+                    } else {
+                        return <IconButton onPress={pressHandle} name={"star-outline"} />
+                    }
                 }
             });
 
-            try {
-                const image = await getStoreImageRequest(data.RSTR_ID);
-                const menu = await getStoreMenuRequest(data.RSTR_ID);
-                const oper = await getStoreOperRequest(data.RSTR_ID);
 
-                setStoreMenu(menu);
-                setStoreOper(oper);
-                setStoreImage(image.datas[0]?.RSTR_IMG_URL ? image.datas[0].RSTR_IMG_URL : null);
-            } catch (e) {
-                console.log("error", e)
-            }
+            // try {
+            //     const image = await getStoreImageRequest(data.RSTR_ID);
+            //     const menu = await getStoreMenuRequest(data.RSTR_ID);
+            //     const oper = await getStoreOperRequest(data.RSTR_ID);
+
+            //     setStoreMenu(menu);
+            //     setStoreOper(oper);
+            //     setStoreImage(image.datas[0]?.RSTR_IMG_URL ? image.datas[0].RSTR_IMG_URL : null);
+            // } catch (e) {
+            //     console.log("error", e)
+            // }
         }()
-    }, [marking]);
+    }, [marking, isFocused]);
+    
     const [starRating, setStarRating] = useState();
     // 리뷰 데이터가 들어오면 별점 평균 설정
     useEffect(() => {
@@ -157,6 +192,9 @@ function StoreInfoScreen({ navigation, route }) {
                 onIndexChange={setIndex}
                 initialLayout={{ width: layout.width }}
             />
+            {/* {ctx.auth?.email &&
+                <CustomButton reservationHandle={reservationHandle} />
+            } */}
             <CustomButton reservationHandle={reservationHandle} />
         </View>
     );
