@@ -12,6 +12,7 @@ function LoginScreen() {
     const navigation = useNavigation();
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
+    const [secureView, setSecureView] = useState(true);
     const ctx = useContext(AppContext);
 
     useEffect(() => {
@@ -45,7 +46,7 @@ function LoginScreen() {
                 </View>
                 <View style={{ width: "60%" }}>
                     <View style={styles.inputContainer}>
-                        <TextInput style={styles.textInput}
+                        <TextInput style={{ fontSize: email ? 16 : 14 }}
                             mode="outlined"
                             label="이메일"
                             placeholder="이메일을 입력해주세요"
@@ -55,12 +56,14 @@ function LoginScreen() {
                         />
                     </View>
                     <View style={styles.inputContainer}>
-                        <TextInput style={styles.textInput}
+                        <TextInput style={{ fontSize: password ? 16 : 14 }}
                             mode="outlined"
                             label="비밀번호"
                             placeholder="비밀번호를 입력해주세요"
-                            right={<TextInput.Icon icon="eye" />}
-                            secureTextEntry
+                            right={<TextInput.Icon icon="eye"
+                                onPressIn={() => setSecureView(false)}
+                                onPressOut={() => setSecureView(true)} />}
+                            secureTextEntry={secureView}
                             onChangeText={setPassword}
                             autoCapitalize="none"
                         />
@@ -89,11 +92,6 @@ const styles = StyleSheet.create({
     },
     inputContainer: {
         marginBottom: 10
-    },
-    textInput: {
-        // padding: 5,
-        // borderBottomColor: "#121212",
-        // borderBottomWidth: 2,
     },
 });
 
