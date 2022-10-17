@@ -78,9 +78,6 @@ function HomeStackNavigator() {
       <Stack.Screen name='storeInfo' component={StoreInfoScreen} options={{ title: "맛집탐색", presentation: "modal" }} />
       <Stack.Screen name="reservation" component={Reservation} options={{ title: "예약하기" }} />
       <Stack.Screen name="reservationConfirm" component={ReservationConfirm} options={{ title: "예약완료" }} />
-      {/* <Stack.Screen name="sellerCalender" component={SellerCalenderScreen} options={{ title: "판매자 캘린더" }} /> */}
-      {/* ///////////////////////////////////////////////////////////////////////// */}
-      <Stack.Screen name="test_agenda" component={Test_Calendar_Agenda} />
     </Stack.Navigator>
   )
 }

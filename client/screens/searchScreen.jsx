@@ -1,7 +1,8 @@
 import { useNavigation } from "@react-navigation/native";
 import { useEffect, useState } from "react";
-import { StyleSheet, View, Text, Pressable, FlatList } from "react-native";
-import { Card, Searchbar, Title, Chip, Modal, Portal, Provider } from 'react-native-paper';
+import { StyleSheet, View, Text, Pressable, FlatList, Button } from "react-native";
+import { Card, Searchbar, Title, Chip, Modal, Portal, Provider, Switch, ToggleButton } from 'react-native-paper';
+import IconButton from "../components/IconButton";
 import SearchMenu from "../components/SearchMenu";
 import CategorySelectScreen from "./categorySelect";
 import StoreInfoScreen from "./storeinfoscreen";
@@ -26,41 +27,48 @@ function SearchScreen() {
     const onSearch = () => setSearchFocus(true);
     const blurSearch = () => setSearchFocus(false);
     const [searchQuery, setSearchQuery] = useState('');
-    const [searchQuerys, setSearchQuerys] = useState('');
     const onChangeSearch = query => setSearchQuery(query);
-    const onChangeSearchs = query => setSearchQuerys(query);
-    // 상세 페이지 모달
-    // const [visible, setVisible] = useState(false);
-    // const showModal = () => setVisible(true);
-    // const hideModal = () => setVisible(false);
+
+    const [screenTitle, SetScreenTitle] = useState("검색");
+    const [value, setValue] = useState('menu');
+    const [placeholder, setPlaceholder] = useState("메뉴 검색");
+
+    navigation.setOptions({
+        headerRight: () => {
+            return (
+                <ToggleButton.Row onValueChange={value => setValue(value)} value={value} style={{ margin: 5, marginBottom: 10 }}>
+                    <ToggleButton icon="store-search" value="store" onPress={() => setPlaceholder("점포 검색")} />
+                    <ToggleButton icon="menu" value="menu" onPress={() => setPlaceholder("메뉴 검색")} />
+                </ToggleButton.Row>
+            )
+        },
+        title: screenTitle
+    });
+
+    useEffect(() => {
+        if (!searchFocus) {
+            SetScreenTitle("가게/음식 찾기");
+            return;
+        }
+        if (value == "menu") {
+            SetScreenTitle("메뉴 검색");
+        } else if (value == "store") {
+            SetScreenTitle("점포 검색");
+        }
+    }, [value, searchFocus])
 
     return (
         <Provider>
             <Searchbar
-                placeholder="메뉴 검색"
+                placeholder={placeholder}
                 placeholderTextColor="gray"
                 onChangeText={onChangeSearch}
                 value={searchQuery}
                 onFocus={onSearch}
                 onBlur={blurSearch}
             />
-            <Searchbar
-                placeholder="점포 검색"
-                placeholderTextColor="gray"
-                onChangeText={onChangeSearchs}
-                value={searchQuerys}
-                onFocus={onSearch}
-                onBlur={blurSearch}
-            />
-            {/* <Portal>
-                <Modal visible={visible} onDismiss={hideModal}
-                    style={styles.modalOuterStyle}
-                    contentContainerStyle={styles.modalInnerStyle}>
-                    <StoreInfoScreen />
-                </Modal>
-            </Portal> */}
 
-            {!searchFocus && !searchQuery && !searchQuerys && // 검색 포커스 X && 검색 쿼리 X
+            {!searchFocus && !searchQuery && // 검색 포커스 X && 검색 쿼리 X
                 <View style={styles.container}>
                     <View View style={{ flexDirection: "row", margin: 10 }}>
                         <FlatList data={category} numColumns="4"
@@ -83,29 +91,20 @@ function SearchScreen() {
 
                     <Text style={{ fontWeight: "bold", fontSize: 24 }}>인기검색어</Text>
                     <View style={{ flexDirection: "row", margin: 10 }}>
-                        {/* <Chip icon="numeric-0-box" mode="outlined" style={{ margin: 2 }} onPress={showModal}>모달테스트</Chip> */}
                         <Chip icon="numeric-1-box" mode="outlined" style={{ margin: 2 }} onPress={() => onChangeSearch({ menu: "국밥" })}>국밥</Chip>
                         <Chip icon="numeric-2-box" mode="outlined" style={{ margin: 2 }} onPress={() => onChangeSearch({ menu: "김치볶음밥" })}>김치볶음밥</Chip>
                     </View>
                 </View >
             }
 
-            {searchFocus ? // 검색 포커스 O && 검색 쿼리 O
-                (
-                    searchQuery ?
-                        <View style={styles.container}>
-                            <SearchMenu query={{ menu: searchQuery }} />
-                        </View>
-                        :
-                        searchQuerys &&
-                        <View style={styles.container}>
-                            <SearchMenu query={{ store: searchQuerys }} />
-                        </View>
-                )
+            {searchFocus && searchQuery ? // 검색 포커스 O && 검색 쿼리 O
+                <View style={styles.container}>
+                    <SearchMenu query={{ is: value, value: searchQuery }} />
+                </View>
                 :
-                (!searchFocus && (searchQuery || searchQuerys) && // 검색 포커스 X && 검색 쿼리 O
-                    <View style={styles.container}>
-                        <SearchMenu query={searchQuery} />
+                (!searchFocus && searchQuery && // 검색 포커스 X && 검색 쿼리 O
+                    <View View style={styles.container}>
+                        <SearchMenu query={{ is: value, value: searchQuery }} />
                     </View>
                 )
             }
