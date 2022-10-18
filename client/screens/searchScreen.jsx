@@ -33,23 +33,32 @@ function SearchScreen() {
     const [value, setValue] = useState('menu');
     const [placeholder, setPlaceholder] = useState("메뉴 검색");
 
-    navigation.setOptions({
-        headerRight: () => {
-            return (
-                <ToggleButton.Row onValueChange={value => setValue(value)} value={value} style={{ margin: 5, marginBottom: 10 }}>
-                    <ToggleButton icon="store-search" value="store" onPress={() => setPlaceholder("점포 검색")} />
-                    <ToggleButton icon="menu" value="menu" onPress={() => setPlaceholder("메뉴 검색")} />
-                </ToggleButton.Row>
-            )
-        },
-        title: screenTitle
-    });
+    useEffect(() => {
+        navigation.setOptions({
+            headerRight: () => {
+                return (
+                    <ToggleButton.Row onValueChange={value => setValue(value)} value={value} style={{ margin: 5, marginBottom: 10 }}>
+                        <ToggleButton icon="store-search" value="store" onPress={() => setPlaceholder("점포 검색")} />
+                        <ToggleButton icon="menu" value="menu" onPress={() => setPlaceholder("메뉴 검색")} />
+                    </ToggleButton.Row>
+                )
+            },
+            // title: screenTitle
+        });
+    }, [value])
+
+    useEffect(() => {
+        navigation.setOptions({
+            title: screenTitle
+        });
+    }, [screenTitle])
 
     useEffect(() => {
         if (!searchFocus) {
             SetScreenTitle("가게/음식 찾기");
             return;
         }
+
         if (value == "menu") {
             SetScreenTitle("메뉴 검색");
         } else if (value == "store") {
