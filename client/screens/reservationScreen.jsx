@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { View, Text, StyleSheet, KeyboardAvoidingView, Pressable, Button, ScrollView, Alert } from "react-native";
+import { View, Text, StyleSheet, KeyboardAvoidingView, Button, ScrollView, Alert } from "react-native";
 import { format } from "date-fns";
 import ko from "date-fns/esm/locale/ko/index.js"
 import { Calendar } from 'react-native-calendars';
@@ -89,7 +89,7 @@ function ReservationScreen({ route }) {
         const dates = format(new Date(selectedDate), "PPP", { locale: ko });
         const dateDb = new Date(selectedDate).toISOString().split("T")[0];
         const times = format(new Date(date), "p", { locale: ko });
-        if(person === 0 || person === undefined || person === null) {
+        if (person === 0 || person === undefined || person === null) {
             Alert.alert("예약인원을 입력해주세요");
         } else {
             await createReservationRequest(storeId, ctx.auth.email, dateDb, times, person, texts);
@@ -98,7 +98,7 @@ function ReservationScreen({ route }) {
     };
 
     return (
-        <ScrollView style={{backgroundColor:"white"}}>
+        <ScrollView style={{ backgroundColor: "white" }}>
             <View>
                 <View style={{ alignItems: "center", backgroundColor: "white" }}>
                     <Text style={styles.container_store_name}>{RSTR_NM}
@@ -140,12 +140,12 @@ function ReservationScreen({ route }) {
                         <Text style={{ fontSize: 25 }}>{"(" + format(new Date(date), "p", { locale: ko }) + ")"}</Text>
                     </Text>
                 </View>
-                <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={{ flex: 1, backgroundColor: "white", flexDirection:"row" }}>
-                    <Text style={{fontSize : 35, padding: 5,}}>예약인원 : </Text>
-                    <TextInput style={{fontSize : 35, backgroundColor:"white", borderColor: "black", borderWidth: 1, height : 45}} multiline={false} placeholder="0" keyboardType="number-pad" onChangeText={setPerson} />
-                    <Text style={{fontSize : 35, padding: 5,}}> 명</Text>
+                <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={{ flex: 1, backgroundColor: "white", flexDirection: "row" }}>
+                    <Text style={{ fontSize: 35, padding: 5, }}>예약인원 : </Text>
+                    <TextInput style={{ fontSize: 35, backgroundColor: "white", borderColor: "black", borderWidth: 1, height: 45 }} multiline={false} placeholder="0" keyboardType="number-pad" onChangeText={setPerson} />
+                    <Text style={{ fontSize: 35, padding: 5, }}> 명</Text>
                 </KeyboardAvoidingView>
-                <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={{ flex: 1, backgroundColor: "white"}}>
+                <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={{ flex: 1, backgroundColor: "white" }}>
                     <Text style={styles.text_global}>요청사항 :</Text>
                     <TextInput style={styles.input_req} multiline={false} maxLength={600} onChangeText={setTexts} />
                 </KeyboardAvoidingView>
@@ -169,14 +169,14 @@ const styles = StyleSheet.create({
     },
     container_store_name: {
         fontSize: 40,
-        marginTop : 10
+        marginTop: 10
     },
     input_req: {
         backgroundColor: "white",
         borderColor: "black",
         borderWidth: 1,
         fontSize: 25,
-        marginHorizontal : 5
+        marginHorizontal: 5
     },
     center: {
         position: 'absolute',

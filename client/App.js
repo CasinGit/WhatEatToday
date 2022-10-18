@@ -47,6 +47,7 @@ function MemberStackNavigator() {
       <Stack.Screen name="writeReview" component={WriteStoreReview} options={{ title: "리뷰 작성", presentation: "modal" }} />
       <Stack.Screen name="sellerCalender" component={SellerCalenderScreen} options={{ title: "판매자 캘린더" }} />
       <Stack.Screen name="consumerCalender" component={ConsumerCalenderScreen} options={{ title: "예약 캘린더" }} />
+      <Stack.Screen name='storeInfo' component={StoreInfoScreen} options={{ title: "맛집탐색", presentation: "modal" }} />
     </Stack.Navigator>
   )
 }
@@ -67,6 +68,7 @@ function SearchStackNavigator() {
     <Stack.Navigator>
       <Stack.Screen name='search' component={SearchScreen} options={{ title: "검색" }} />
       <Stack.Screen name='categorySelect' component={CategorySelectScreen} options={{ title: "카테고리" }} />
+      <Stack.Screen name='storeInfo' component={StoreInfoScreen} options={{ title: "맛집탐색", presentation: "modal" }} />
     </Stack.Navigator>
   )
 }

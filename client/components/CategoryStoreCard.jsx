@@ -8,11 +8,12 @@ function CategoryStoreCard({ data }) {
     const [storeInfo, setStoreInfo] = useState();
     const [storeImage, setStoreImage] = useState();
     const fouces = useIsFocused();
-    useEffect(()=>{ 
+
+    useEffect(() => {
         !async function () {
             const storeData = await getStoreInfoRequest();
-            const getStoreData = storeData.datas.filter((one)=>{
-                if(one.RSTR_ID == data) {
+            const getStoreData = storeData.datas.filter((one) => {
+                if (one.RSTR_ID == data) {
                     return one;
                 }
             });
@@ -20,13 +21,13 @@ function CategoryStoreCard({ data }) {
             setStoreInfo(getStoreData[0]);
             const image = await getStoreImageRequest(data);
             // console.log(image)
-            if(image.datas[0]?.RSTR_IMG_URL) {
+            if (image.datas[0]?.RSTR_IMG_URL) {
                 setStoreImage(image.datas[0].RSTR_IMG_URL);
             } else {
                 setStoreImage(null);
             }
         }()
-    },[fouces]);
+    }, [fouces]);
 
     const navigation = useNavigation();
     const pressHandle = () => {
@@ -46,7 +47,7 @@ function CategoryStoreCard({ data }) {
                         :
                         <Card.Cover source={require("../assets/store_defaultImage.png")} />
                     }
-                    {storeInfo ? 
+                    {storeInfo ?
                         <View>
                             <Title>{storeInfo.RSTR_NM}</Title>
                             <Paragraph numberOfLines={2}>{storeInfo.RSTR_INTRCN_CONT}</Paragraph>

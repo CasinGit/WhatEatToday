@@ -11,8 +11,8 @@ function StoreTabviewMenuInfo({ item }) {
                     <Image resizeMode="contain" style={styles.image} source={require("../assets/menu_defaultImage.png")} />
                 }
                 <View style={styles.aa}>
-                    <Text style={{ fontSize: 30, color: "black", flexWrap: "wrap" }}>{item.MENU_NM}</Text>
-                    <Text style={{ fontSize: 26, color: "black" }}>{item.MENU_PRICE}원</Text>
+                    <Text style={{ fontSize: 26, flexWrap: "wrap", fontWeight: "600" }}>{item.MENU_NM}</Text>
+                    <Text style={{ fontSize: 22 }}>{item.MENU_PRICE}원</Text>
                 </View>
             </View>
         </View>

@@ -13,7 +13,7 @@ function StoreInfoRoute({ data, place, places, ph }) {
         <ScrollView style={styles.container}>
             {storeInfo !== null ?
                 <View>
-                    <Text style={styles.text1}>주소 : {place + "(" + places + ")"}</Text>
+                    <Text style={styles.text1}>주소 : {place + "\n(" + places + ")"}</Text>
                     <Text style={styles.text2}>연락처 : {ph ? ph : "정보준비중"}</Text>
                     <Text style={styles.text3}>영업시간 : {storeInfo.BSNS_TM_CN ? storeInfo.BSNS_TM_CN : "정보준비중"}</Text>
                 </View>
@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
         marginTop: 20
     },
     text3: {
-        fontSize: 18,
+        fontSize: 16,
         textAlign: "center",
         marginTop: 20
     }
