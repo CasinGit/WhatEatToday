@@ -12,7 +12,7 @@ function ReservationConfirmScreen({ route }) {
     const store = route.params.store;
     const storeType = route.params.storeType;
 
-    console.log(date, time, person, text, "이걸봐라");
+    // console.log(date, time, person, text, "이걸봐라");
 
     const ctx = useContext(AppContext);
     const userNumber = ctx.auth.ph.slice(-4);

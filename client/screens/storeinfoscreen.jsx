@@ -13,6 +13,7 @@ import CustomButton from "../components/CustomButton";
 import Stars from 'react-native-stars';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useIsFocused } from "@react-navigation/native";
+import { ActivityIndicator, MD2Colors, Portal, Provider } from "react-native-paper";
 
 function StoreInfoScreen({ navigation, route }) {
     // console.log("StoreInfoScreen!!");
@@ -22,6 +23,7 @@ function StoreInfoScreen({ navigation, route }) {
     const [index, setIndex] = useState(0);
 
     const data = route.params.datas;
+    const [loading, setLoading] = useState(false);
     const [storeImage, setStoreImage] = useState();
     const [storeMenu, setStoreMenu] = useState();
     const [storeOper, setStoreOper] = useState();
@@ -61,6 +63,7 @@ function StoreInfoScreen({ navigation, route }) {
 
     useEffect(() => {
         console.log("useEffect => [data.RSTR_ID]");
+        setLoading(true);
 
         getStoreImageRequest(data.RSTR_ID).then((received) => {
             setStoreImage(received.datas[0]?.RSTR_IMG_URL ? received.datas[0].RSTR_IMG_URL : null);
@@ -78,9 +81,9 @@ function StoreInfoScreen({ navigation, route }) {
         // 리뷰 데이터 불러올때 경고 발생해서 catch문 사용
         getStoreReviews(data.RSTR_ID).then((received) => {
             setStoreReviews(received.datas);
-        }).catch((err) => {
-            console.error(err);
-        })
+        }).catch((err) => console.error(err));
+
+        setLoading(false);
     }, [data.RSTR_ID]);
 
     useEffect(() => {
@@ -108,25 +111,14 @@ function StoreInfoScreen({ navigation, route }) {
                     }
                 }
             });
-
-
-            // try {
-            //     const image = await getStoreImageRequest(data.RSTR_ID);
-            //     const menu = await getStoreMenuRequest(data.RSTR_ID);
-            //     const oper = await getStoreOperRequest(data.RSTR_ID);
-
-            //     setStoreMenu(menu);
-            //     setStoreOper(oper);
-            //     setStoreImage(image.datas[0]?.RSTR_IMG_URL ? image.datas[0].RSTR_IMG_URL : null);
-            // } catch (e) {
-            //     console.log("error", e)
-            // }
         }()
     }, [marking, isFocused]);
 
     const [starRating, setStarRating] = useState();
     // 리뷰 데이터가 들어오면 별점 평균 설정
     useEffect(() => {
+        setLoading(true);
+
         if (!storeReviews) return;
         // console.log(storeReviews);
         let sumScore = 0;
@@ -143,6 +135,8 @@ function StoreInfoScreen({ navigation, route }) {
             setScoreAverage((sumScore / storeReviews.length).toFixed(1) * 1);
             setStarRating((sumScore / storeReviews.length).toFixed(1) * 1);
         }
+
+        setLoading(false);
     }, [storeReviews])
 
     const place = route.params.place;
@@ -160,43 +154,52 @@ function StoreInfoScreen({ navigation, route }) {
                 return null;
         }
     };
-    // console.log("===>", storeImage)
+
     return (
-        <View style={styles.container}>
-            <View style={styles.a1}>
-                {storeImage !== null ?
-                    <Image source={{ uri: storeImage }} style={{ flex: 1 }} />
-                    : <Image source={require("../assets/store_defaultImage.png")} style={{ flex: 1, width: "100%", height: "100%" }} />
-                }
-            </View>
-            <View style={styles.a2}>
-                <Text style={{ fontSize: 50, textAlign: "center" }}>{data.RSTR_NM}
-                    <Text style={{ fontSize: 30, textAlign: "center", flexWrap: "wrap" }}>{"[" + data.BSNS_STATM_BZCND_NM + "]"}</Text>
-                </Text>
-            </View>
-            <View style={styles.a3}>
-                <Stars
-                    default={starRating}
-                    count={5}
-                    half={true}
-                    // starSize={0}
-                    fullStar={<Icon name={'star'} style={[styles.myStarStyle]} />}
-                    emptyStar={<Icon name={'star-outline'} style={[styles.myStarStyle, styles.myEmptyStarStyle]} />}
-                    halfStar={<Icon name={'star-half-full'} style={[styles.myStarStyle]} />}
+        <Provider>
+            {loading &&
+                <Portal>
+                    <ActivityIndicator animating={loading} color={MD2Colors.red800} style={{ flex: 1 }} size="large" />
+                </Portal>
+            }
+            <View style={styles.container}>
+                <View style={styles.a1}>
+                    {storeImage !== null ?
+                        <Image source={{ uri: storeImage }} style={{ flex: 1 }} />
+                        : <Image source={require("../assets/store_defaultImage.png")} style={{ flex: 1, width: "100%", height: "100%" }} />
+                    }
+                </View>
+                <View style={styles.a2}>
+                    <Text style={{ fontSize: 36, textAlign: "center" }}>{data.RSTR_NM}
+                        <Text style={{ fontSize: 20, textAlign: "center", flexWrap: "wrap" }}>
+                            {` [${data.BSNS_STATM_BZCND_NM ? data.BSNS_STATM_BZCND_NM : " - "}]`}
+                        </Text>
+                    </Text>
+                </View>
+                <View style={styles.a3}>
+                    <Stars
+                        default={starRating}
+                        count={5}
+                        half={true}
+                        // starSize={0}
+                        fullStar={<Icon name={'star'} style={[styles.myStarStyle]} />}
+                        emptyStar={<Icon name={'star-outline'} style={[styles.myStarStyle, styles.myEmptyStarStyle]} />}
+                        halfStar={<Icon name={'star-half-full'} style={[styles.myStarStyle]} />}
+                    />
+                    <Text style={{ fontSize: 20, marginTop: 15 }}>{"(" + scoreAverage + ")"}</Text>
+                </View>
+                <TabView
+                    navigationState={{ index, routes }}
+                    renderScene={renderScene}
+                    onIndexChange={setIndex}
+                    initialLayout={{ width: layout.width }}
                 />
-                <Text style={{ fontSize: 20, marginTop: 15 }}>{"(" + scoreAverage + ")"}</Text>
-            </View>
-            <TabView
-                navigationState={{ index, routes }}
-                renderScene={renderScene}
-                onIndexChange={setIndex}
-                initialLayout={{ width: layout.width }}
-            />
-            {/* {ctx.auth?.email &&
+                {/* {ctx.auth?.email &&
                 <CustomButton reservationHandle={reservationHandle} />
             } */}
-            <CustomButton reservationHandle={reservationHandle} />
-        </View>
+                <CustomButton reservationHandle={reservationHandle} />
+            </View>
+        </Provider>
     );
 }
 
@@ -207,7 +210,7 @@ const styles = StyleSheet.create({
         backgroundColor: "white"
     },
     a1: {
-        backgroundColor: "#white",
+        backgroundColor: "white",
         height: 210,
     },
     a2: {
@@ -224,7 +227,7 @@ const styles = StyleSheet.create({
         color: 'yellow',
         backgroundColor: 'transparent',
         textShadowColor: 'black',
-        textShadowOffset: { width: 1, height: 1 },
+        // textShadowOffset: { width: 1, height: 1 },
         textShadowRadius: 10,
         fontSize: 40
     },

@@ -27,8 +27,6 @@ function HomeScreen() {
         }).finally(() => {
             setLoading(false);
         })
-        // setMapData(data.datas);
-        // setLoading(false);
     }, [])
 
     return (

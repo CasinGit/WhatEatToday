@@ -100,8 +100,9 @@ function SearchScreen() {
 
                     <Text style={{ fontWeight: "bold", fontSize: 24 }}>인기검색어</Text>
                     <View style={{ flexDirection: "row", margin: 10 }}>
-                        <Chip icon="numeric-1-box" mode="outlined" style={{ margin: 2 }} onPress={() => onChangeSearch({ menu: "국밥" })}>국밥</Chip>
-                        <Chip icon="numeric-2-box" mode="outlined" style={{ margin: 2 }} onPress={() => onChangeSearch({ menu: "김치볶음밥" })}>김치볶음밥</Chip>
+                        <Chip icon="numeric-1-box" mode="outlined" style={{ margin: 2 }} onPress={() => onChangeSearch("국밥")}>국밥</Chip>
+                        <Chip icon="numeric-2-box" mode="outlined" style={{ margin: 2 }} onPress={() => onChangeSearch("김치볶음밥")}>김치볶음밥</Chip>
+                        <Chip icon="numeric-3-box" mode="outlined" style={{ margin: 2 }} onPress={() => onChangeSearch("백숙")}>백숙</Chip>
                     </View>
                 </View >
             }

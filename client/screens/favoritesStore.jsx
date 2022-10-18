@@ -1,7 +1,6 @@
 import { useIsFocused } from "@react-navigation/native";
 import { useContext, useEffect, useState } from "react";
-import { StyleSheet, View, Pressable, FlatList, Text } from "react-native";
-import { Card, Title, Paragraph } from 'react-native-paper';
+import { StyleSheet, View, FlatList } from "react-native";
 import FavoritesStoreCard from "../components/FavoritesStoreCard";
 import { AppContext } from "../context/app-context";
 import { getStoreFavRequest } from "../util/account";
@@ -16,14 +15,14 @@ function FavoritesStore() {
         !async function () {
             const favData = await getStoreFavRequest(ctx.auth.email);
             console.log(favData);
-            
+
             setFavStore(favData.datas);
         }()
     }, [fouces]);
 
     return (
         <View style={styles.container}>
-            {favStore && 
+            {favStore &&
                 <FlatList data={favStore} renderItem={({ index, item }) => {
                     return <FavoritesStoreCard data={item} />
                 }} />
