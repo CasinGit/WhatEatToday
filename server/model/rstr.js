@@ -6,17 +6,17 @@ let rstrSchema = new mongoose.Schema({
     BSNS_STATM_BZCND_NM: String,
 })
 
-rstrSchema.virtual("rstrImg", {
-    localField: "RSTR_NM", // 비교할 로컬 필드(Col)
-    ref: "rstr_img", // 비교해야하는 컬렉션(Table)
-    foreignField: "RSTR_NM", // 비교해야하는 컬렉션의 필드
-    justOne: true // 한개의 행만 받아와야 할때
+rstrSchema.virtual("rstrImg", { // 가게 이미지 가져오기
+    localField: "RSTR_NM",
+    ref: "rstr_img",
+    foreignField: "RSTR_NM",
+    justOne: true
 });
 
-rstrSchema.virtual("getMenu", {
-    localField: "RSTR_ID", // 비교할 로컬 필드(Col)
-    ref: "menu", // 비교해야하는 컬렉션(Table)
-    foreignField: "RSTR_ID", // 비교해야하는 컬렉션의 필드
+rstrSchema.virtual("getMenu", { // 가게 메뉴 가져오기
+    localField: "RSTR_ID",
+    ref: "menu",
+    foreignField: "RSTR_ID",
 });
 
 export default mongoose.model('rstr', rstrSchema, "rstr");
