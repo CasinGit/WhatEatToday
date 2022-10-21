@@ -9,8 +9,6 @@ import RSTR from '../model/rstr.js' // mongo 식당 기본 정보
 import RSTR_OPRT from '../model/rstr_oprt.js' // 식당 운영 정보
 import RSTR_IMG from '../model/rstr_img.js' // 식당 이미지 정보
 import MENU from '../model/menu.js' // 식당 메뉴 정보
-import MENU_DSCRN from '../model/menu_dscrn.js' // 메뉴 설명 정보
-import FOOD_IMG from '../model/food_img.js' // 음식 이미지 정보
 
 const router = express.Router();
 router
@@ -91,14 +89,12 @@ router
 
         // 해당 메뉴가 있는 식당ID 중복 제거하고 불러오기
         MENU.find({ MENU_NM: { $regex: req.query.menu } }).distinct("RSTR_ID").then((result) => {
-            console.log(result.menu);
             // 중복 제거한 식당ID 값으로 메뉴 불러오기
             RSTR.find({ RSTR_ID: result }).populate({
                 path: "getMenu",
                 match: { MENU_NM: { $regex: req.query.menu } },
                 select: "-_id -RSTR_ID MENU_NM",
             }).populate("rstrImg").lean().then((result) => {
-                console.log(result)
                 res.status(200).json({ result: true, length: result.length, datas: result });
             })
         }).catch((err) => {
