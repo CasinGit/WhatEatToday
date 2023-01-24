@@ -2,6 +2,7 @@
 참여자 : 최현, 김기협, 이병호
 
 ## 광주 맛집 정보 & 예약 어플 (프로젝트 가제)
+## 오늘 뭐 먹지? (What Eat Today?)
 
 ### 프로젝트 깃헙 브랜치 규칙
 <a href="https://velog.io/@c-on/Github-Desktop%EC%9C%BC%EB%A1%9C-%ED%98%91%EC%97%85%ED%95%98%EA%B8%B0">Github Desktop으로 협업하기</a>
